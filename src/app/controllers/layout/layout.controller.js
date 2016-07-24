@@ -12,7 +12,7 @@ export class LayoutController{
       {
         name: '文章',
         icon: 'code',
-        state: 'test'
+        state: '.article.index'
       },
       {
         name: '用户',
