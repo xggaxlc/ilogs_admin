@@ -1,7 +1,20 @@
-export function config ($logProvider, toastrConfig) {
+export function config ($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider, toastrConfig) {
   'ngInject';
+
   // Enable log
   $logProvider.debugEnabled(true);
+
+  //theme
+  $mdThemingProvider.theme('ilogsTheme')
+    .primaryPalette('purple')
+    .accentPalette('red')
+    .warnPalette('yellow')
+
+  $mdThemingProvider.setDefaultTheme('ilogsTheme');
+
+  $localStorageProvider.setKeyPrefix('ilogs_admin_');
+	$sessionStorageProvider.setKeyPrefix('ilogs_admin_');
+
 
   // Set options third-party lib
   toastrConfig.allowHtml = true;

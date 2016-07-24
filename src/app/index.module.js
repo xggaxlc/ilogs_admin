@@ -13,9 +13,12 @@ angular.module('ilogs', [
     'ngAnimate',
     'ngSanitize',
     'ngMessages',
+    'ngStorage',
     'restangular',
     'ui.router',
     'ngMaterial',
+    'ngFileUpload',
+		'ngImgCrop',
     'toastr'
   ])
   .config(config)
