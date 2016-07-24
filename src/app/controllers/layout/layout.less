@@ -1,0 +1,96 @@
+.page-layout{
+  height: 100%;
+}
+#sidenav{
+  width: 240px;
+  .widget{
+    height: 120px;
+    background: url('/assets/images/layout/bg.jpg') no-repeat;
+    background-size: cover;
+    .user-info{
+      height: 100%;
+      .avatar{
+        height: 50px;
+        width: 50px;
+      }
+    }
+    .info{
+      color: #fff;
+      max-width: 150px;
+      .useremail{
+        font-size: 12px;
+        word-break: break-all;
+      }
+    }
+  }
+  .subheader{
+    color: inherit;
+    opacity: .8;
+    background-color: inherit;
+  }
+  .nav-wrap{
+    padding: 0;
+  }
+  .nav-item{
+    width: 100%;
+    height: 48px;
+    margin: 0;
+    padding: 8px 16px;
+    color: inherit;
+    border-radius: 0;
+    &.active{
+      background-color: rgba(0,0,0,.2);
+    }
+    .icon{
+      width:32px;
+      height: 32px;
+      line-height: 32px;
+      margin: 0 16px 0 0;
+      color: inherit;
+    }
+  }
+}
+#settings-sidebar{
+  width: 260px;
+  .subheader{
+    font-size: 20px;
+  }
+  .color-wrap{
+    padding: 0 16px;
+    li{
+      box-sizing: border-box;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      margin: 2px;
+      &:first-child{
+        border: 2px solid #f36c60;
+      }
+    }
+  }
+}
+#topnav{
+  min-height: 56px;
+  height: 56px;
+  padding:0 20px;
+  .md-button{
+    margin: 0;
+    min-width: auto;
+    color: inherit;
+    .icon{
+      color: inherit;
+    }
+  }
+  .md-button.menu{
+    margin-right: 20px;
+  }
+  .md-button.config{
+    margin-left: 20px;
+  }
+}
+#content{
+  box-sizing: border-box;
+  height: 100vh;
+  margin-bottom: -56px;
+  padding-bottom: 56px;
+}

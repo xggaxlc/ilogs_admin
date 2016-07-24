@@ -1,0 +1,71 @@
+<div class="page-layout" layout="row">
+
+  <md-sidenav id="sidenav" ng-style="{backgroundColor: vm.sidebarMenuTheme.backgroundColor, color: vm.sidebarMenuTheme.color}" class="md-sidenav-left md-whiteframe-z2" md-component-id="menu-left" md-is-locked-open="$mdMedia('gt-sm')">
+    <div class="widget">
+      <div class="user-info" layout="row" layout-padding layout-align="space-around center">
+        <div class="avatar"></div>
+        <div class="info" layout="column" layout-align="space-between start">
+          <span class="username">admin</span>
+          <span class="useremail">admin@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <md-subheader class="subheader">NAVIGATION</md-subheader>
+    <md-list class="nav-wrap">
+      <md-list-item ng-repeat="item in vm.menu">
+        <md-button ui-sref="{{item.state}}" class="nav-item" ui-sref-active="active" layout="row">
+          <md-icon class="icon">{{item.icon}}</md-icon>
+          <span>{{item.name}}</span>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <md-sidenav id="settings-sidebar" class="md-sidenav-right md-whiteframe-z2" md-component-id="settings-right">
+    <md-subheader class="subheader">侧边栏主题</md-subheader>
+    <md-divider></md-divider>
+    <ul class="color-wrap" layout="row" layout-wrap  layout-align="start center">
+      <li ng-repeat="item in vm.themeColor" ng-style="{backgroundColor: item.backgroundColor}" ng-click="vm.changeSidebarMenuTheme(item)"></li>
+    </ul>
+    <md-divider></md-divider>
+    <md-subheader class="subheader">顶部导航主题</md-subheader>
+    <md-divider></md-divider>
+    <ul class="color-wrap" layout="row" layout-wrap  layout-align="start center">
+      <li ng-repeat="item in vm.themeColor" ng-style="{backgroundColor: item.backgroundColor}" ng-click="vm.changeTopNavTheme(item)"></li>
+    </ul>
+  </md-sidenav>
+
+  <md-content flex>
+
+    <md-toolbar 
+      layout="row" 
+      layout-align="left center" 
+      id="topnav" 
+      class="md-menu-toolbar md-whiteframe-z1"
+      ng-style="{backgroundColor: vm.topNavTheme.backgroundColor, color: vm.topNavTheme.color}"
+    >
+      <md-button class="menu" hide-gt-sm ng-click="vm.toggleMenu()">
+        <md-icon class="icon">menu</md-icon>
+      </md-button>
+      <h3 class="title">Angular Material</h3>
+      <span flex></span>
+      <md-button class="logout" ui-sref="logout">
+        <md-tooltip md-direction="bottom">
+          退出登录
+        </md-tooltip>
+        <md-icon class="icon">lock</md-icon>
+      </md-button>
+      <md-button class="config" ng-click="vm.toggleSettings()">
+        <md-tooltip md-direction="bottom">
+          设置
+        </md-tooltip>
+        <md-icon class="icon">settings</md-icon>
+      </md-button>
+    </md-toolbar>
+
+    <md-content id="content" md-scroll-y>
+      <ui-view></ui-view>
+    </md-content>
+
+  </md-content>
+</div>
