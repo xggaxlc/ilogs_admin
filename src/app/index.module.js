@@ -8,6 +8,7 @@ import {
   runBlock
 } from './index.run';
 import * as Service from './service/index';
+import * as Directive from './components/index';
 
 angular.module('ilogs', [
     'ngAnimate',
@@ -24,4 +25,5 @@ angular.module('ilogs', [
   .config(config)
   .config(routerConfig)
   .run(runBlock)
-  .service('AuthService', Service.AuthService);
+  .service('AuthService', Service.AuthService)
+  .directive('editorMd', Directive.editorMd);

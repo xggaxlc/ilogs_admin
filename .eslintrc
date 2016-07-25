@@ -11,6 +11,7 @@
   },
   "globals": {
     "angular": true,
+    "editormd": true,
     "module": true,
     "inject": true
   }
