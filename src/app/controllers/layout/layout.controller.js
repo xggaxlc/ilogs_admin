@@ -149,7 +149,15 @@ export class LayoutController{
 
   }
 
+  toggleNarrowMenu() {
+    this.showNarrowMenu = !this.showNarrowMenu;
+  }
+
   toggleMenu() {
+    //menu关闭状态先恢复至正常宽度再打开
+    if (!this.$mdSidenav('menu-left').isOpen()) {
+      this.showNarrowMenu = false;
+    }
     this.$mdSidenav('menu-left').toggle();
   }
 

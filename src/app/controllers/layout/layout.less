@@ -3,6 +3,7 @@
 }
 #sidenav{
   width: 240px;
+  transition: all .3s;
   .widget{
     height: 120px;
     background: url('/assets/images/layout/bg.jpg') no-repeat;
@@ -48,6 +49,15 @@
       line-height: 32px;
       margin: 0 16px 0 0;
       color: inherit;
+    }
+  }
+}
+#sidenav.narrow-menu{
+  width:60px;
+  .nav-item{
+    min-width: auto;
+    .icon{
+      margin: 0;
     }
   }
 }
