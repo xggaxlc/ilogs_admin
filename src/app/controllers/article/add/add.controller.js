@@ -1,4 +1,9 @@
 export class AddArticleController {
- constructor() {}
+ constructor($scope) {
+   'ngInject';
+
+   $scope.$emit('event:showNarrowMenu');
+
+ }
  test() {} 
 }

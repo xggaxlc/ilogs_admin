@@ -1,5 +1,5 @@
 export class LayoutController{
-  constructor($mdSidenav, $localStorage) {
+  constructor($mdSidenav, $localStorage, $scope, $timeout) {
     'ngInject';
     this.$mdSidenav = $mdSidenav;
     this.$localStorage = $localStorage;
@@ -146,6 +146,13 @@ export class LayoutController{
 
     this.sidebarMenuTheme = $localStorage.sidebarMenuTheme || this.themeColor[4];
     this.topNavTheme = $localStorage.topNavTheme || this.themeColor[4];
+
+    $scope.$on('event:showNarrowMenu', (ev) => {
+      ev.stopPropagation();
+      $timeout(() => {
+        this.showNarrowMenu = true;
+      });
+    });
 
   }
 
