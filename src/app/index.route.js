@@ -29,7 +29,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     .state('main.article', {
       abstract: true,
       url: '/article',
-      template: '<div ui-view style="height:100%;"></div>'
+      template: '<div ui-view id="editor-view"></div>'
     })
     .state('main.article.index', {
       url: '',

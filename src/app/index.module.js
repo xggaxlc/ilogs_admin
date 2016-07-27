@@ -26,4 +26,5 @@ angular.module('ilogs', [
   .config(routerConfig)
   .run(runBlock)
   .service('AuthService', Service.AuthService)
-  .directive('editorMd', Directive.editorMd);
+  .directive('editorMd', Directive.editorMd)
+  .directive('mediumEditor', Directive.mediumEditor);
