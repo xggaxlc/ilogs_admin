@@ -7,6 +7,7 @@ import {
 import {
   runBlock
 } from './index.run';
+
 import * as Service from './service/index';
 import * as Directive from './components/index';
 
@@ -15,12 +16,10 @@ angular.module('ilogs', [
     'ngSanitize',
     'ngMessages',
     'ngStorage',
-    'restangular',
     'ui.router',
     'ngMaterial',
     'ngFileUpload',
 		'ngImgCrop',
-    'toastr'
   ])
   .config(config)
   .config(routerConfig)

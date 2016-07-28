@@ -1,4 +1,4 @@
-export function config ($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider, toastrConfig) {
+export function config ($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider) {
   'ngInject';
 
   // Enable log
@@ -14,12 +14,4 @@ export function config ($mdThemingProvider, $logProvider, $localStorageProvider,
 
   $localStorageProvider.setKeyPrefix('ilogs_admin_');
 	$sessionStorageProvider.setKeyPrefix('ilogs_admin_');
-
-
-  // Set options third-party lib
-  toastrConfig.allowHtml = true;
-  toastrConfig.timeOut = 3000;
-  toastrConfig.positionClass = 'toast-top-right';
-  toastrConfig.preventDuplicates = true;
-  toastrConfig.progressBar = true;
 }
