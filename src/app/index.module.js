@@ -20,6 +20,7 @@ angular.module('ilogs', [
     'ngMaterial',
     'ngFileUpload',
 		'ngImgCrop',
+    'chart.js'
   ])
   .config(config)
   .config(routerConfig)
