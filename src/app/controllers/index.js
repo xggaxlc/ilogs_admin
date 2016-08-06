@@ -5,6 +5,9 @@ import {
   LayoutController
 } from './layout/layout.controller';
 import {
+  HomeController
+} from './home/home.controller';
+import {
   ArticleIndexController
 } from './article/index/index.controller';
 import {
@@ -17,6 +20,7 @@ import {
 export {
   LoginController,
   LayoutController,
+  HomeController,
   ArticleIndexController,
   AddArticleController,
   EditArticleController

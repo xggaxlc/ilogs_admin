@@ -24,7 +24,9 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     })
     .state('main.home', {
       url: '/home',
-      templateUrl: 'app/controllers/home/home.html'
+      templateUrl: 'app/controllers/home/home.html',
+      controller: Ctrl.HomeController,
+      controllerAs: 'vm'
     })
     .state('main.article', {
       abstract: true,

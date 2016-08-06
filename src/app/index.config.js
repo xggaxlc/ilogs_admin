@@ -1,4 +1,4 @@
-export function config ($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider) {
+export function config($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider, ChartJsProvider) {
   'ngInject';
 
   // Enable log
@@ -13,5 +13,11 @@ export function config ($mdThemingProvider, $logProvider, $localStorageProvider,
   $mdThemingProvider.setDefaultTheme('ilogsTheme');
 
   $localStorageProvider.setKeyPrefix('ilogs_admin_');
-	$sessionStorageProvider.setKeyPrefix('ilogs_admin_');
+  $sessionStorageProvider.setKeyPrefix('ilogs_admin_');
+
+  ChartJsProvider.setOptions({
+    chartColors: ['#FF5252', '#FF8A80'],
+    responsive: true
+  });
+
 }
