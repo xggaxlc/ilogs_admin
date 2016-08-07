@@ -1,4 +1,4 @@
-export function config($mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider, ChartJsProvider) {
+export function config($httpProvider, $mdThemingProvider, $logProvider, $localStorageProvider, $sessionStorageProvider, ChartJsProvider) {
   'ngInject';
 
   // Enable log
@@ -19,5 +19,11 @@ export function config($mdThemingProvider, $logProvider, $localStorageProvider, 
     chartColors: ['#FF5252', '#FF8A80'],
     responsive: true
   });
+
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+
+  $httpProvider.interceptors.push('authInterceptor');
+  $httpProvider.interceptors.push('errorInterceptor');
+
 
 }

@@ -24,9 +24,13 @@ angular.module('ilogs', [
 		'ngImgCrop',
     'chart.js'
   ])
+  .constant('BASEURL', 'http://localhost:9000/api/v1/')
   .config(config)
   .config(routerConfig)
   .run(runBlock)
+  .factory('authInterceptor', Service.authInterceptor)
+  .factory('errorInterceptor', Service.errorInterceptor)
+  .service('Utils', Service.Utils)
   .service('AuthService', Service.AuthService)
   .directive('editorMd', Directive.editorMd)
   .directive('mediumEditor', Directive.mediumEditor)
