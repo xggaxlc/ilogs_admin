@@ -13,6 +13,9 @@
     "angular": true,
     "editormd": true,
     "module": true,
-    "inject": true
+    "inject": true,
+    "$": true,
+    "jquery": true,
+    "MediumEditor": true
   }
 }

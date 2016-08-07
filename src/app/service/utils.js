@@ -26,7 +26,7 @@ export class Utils {
       hideDelay: timeout,
       position: position
     });
-  };
+  }
 
   isObjEmpty(obj) {
     for (let attr in obj) {

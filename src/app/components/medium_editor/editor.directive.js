@@ -1,5 +1,5 @@
-export function mediumEditor($timeout) {
-  'ngInject';
+export function mediumEditor() {
+  // 'ngInject';
   let directive = {
     restrict: 'E',
     scope: true,
