@@ -5,21 +5,23 @@
   <!--<div class="page-head" layout-margin>
     <h1>文章列表</h1>
   </div>-->
-
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
-        <h2 class="md-headline">共{{20}}篇文章</h2>
+        <h2 class="md-headline" layout="row" layout-align="center center">
+          <span ng-hide="vm.showLoading">共{{vm.pageOptions.count}}篇文章</span>
+          <md-progress-circular ng-show="vm.showLoading" md-diameter="64px" md-mode="indeterminate"></md-progress-circular>
+        </h2>
         <span flex></span>
         <md-button class="md-icon-button" ui-sref="main.article.add">
           <md-icon class="icon">add</md-icon>
         </md-button>
-        <md-button class="md-icon-button">
+        <md-button class="md-icon-button" ng-click="vm.refresh()">
           <md-icon class="icon">refresh</md-icon>
         </md-button>
       </div>
     </md-toolbar>
-    <md-table-container>
+    <md-table-container ng-hide="vm.showLoading && !vm.posts">
       <table md-table md-row-select multiple ng-model="vm.selected">
         <thead md-head>
           <tr md-row>
@@ -29,17 +31,24 @@
             <th md-column>状态</th>
             <th md-column>创建时间</th>
             <th md-column>更新时间</th>
+            <th md-column>更新用户</th>
             <th md-column>操作</th>
           </tr>
         </thead>
         <tbody md-body>
           <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.posts">
-            <td md-cell>{{item.title}}</td>
-            <td md-cell>{{item.author}}</td>
-            <td md-cell>{{item.category}}</td>
-            <td md-cell>{{item.published}}</td>
-            <td md-cell>{{item.create_at}}</td>
-            <td md-cell>{{item.update_at}}</td>
+            <td md-cell>
+              {{item.title | limitTo: '8'}}
+              <md-tooltip>
+                {{item.title}}
+              </md-tooltip>
+            </td>
+            <td md-cell>{{item.author.name}}</td>
+            <td md-cell>{{item.category.name}}</td>
+            <td md-cell ng-class="{true: 'published', false: 'unPublished'}[item.published]">{{item.published ? '已发布' : '未发布'}}</td>
+            <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.updated_by.name || '/'}}</td>
             <td md-cell>
               <md-button class="md-icon-button">
                 <md-icon class="icon">more_vert</md-icon>
@@ -48,9 +57,8 @@
           </tr>
         </tbody>
       </table>
+      <paging options="vm.pageOptions" class="layout-double-margin"></paging>
     </md-table-container>
   </md-card>
-
-  <paging options="vm.pageOptions" class="layout-double-margin"></paging>
 
 </div>

@@ -4,67 +4,51 @@
     <h1>概况</h1>
   </div>-->
 
-  <div class="stats-wrap" layout-margin layout="row" layout-xs="column" layout-align="center" layout-align-gt-xs="space-between center">
+  <div class="count-wrap" layout-margin layout="row" layout-xs="column" layout-align="center" layout-align-gt-xs="space-between center">
     <md-card flex="100" flex-gt-xs="45" flex-gt-sm="20" layout="row" class="item">
-      <div class="info" flex="50" layout="column" layout-align="space-between center">
+      <div class="count-box" flex="100" layout-padding layout="column" layout-align="center center">
         <div class="head">
-          page-view
+          文章总数
         </div>
-        <div class="body">
-          10
-        </div>
-      </div>
-      <div class="stats" flex="50">
         <div class="content">
-          1111111111
+          <md-progress-circular ng-show="vm.CountLoading.allArticle" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.allArticle">{{vm.Count.allArticle}}</h2>
         </div>
       </div>
     </md-card>
 
     <md-card flex="100" flex-gt-xs="45" flex-gt-sm="20" layout="row" class="item">
-      <div class="info" flex="50" layout="column" layout-align="space-between center">
+      <div class="count-box" flex="100" layout-padding layout="column" layout-align="center center">
         <div class="head">
-          page-view
+          已发布文章数
         </div>
-        <div class="body">
-          10
-        </div>
-      </div>
-      <div class="stats" flex="50">
         <div class="content">
-          1111111111
+          <md-progress-circular ng-show="vm.CountLoading.publishedArticle" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.publishedArticle">{{vm.Count.publishedArticle}}</h2>
         </div>
       </div>
     </md-card>
 
     <md-card flex="100" flex-gt-xs="45" flex-gt-sm="20" layout="row" class="item">
-      <div class="info" flex="50" layout="column" layout-align="space-between center">
+      <div class="count-box" flex="100" layout-padding layout="column" layout-align="center center">
         <div class="head">
-          page-view
+          用户总数
         </div>
-        <div class="body">
-          10
-        </div>
-      </div>
-      <div class="stats" flex="50">
         <div class="content">
-          1111111111
+          <md-progress-circular ng-show="vm.CountLoading.allUser" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.allUser">{{vm.Count.allUser}}</h2>
         </div>
       </div>
     </md-card>
 
     <md-card flex="100" flex-gt-xs="45" flex-gt-sm="20" layout="row" class="item">
-      <div class="info" flex="50" layout="column" layout-align="space-between center">
+      <div class="count-box" flex="100" layout-padding layout="column" layout-align="center center">
         <div class="head">
-          page-view
+          分类总数
         </div>
-        <div class="body">
-          10
-        </div>
-      </div>
-      <div class="stats" flex="50">
         <div class="content">
-          1111111111
+          <md-progress-circular ng-show="vm.CountLoading.allCategory" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.allCategory">{{vm.Count.allCategory}}</h2>
         </div>
       </div>
     </md-card>

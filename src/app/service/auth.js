@@ -18,6 +18,10 @@ export class AuthService {
       });
   }
 
+  requireLogin() {
+    
+  }
+
   logout() {
     this.clearUserInfo();
     this.$timeout(() => {

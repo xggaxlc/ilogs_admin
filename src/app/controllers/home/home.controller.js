@@ -1,9 +1,11 @@
 export class HomeController {
-  constructor($timeout, $rootScope) {
+  constructor($timeout, $scope, $rootScope, $http) {
     'ngInject';
 
     $rootScope.pageTitle = '首页';
     this.$timeout = $timeout;
+    this.$scope = $scope;
+    this.$http = $http;
 
     this.labels = ["January", "February", "March", "April", "May", "June", "July"];
     this.series = ['Series A', 'Series B'];
@@ -16,6 +18,89 @@ export class HomeController {
 
     this.categoryChartLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
 
+    this.getCount();
+
+  }
+
+  getCount() {
+    this.CountLoading = {
+      allArticle: true,
+      publishedArticle: true,
+      allUser: true,
+      allCategory: true
+    }
+
+    this.Count = {
+      allArticle: 0,
+      publishedArticle: 0,
+      allUser: 0,
+      allCategory: 0
+    }
+
+    this.$timeout(() => {
+      this.getAllArticleCount();
+      this.getPublishedArticleCount();
+      this.getAllUserCount();
+      this.getAllCategoryCount();
+    });
+
+  }
+
+  getAllArticleCount() {
+    this.$http.get('post', {
+        params: {
+          limit: 1
+        }
+      })
+      .then(res => {
+        this.Count.allArticle = res.data.count;
+      })
+      .finally(() => {
+        this.CountLoading.allArticle = false;
+      });
+  }
+
+  getPublishedArticleCount() {
+    this.$http.get('post', {
+        params: {
+          limit: 1,
+          published: true
+        }
+      })
+      .then(res => {
+        this.Count.publishedArticle = res.data.count;
+      })
+      .finally(() => {
+        this.CountLoading.publishedArticle = false;
+      });
+  }
+
+  getAllUserCount() {
+    this.$http.get('user', {
+        params: {
+          limit: 1
+        }
+      })
+      .then(res => {
+        this.Count.allUser = res.data.count;
+      })
+      .finally(() => {
+        this.CountLoading.allUser = false;
+      });
+  }
+
+  getAllCategoryCount() {
+    this.$http.get('category', {
+        params: {
+          limit: 1
+        }
+      })
+      .then(res => {
+        this.Count.allCategory = res.data.count;
+      })
+      .finally(() => {
+        this.CountLoading.allCategory = false;
+      });
   }
 
   refreshMainChart() {

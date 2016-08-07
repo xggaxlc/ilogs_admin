@@ -1,8 +1,10 @@
 export class LayoutController{
-  constructor($mdSidenav, $localStorage, $scope, $timeout) {
+  constructor($mdSidenav, $localStorage, $scope, $timeout, AuthService) {
     'ngInject';
     this.$mdSidenav = $mdSidenav;
     this.$localStorage = $localStorage;
+    this.currentUser = AuthService.currentUser;
+
     this.menu = [
       {
         name: '首页',
@@ -144,8 +146,8 @@ export class LayoutController{
       }
     ]
 
-    this.sidebarMenuTheme = $localStorage.sidebarMenuTheme || this.themeColor[4];
-    this.topNavTheme = $localStorage.topNavTheme || this.themeColor[4];
+    this.sidebarMenuTheme = $localStorage.sidebarMenuTheme || this.themeColor[3];
+    this.topNavTheme = $localStorage.topNavTheme || this.themeColor[3];
 
     $scope.$on('event:showNarrowMenu', (ev) => {
       ev.stopPropagation();
