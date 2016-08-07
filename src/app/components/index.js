@@ -4,8 +4,12 @@ import {
 import {
   mediumEditor
 } from './medium_editor/editor.directive';
+import {
+  paging
+} from './paging/paging.directive';
 
 export {
   editorMd,
-  mediumEditor
+  mediumEditor,
+  paging
 }

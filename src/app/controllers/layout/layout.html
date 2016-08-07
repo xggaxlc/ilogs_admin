@@ -50,7 +50,7 @@
       <md-button class="menu" hide-gt-sm ng-click="vm.toggleMenu()">
         <md-icon class="icon">menu</md-icon>
       </md-button>
-      <h3 class="title">Angular Material</h3>
+      <h3 class="title">{{pageTitle}}</h3>
       <span flex></span>
       <md-button class="logout" ui-sref="logout">
         <md-tooltip md-direction="bottom">
@@ -66,8 +66,7 @@
       </md-button>
     </md-toolbar>
 
-    <md-content id="content" md-scroll-y>
-      <ui-view></ui-view>
+    <md-content id="content" style="height: -webkit-calc(100vh - 56px); height: calc(100vh - 56px);" md-scroll-y ui-view>
     </md-content>
 
   </md-content>

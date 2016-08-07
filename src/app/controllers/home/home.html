@@ -1,8 +1,8 @@
 <div class="page-content" id="page-home">
 
-  <div class="page-head" layout-margin>
-    <h1>首页</h1>
-  </div>
+  <!--<div class="page-head" layout-margin>
+    <h1>概况</h1>
+  </div>-->
 
   <div class="stats-wrap" layout-margin layout="row" layout-xs="column" layout-align="center" layout-align-gt-xs="space-between center">
     <md-card flex="100" flex-gt-xs="45" flex-gt-sm="20" layout="row" class="item">
@@ -72,7 +72,7 @@
   </div>
 
   <div layout-gt-md="row" layout="column">
-    <md-card flex="100" flex-gt-md="50">
+    <md-card flex="100" flex-gt-md="50" class="chart-card">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">统计</span>
@@ -89,8 +89,8 @@
         <canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series" chart-click="onClick"></canvas>
       </md-card-content>
     </md-card>
-    <md-card flex="50" flex-gt-md="50">
 
+    <md-card flex="100" flex-gt-md="50" class="chart-card">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">分类统计</span>
@@ -110,7 +110,7 @@
   </div>
 
   <div layout-gt-md="row" layout="column">
-    <md-card flex="100" flex-gt-md="50">
+    <md-card flex="100" flex-gt-md="50" class="chart-card">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">用户统计</span>
@@ -128,7 +128,7 @@
       </md-card-content>
     </md-card>
 
-    <md-card flex="100" flex-gt-md="50">
+    <md-card flex="100" flex-gt-md="50" class="chart-card">
 
       <md-card-title>
         <md-card-title-text>

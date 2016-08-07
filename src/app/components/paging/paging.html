@@ -1,0 +1,14 @@
+<div layout="row" layout-wrap layout-align="center center">
+  <!-- 首页 -->
+  <md-button class="md-icon-button md-raised md-warn pagination-first" ng-disabled="noPrevious()||ngDisabled" ng-if="::boundaryLinks" ng-class="{disabled: noPrevious()||ngDisabled}" ng-click="selectPage(1, $event)">{{::getText('first')}}</md-button>
+  <!-- 上一页 -->
+  <md-button class="md-icon-button md-raised pagination-prev" ng-disabled="noPrevious()||ngDisabled" ng-if="::directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}" ng-click="selectPage(page - 1, $event)"><md-icon>keyboard_arrow_left</md-icon></md-button>
+  <!-- 分页 -->
+  <md-button class="md-icon-button md-raised pagination-page" ng-repeat="page in pages track by $index" ng-disabled="ngDisabled&&!page.active" ng-class="{'md-primary': page.active,disabled: ngDisabled&&!page.active}" ng-click="selectPage(page.number, $event)">
+    {{page.text}}
+  </md-button>
+  <!-- 下一页 -->
+  <md-button class="md-icon-button md-raised pagination-next" ng-disabled="noNext()||ngDisabled" ng-if="::directionLinks" ng-class="{disabled: noNext()||ngDisabled}" ng-click="selectPage(page + 1, $event)"><md-icon>keyboard_arrow_rightt</md-icon></md-button>
+  <!-- 尾页 -->
+  <md-button class="md-icon-button md-raised md-warn pagination-last" ng-disabled="noNext()||ngDisabled" ng-if="::boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}" ng-click="selectPage(totalPages, $event)">{{::getText('last')}}</md-button>
+</div>

@@ -17,7 +17,9 @@ angular.module('ilogs', [
     'ngMessages',
     'ngStorage',
     'ui.router',
+    'ui.bootstrap',
     'ngMaterial',
+    'md.data.table',
     'ngFileUpload',
 		'ngImgCrop',
     'chart.js'
@@ -27,4 +29,5 @@ angular.module('ilogs', [
   .run(runBlock)
   .service('AuthService', Service.AuthService)
   .directive('editorMd', Directive.editorMd)
-  .directive('mediumEditor', Directive.mediumEditor);
+  .directive('mediumEditor', Directive.mediumEditor)
+  .directive('paging', Directive.paging);

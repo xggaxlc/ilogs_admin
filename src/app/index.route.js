@@ -9,7 +9,11 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm'
     })
     .state('logout', {
-      url: '/logout'
+      url: '/logout',
+      controller: (AuthService) => {
+        'ngInject';
+        AuthService.logout();
+      }
     })
     .state('404', {
       url: '404',

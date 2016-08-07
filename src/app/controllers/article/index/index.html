@@ -1,1 +1,56 @@
-<md-button ui-sref="main.article.add" class="md-raised md-primary">新建</md-button>
+<!--<md-button ui-sref="main.article.add" class="md-raised md-primary">新建</md-button>-->
+
+<div class="page-content" id="page-article-index">
+
+  <!--<div class="page-head" layout-margin>
+    <h1>文章列表</h1>
+  </div>-->
+
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <h2 class="md-headline">共{{20}}篇文章</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ui-sref="main.article.add">
+          <md-icon class="icon">add</md-icon>
+        </md-button>
+        <md-button class="md-icon-button">
+          <md-icon class="icon">refresh</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-table-container>
+      <table md-table md-row-select multiple ng-model="vm.selected">
+        <thead md-head>
+          <tr md-row>
+            <th md-column>标题</th>
+            <th md-column>作者</th>
+            <th md-column>分类</th>
+            <th md-column>状态</th>
+            <th md-column>创建时间</th>
+            <th md-column>更新时间</th>
+            <th md-column>操作</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.posts">
+            <td md-cell>{{item.title}}</td>
+            <td md-cell>{{item.author}}</td>
+            <td md-cell>{{item.category}}</td>
+            <td md-cell>{{item.published}}</td>
+            <td md-cell>{{item.create_at}}</td>
+            <td md-cell>{{item.update_at}}</td>
+            <td md-cell>
+              <md-button class="md-icon-button">
+                <md-icon class="icon">more_vert</md-icon>
+              </md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </md-card>
+
+  <paging options="vm.pageOptions" class="layout-double-margin"></paging>
+
+</div>

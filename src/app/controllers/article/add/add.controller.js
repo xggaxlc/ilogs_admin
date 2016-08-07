@@ -1,9 +1,9 @@
 export class AddArticleController {
- constructor($scope) {
-   'ngInject';
+  constructor($scope, $rootScope) {
+    'ngInject';
+    $rootScope.pageTitle = '新建文章';
+    $scope.$emit('event:showNarrowMenu');
 
-   $scope.$emit('event:showNarrowMenu');
-
- }
- test() {} 
+  }
+  test() {}
 }

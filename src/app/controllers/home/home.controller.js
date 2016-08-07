@@ -1,7 +1,8 @@
 export class HomeController {
-  constructor($timeout) {
+  constructor($timeout, $rootScope) {
     'ngInject';
 
+    $rootScope.pageTitle = '首页';
     this.$timeout = $timeout;
 
     this.labels = ["January", "February", "March", "April", "May", "June", "July"];
