@@ -1,10 +1,16 @@
-<!--<md-button ui-sref="main.article.add" class="md-raised md-primary">新建</md-button>-->
-
 <div class="page-content" id="page-article-index">
+  <md-card>
+    <md-toolbar class="md-default">
+      <div class="md-toolbar-tools">
+        <span flex></span>
+        <div class="search-box" layout="row">
+          <md-icon>search</md-icon>
+          <input type="text" placeholder="输入标题搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
+        </div>
+      </div>
+    </md-toolbar>
+  </md-card>
 
-  <!--<div class="page-head" layout-margin>
-    <h1>文章列表</h1>
-  </div>-->
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
@@ -57,7 +63,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin"></paging>
+      <paging options="vm.pageOptions" class="layout-double-margin" change-page="vm.changePage()" ng-if="vm.pageOptions.count"></paging>
     </md-table-container>
   </md-card>
 

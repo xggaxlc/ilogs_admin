@@ -4,7 +4,7 @@ export function authInterceptor($rootScope, $localStorage, $sessionStorage, BASE
     'request': function(config) {
       let url = config.url.toLowerCase();
       //判断是否自动补全请求URL和添加TOKEN
-      let autoSetBaseUrl = !new RegExp('(.html|.js|.css|.json)$').test(url) && !new RegExp('^(http|https)').test(url);
+      let autoSetBaseUrl = !new RegExp('(.html|.js|.css|.json|.svg)$').test(url) && !new RegExp('^(http|https)').test(url);
       if(autoSetBaseUrl) {
         config.headers.token = $localStorage.token || $sessionStorage.token;
         config.url = BASEURL + config.url;
