@@ -2,22 +2,10 @@
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
-        <span flex></span>
         <div class="search-box" layout="row">
           <md-icon>search</md-icon>
           <input type="text" placeholder="输入标题搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
         </div>
-      </div>
-    </md-toolbar>
-  </md-card>
-
-  <md-card>
-    <md-toolbar class="md-table-toolbar md-default">
-      <div class="md-toolbar-tools">
-        <h2 class="md-headline" layout="row" layout-align="center center">
-          <span ng-hide="vm.showLoading">共{{vm.pageOptions.count}}篇文章</span>
-          <md-progress-circular ng-show="vm.showLoading" md-diameter="64px" md-mode="indeterminate"></md-progress-circular>
-        </h2>
         <span flex></span>
         <md-button class="md-icon-button" ui-sref="main.article.add">
           <md-icon class="icon">add</md-icon>
@@ -27,6 +15,7 @@
         </md-button>
       </div>
     </md-toolbar>
+    <md-progress-linear ng-show="vm.showLoading" md-mode="indeterminate"></md-progress-linear>
     <md-table-container ng-hide="vm.showLoading && !vm.posts">
       <table md-table md-row-select multiple ng-model="vm.selected">
         <thead md-head>
