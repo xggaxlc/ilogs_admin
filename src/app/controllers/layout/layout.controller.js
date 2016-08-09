@@ -19,7 +19,7 @@ export class LayoutController{
       {
         name: '用户',
         icon: 'people',
-        state: 'people'
+        state: '.user.index'
       },
       {
         name: '统计',

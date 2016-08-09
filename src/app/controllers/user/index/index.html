@@ -1,0 +1,70 @@
+<div class="page-content" id="page-user-index">
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <span flex></span>
+        <div class="search-box" layout="row">
+          <md-icon>search</md-icon>
+          <input type="text" placeholder="输入用户名搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
+        </div>
+      </div>
+    </md-toolbar>
+  </md-card>
+
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <h2 class="md-headline" layout="row" layout-align="center center">
+          <span ng-hide="vm.showLoading">共{{vm.pageOptions.count}}位用户</span>
+          <md-progress-circular ng-show="vm.showLoading" md-diameter="64px" md-mode="indeterminate"></md-progress-circular>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button">
+          <md-icon class="icon">add</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.query()">
+          <md-icon class="icon">refresh</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-table-container ng-hide="vm.showLoading && !vm.users">
+      <table md-table md-row-select multiple ng-model="vm.selected">
+        <thead md-head>
+          <tr md-row>
+            <th md-column>用户名</th>
+            <th md-column>邮箱</th>
+            <th md-column>角色</th>
+            <th md-column>状态</th>
+            <th md-column>创建时间</th>
+            <th md-column>更新时间</th>
+            <th md-column>操作</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.users">
+            <td md-cell>
+              {{item.name}}
+            </td>
+            <td md-cell>
+              {{item.email | limitTo: '22'}}
+              <md-tooltip>
+                {{item.email}}
+              </md-tooltip>
+            </td>
+            <td md-cell>{{item.role.name}}</td>
+            <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
+            <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>
+              <md-button class="md-icon-button">
+                <md-icon class="icon">more_vert</md-icon>
+              </md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+    </md-table-container>
+  </md-card>
+
+</div>

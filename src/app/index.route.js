@@ -58,6 +58,20 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controller: Ctrl.EditArticleController,
       controllerAs: 'vm'
     })
+    .state('main.user', {
+      abstract: true,
+      url: '/user',
+      template: '<div ui-view id="editor-view"></div>'
+    })
+    .state('main.user.index', {
+      url: '?name&page',
+      params: {
+        limit: 10
+      },
+      templateUrl: 'app/controllers/user/index/index.html',
+      controller: Ctrl.UserIndexController,
+      controllerAs: 'vm'
+    })
 
   $urlRouterProvider.when('', '/login');
   $urlRouterProvider.otherwise('/404');

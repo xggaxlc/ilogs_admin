@@ -16,6 +16,9 @@ import {
 import {
   EditArticleController
 } from './article/edit/edit.controller';
+import{
+  UserIndexController
+} from './user/index/index.controller';
 
 export {
   LoginController,
@@ -23,5 +26,6 @@ export {
   HomeController,
   ArticleIndexController,
   AddArticleController,
-  EditArticleController
+  EditArticleController,
+  UserIndexController
 }
