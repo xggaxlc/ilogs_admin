@@ -22,7 +22,7 @@
         <md-button class="md-icon-button" ui-sref="main.article.add">
           <md-icon class="icon">add</md-icon>
         </md-button>
-        <md-button class="md-icon-button" ng-click="vm.refresh()">
+        <md-button class="md-icon-button" ng-click="vm.query()">
           <md-icon class="icon">refresh</md-icon>
         </md-button>
       </div>
@@ -63,7 +63,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin" change-page="vm.changePage()" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
     </md-table-container>
   </md-card>
 

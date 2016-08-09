@@ -38,7 +38,10 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       template: '<div ui-view id="editor-view"></div>'
     })
     .state('main.article.index', {
-      url: '',
+      url: '?title&page',
+      params: {
+        limit: 10
+      },
       templateUrl: 'app/controllers/article/index/index.html',
       controller: Ctrl.ArticleIndexController,
       controllerAs: 'vm'

@@ -1,27 +1,36 @@
 export class ArticleIndexController {
-  constructor($rootScope, $timeout, $http, $stateParams) {
+  constructor($rootScope, $timeout, $http, $state, $stateParams) {
     'ngInject';
-    $rootScope.pageTitle = '文章列表';
+    this.$rootScope = $rootScope;
     this.$timeout = $timeout;
     this.$http = $http;
+    this.$state = $state;
     this.$stateParams = $stateParams;
 
+    this.init();
+
+  }
+
+  init() {
+    this.$rootScope.pageTitle = '文章列表';
+    this.keyword = this.$stateParams.title;
     this.selected = [];
-    this.$stateParams.limit = 10;
     this.pageOptions = {
-      // count: 0,
       perPage: this.$stateParams.limit
     }
-
-    this.getArticle();
-
+    this.query();
   }
 
-  refresh() {
-    this.getArticle();
+  search(e) {
+    if(e.keyCode === 13) {
+      this.$state.go(this.$state.current.name, {
+        page: null,
+        title: this.keyword
+      });
+    }
   }
 
-  getArticle() {
+  query() {
     this.showLoading = true;
     this.$timeout(() => {
       this.$http.get('post', {
