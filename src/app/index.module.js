@@ -12,7 +12,7 @@ import * as Service from './service/index';
 import * as Directive from './components/index';
 
 angular.module('ilogs', [
-    'ngAnimate',
+    // 'ngAnimate',
     'ngSanitize',
     'ngMessages',
     'ngStorage',
@@ -22,7 +22,8 @@ angular.module('ilogs', [
     'md.data.table',
     'ngFileUpload',
 		'ngImgCrop',
-    'chart.js'
+    'chart.js',
+    'ngAnimate-animate.css'
   ])
   .constant('BASEURL', 'http://localhost:9000/api/v1/')
   .config(config)

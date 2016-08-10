@@ -38,7 +38,6 @@ export class UserIndexController{
       .then(res => {
         this.pageOptions.count = res.data.count;
         this.users = res.data.data;
-        console.log(this.users)
       })
       .finally(() => {
         this.showLoading = false;

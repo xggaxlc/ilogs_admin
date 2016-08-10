@@ -15,7 +15,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-progress-linear ng-show="vm.showLoading" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container ng-hide="vm.showLoading && !vm.users">
       <table md-table md-row-select multiple ng-model="vm.selected">
         <thead md-head>
@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.users">
+          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.users" class="dn-fade-down">
             <td md-cell>
               {{item.name}}
             </td>
