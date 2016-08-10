@@ -53,8 +53,8 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm'
     })
     .state('main.article.edit', {
-      url: '/edit',
-      templateUrl: 'app/controllers/article/edit/edit.html',
+      url: '/edit/:id',
+      templateUrl: 'app/controllers/article/add/add.html',
       controller: Ctrl.EditArticleController,
       controllerAs: 'vm'
     })

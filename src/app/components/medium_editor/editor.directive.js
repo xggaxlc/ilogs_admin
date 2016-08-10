@@ -2,7 +2,9 @@ export function mediumEditor() {
   // 'ngInject';
   let directive = {
     restrict: 'E',
-    scope: true,
+    scope: {
+      editor: '='
+    },
     replace: true,
     template: `
       <div id="medium-editor"></div>
@@ -13,18 +15,25 @@ export function mediumEditor() {
   return directive;
 
   function linkFunc(scope, ele) {
-    let editor = new MediumEditor(ele, {
+    let editor = scope.editor = new MediumEditor(ele, {
       placeholder: {
         text: '在此输入正文!',
         hideOnClick: true
       },
+      imageDragging: false,
       targetBlank: true,
-      disableExtraSpaces: false
+      disableExtraSpaces: false,
+      toolbar: {
+        buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote', 'strikethrough', 'pre', 'justifyLeft']
+      },
+      anchor: {
+        placeholderText: '输入链接'
+      }
     });
 
     angular.element(ele).mediumInsert({
       editor: editor,
-      enabled: true,
+      enabled: false,
       addons: {
         images: {
           label: '<i class="material-icons">image</i>',

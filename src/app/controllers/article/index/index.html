@@ -43,11 +43,33 @@
             <td md-cell ng-class="{true: 'published', false: 'unPublished'}[item.published]">{{item.published ? '已发布' : '未发布'}}</td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td md-cell>{{item.updated_by.name || '/'}}</td>
+            <td md-cell>{{item.update_by.name || '/'}}</td>
             <td md-cell>
-              <md-button class="md-icon-button">
-                <md-icon class="icon">more_vert</md-icon>
-              </md-button>
+              <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin class="icon" ng-click="$mdOpenMenu($event)">more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ng-click="ctrl.redial($event)">
+                      <md-icon md-menu-align-target>view_list</md-icon>
+                      预览
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ui-sref="main.article.edit({id: item._id})">
+                      <md-icon md-menu-align-target>mode_edit</md-icon>
+                      编辑
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="ctrl.redial($event)">
+                      <md-icon md-menu-align-target>delete</md-icon>
+                      删除
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
             </td>
           </tr>
         </tbody>
