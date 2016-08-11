@@ -1,0 +1,88 @@
+<md-dialog aria-label="edit user" ng-cloak flex="95" flex-gt-sm="80" flex-gt-md="60" flex-gt-lg="45">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{vm.title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.$mdDialog.cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <form name="userForm">
+        <md-input-container class="md-block">
+          <label>用户名</label>
+          <input ng-model="vm.user.name" type="text" name="name" required>
+          <div ng-messages="userForm.name.$error">
+            <div ng-message="required">用户名必填。</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>邮箱</label>
+          <input ng-model="vm.user.email" type="email" name="email" required>
+          <div ng-messages="userForm.email.$error">
+            <div ng-message="required">邮箱必填。</div>
+            <div ng-message="email">邮箱格式不正确。</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>密码</label>
+          <input ng-model="vm.user.password" name="password" type="password" minlength="6" md-maxlength="16">
+          <div ng-messages="userForm.password.$error">
+            <div ng-message="required">密码必填。</div>
+            <div ng-message="minlength">密码至少6位。</div>
+            <div ng-message="md-maxlength">密码最多16位。</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>重复输入密码</label>
+          <input ng-model="pwrepeat" name="pwrepeat" type="password" minlength="6" md-maxlength="16">
+          <div ng-messages="userForm.pwrepeat.$error">
+            <div ng-message="required">请重复输入密码。</div>
+            <div ng-message="minlength">密码至少6位。</div>
+            <div ng-message="md-maxlength">密码最多16位。</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>用户组</label>
+          <md-select ng-model="vm.user.role" name="role">
+            <md-option value="{{item._id}}" ng-repeat="item in vm.roles">{{item.name}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <md-switch ng-model="vm.user.active" class="md-primary" aria-label="active switch">
+            {{vm.user.active ? '正常' : '锁定'}}
+          </md-switch>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <md-switch ng-model="vm.user.sex" class="md-primary" aria-label="sex switch">
+            {{vm.user.sex ? '男' : '女'}}
+          </md-switch>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>手机号码</label>
+          <input ng-model="vm.user.tel" type="text">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>qq</label>
+          <input ng-model="vm.user.qq" type="text">
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>签名</label>
+          <textarea ng-model="vm.user.remark" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="vm.$mdDialog.cancel()">
+      关闭
+    </md-button>
+    <md-button ng-click="vm.submit()" ng-disabled="userForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
+      <span ng-hide="vm.showLoading">提交</span>
+      <md-progress-circular md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

@@ -7,7 +7,7 @@
           <input type="text" placeholder="输入用户名搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
         </div>
         <span flex></span>
-        <md-button class="md-icon-button">
+        <md-button class="md-icon-button" ng-click="vm.showAddDialog($event)">
           <md-icon class="icon">add</md-icon>
         </md-button>
         <md-button class="md-icon-button" ng-click="vm.query()">
@@ -25,7 +25,7 @@
             <th md-column>角色</th>
             <th md-column>状态</th>
             <th md-column>创建时间</th>
-            <th md-column>更新时间</th>
+            <th md-column>最后登录</th>
             <th md-column>操作</th>
           </tr>
         </thead>
@@ -43,11 +43,33 @@
             <td md-cell>{{item.role.name}}</td>
             <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.last_login_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
-              <md-button class="md-icon-button">
-                <md-icon class="icon">more_vert</md-icon>
-              </md-button>
+              <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-menu-origin class="icon" ng-click="$mdOpenMenu($event)">more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                  <md-menu-item>
+                    <md-button ng-click="vm.check($event,item)">
+                      <md-icon md-menu-align-target>view_list</md-icon>
+                      详情
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="vm.showEditDialog($event,item)">
+                      <md-icon md-menu-align-target>mode_edit</md-icon>
+                      编辑
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="vm.showDeleteConfirm($event,item)">
+                      <md-icon md-menu-align-target>delete</md-icon>
+                      删除
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
             </td>
           </tr>
         </tbody>
@@ -55,5 +77,5 @@
       <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
     </md-table-container>
   </md-card>
-
+  <md-progress-circular md-mode="indeterminate" class="page-loading" ng-show="vm.showCircleLoading" md-diameter="100"></md-progress-circular>
 </div>

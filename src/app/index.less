@@ -468,26 +468,89 @@
 }
 
 @white: #fff;
+.white{
+  color: @white;
+}
 @red: #F44336;
+.red{
+  color: @red;
+}
 @pink: #E91E63;
+.pink{
+  color: @pink;
+}
 @purple: #9C27B0;
+.purple{
+  color: @purple;
+}
 @deep-purple: #673AB7;
+.deep-purple{
+  color: @deep-purple;
+}
 @indigo: #3F51B5;
+.indigo{
+  color: @indigo;
+}
 @blue: #2196F3;
+.blue{
+  color: @blue;
+}
 @light-blue: #03A9F4;
+.light-blue{
+  color: @light-blue;
+}
 @cyan: #00BCD4;
+.cyan{
+  color: @cyan;
+}
 @teal: #009688;
+.teal{
+  color: @teal;
+}
 @green: #4CAF50;
+.green{
+  color: @green;
+}
 @light-green: #8BC34A;
+.light-green{
+  color: @light-green;
+}
 @lime: #CDDC39;
+.lime{
+  color: @lime;
+}
 @yellow: #FFEB3B;
+.yellow{
+  color: @yellow;
+}
 @amber: #FFC107;
+.amber{
+  color: @amber;
+}
 @orange: #FF9800;
+.orange{
+  color: @orange;
+}
 @deep-orange: #FF5722;
+.deep-orange{
+  color: @deep-orange;
+}
 @brown: #795548;
+.brown{
+  color: @brown;
+}
 @gray: #9E9E9E;
+.gray{
+  color: @gray;
+}
 @blue-gray: #607D8B;
+.blue-gray{
+  color: @blue-gray;
+}
 @black: #37474f;
+.black{
+  color: @black;
+}
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -564,6 +627,14 @@ table.md-table tr.md-row:last-child td{
   margin: 16px;
 }
 
+.page-loading{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
 .avatar {
   border-radius: 50%;
   background: @teal;
@@ -608,6 +679,12 @@ table.md-table tr.md-row:last-child td{
 //     font-size: 30px;
 //   }
 // }
+
+.md-confirm-theme{
+  .md-title{
+    margin-bottom: 16px;
+  }
+}
 
 .md-toast.success div.md-toast-content{
   background-color: #388E3C;

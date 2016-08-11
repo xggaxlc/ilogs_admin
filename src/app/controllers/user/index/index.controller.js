@@ -1,11 +1,15 @@
+import { UserAddController } from '../add/add.controller';
+import { UserEditController } from '../edit/edit.controller';
 export class UserIndexController{
-  constructor($rootScope, $timeout, $http, $state, $stateParams) {
+  constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
     this.$http = $http;
     this.$state = $state;
     this.$stateParams = $stateParams;
+    this.$mdDialog = $mdDialog;
+    this.Utils = Utils;
 
     this.init();
   }
@@ -27,6 +31,72 @@ export class UserIndexController{
         name: this.keyword
       });
     }
+  }
+
+  check(ev, item) {
+
+  }
+
+  showEditDialog(ev, item) {
+    this.$mdDialog.show({
+      controller: UserEditController,
+      controllerAs: 'vm',
+      locals: {
+        user: angular.copy(item)
+      }, 
+      templateUrl: 'app/controllers/user/add/add.html',
+      targetEvent: ev,
+      clickOutsideToClose: false
+    })
+    .then(updatedUser => {
+      angular.copy(updatedUser, item);
+    });
+  }
+
+  showAddDialog(ev) {
+    this.$mdDialog.show({
+      controller: UserAddController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/user/add/add.html',
+      targetEvent: ev,
+      clickOutsideToClose: false
+    })
+    .then(newUser => {
+      this.users.unshift(newUser);
+      if (this.users.length > Number(this.$stateParams.limit)) {
+        this.users.pop();
+      }
+    });
+  }
+
+  showDeleteConfirm(ev, item) {
+    let confirm = this.$mdDialog.confirm()
+      .title(`删除用户`)
+      .htmlContent(`你确定要删除用户 <strong class="red">${item.name}</strong> ?`)
+      .ariaLabel('delete user')
+      .theme('confirm')
+      .targetEvent(ev)
+      .ok('确定')
+      .cancel('取消');
+
+    this.$mdDialog.show(confirm)
+      .then(() => {
+        this.delete(item._id);
+      });
+  }
+
+  delete(id) {
+    this.showCircleLoading = true;
+    this.$timeout(() => {
+      this.$http.delete(`user/${id}`)
+        .then(res => {
+          this.Utils.toast('success', '删除用户成功！');
+          this.$state.reload();
+        })
+        .finally(() => {
+          this.showCircleLoading = false;
+        });
+    });
   }
 
   query() {

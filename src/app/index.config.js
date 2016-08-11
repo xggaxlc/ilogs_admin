@@ -7,8 +7,8 @@ export function config($httpProvider, $mdThemingProvider, $logProvider, $localSt
   //theme
   $mdThemingProvider.theme('ilogsTheme')
     .primaryPalette('purple')
-    .accentPalette('red')
-    .warnPalette('yellow')
+    .accentPalette('yellow')
+    .warnPalette('red')
 
   $mdThemingProvider.setDefaultTheme('ilogsTheme');
 
