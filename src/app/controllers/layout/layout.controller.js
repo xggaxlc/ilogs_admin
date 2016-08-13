@@ -24,27 +24,27 @@ export class LayoutController{
       {
         name: '用户',
         icon: 'perm_identity',
-        state: '.user.index'
+        state: '.user'
       },
       {
         name: '角色',
         icon: 'people',
-        state: '.role.index'
+        state: '.role'
       },
       {
         name: '统计',
         icon: 'trending_up',
-        state: 'test'
+        state: '.stat'
       },
       {
         name: '记录',
         icon: 'event',
-        state: 'test'
+        state: '.log'
       },
       {
         name: '设置',
         icon: 'settings',
-        state: 'test'
+        state: '.settings'
       }
     ]
 

@@ -59,32 +59,22 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm'
     })
     .state('main.user', {
-      abstract: true,
-      url: '/user',
-      template: '<div ui-view id="editor-view"></div>'
-    })
-    .state('main.user.index', {
-      url: '?name&page',
+      url: '/user?name&page',
       params: {
         limit: 10
       },
-      templateUrl: 'app/controllers/user/index/index.html',
-      controller: Ctrl.UserIndexController,
+      templateUrl: 'app/controllers/user/index.html',
+      controller: Ctrl.UserController,
       controllerAs: 'vm'
     })
     .state('main.role', {
-      abstract: true,
-      url: '/role',
-      template: '<div ui-view id="editor-view"></div>'
-    })
-    .state('main.role.index', {
-      url: '?name&page',
+      url: '/role?name&page',
       params: {
         limit: 10,
         sort: '_id'
       },
-      templateUrl: 'app/controllers/role/index/index.html',
-      controller: Ctrl.RoleIndexController,
+      templateUrl: 'app/controllers/role/index.html',
+      controller: Ctrl.RoleController,
       controllerAs: 'vm'
     })
     .state('main.category', {
@@ -96,6 +86,28 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controller: Ctrl.CategoryController,
       controllerAs: 'vm',
       templateUrl: 'app/controllers/category/category.html'
+    })
+    .state('main.stat', {
+      url: '/stat',
+      controller: Ctrl.StatController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/stat/stat.html'
+    })
+    .state('main.log', {
+      url: '/log?page',
+      params: {
+        limit: 20,
+        sort: '-_id'
+      },
+      controller: Ctrl.LogController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/log/log.html'
+    })
+    .state('main.settings', {
+      url: '/settings',
+      controller: Ctrl.SettingsController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/settings/settings.html'
     })
 
   $urlRouterProvider.when('', '/login');

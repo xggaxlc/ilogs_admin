@@ -20,11 +20,20 @@ import {
   CategoryController
 } from './category/category.controller';
 import{
-  UserIndexController
-} from './user/index/index.controller';
+  UserController
+} from './user/index.controller';
 import{
-  RoleIndexController
-} from './role/index/index.controller';
+  RoleController
+} from './role/index.controller';
+import {
+  StatController
+} from './stat/stat.controller';
+import {
+  LogController
+} from './log/log.controller';
+import {
+  SettingsController
+} from './settings/settings.controller';
 
 export {
   LoginController,
@@ -34,6 +43,9 @@ export {
   AddArticleController,
   EditArticleController,
   CategoryController,
-  UserIndexController,
-  RoleIndexController
+  UserController,
+  RoleController,
+  StatController,
+  LogController,
+  SettingsController
 }

@@ -1,10 +1,10 @@
 import {
-  UserAddController
-} from '../add/add.controller';
+  RoleAddController
+} from './add/add.controller';
 import {
-  UserEditController
-} from '../edit/edit.controller';
-export class UserIndexController {
+  RoleEditController
+} from './edit/edit.controller';
+export class RoleController {
   constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
     'ngInject';
     this.$rootScope = $rootScope;
@@ -19,72 +19,57 @@ export class UserIndexController {
   }
 
   init() {
-    this.$rootScope.pageTitle = '用户列表';
-    this.keyword = this.$stateParams.name;
-    this.selected = [];
+    this.$rootScope.pageTitle = '角色';
     this.pageOptions = {
       perPage: this.$stateParams.limit
     }
     this.query();
   }
 
-  search(e) {
-    if (e.keyCode === 13) {
-      this.$state.go(this.$state.current.name, {
-        page: null,
-        name: this.keyword
-      });
-    }
-  }
-
-  check(ev, item) {
-
-  }
-
-  showEditDialog(ev, item) {
-    this.$mdDialog.show({
-        controller: UserEditController,
-        controllerAs: 'vm',
-        locals: {
-          user: angular.copy(item)
-        },
-        templateUrl: 'app/controllers/user/add/add.html',
-        targetEvent: ev,
-        clickOutsideToClose: false
-      })
-      .then(updatedUser => {
-        angular.copy(updatedUser, item);
-      });
-  }
-
   showAddDialog(ev) {
     this.$mdDialog.show({
-        controller: UserAddController,
+        controller: RoleAddController,
         controllerAs: 'vm',
-        templateUrl: 'app/controllers/user/add/add.html',
+        templateUrl: 'app/controllers/role/add/add.html',
         targetEvent: ev,
         clickOutsideToClose: false
       })
-      .then(newUser => {
+      .then(newRole => {
         if (this.$stateParams.page) {
           this.$state.go(this.$state.current.name, {
             page: null
           });
         } else {
-          this.users.unshift(newUser);
-          if (this.users.length > Number(this.$stateParams.limit)) {
-            this.users.pop();
+          this.roles.unshift(newRole);
+          if (this.roles.length > Number(this.$stateParams.limit)) {
+            this.roles.pop();
           }
           this.pageOptions.count++;
         }
       });
   }
 
+  showEditDialog(ev, item) {
+    this.$mdDialog.show({
+        controller: RoleEditController,
+        controllerAs: 'vm',
+        locals: {
+          role: angular.copy(item)
+        },
+        templateUrl: 'app/controllers/role/add/add.html',
+        targetEvent: ev,
+        clickOutsideToClose: false
+      })
+      .then(updatedRole => {
+        angular.copy(updatedRole, item);
+      });
+  }
+
   showDeleteConfirm(ev, item) {
     let confirm = this.$mdDialog.confirm()
-      .title(`删除用户`)
-      .htmlContent(`你确定要删除用户 <strong class="red">${item.name}</strong> ?`)
-      .ariaLabel('delete user')
+      .title(`删除角色`)
+      .htmlContent(`你确定要删除角色 <strong class="red">${item.name}</strong> ?`)
+      .ariaLabel('delete role')
       .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
@@ -99,9 +84,9 @@ export class UserIndexController {
   delete(id) {
     this.showCircleLoading = true;
     this.$timeout(() => {
-      this.$http.delete(`user/${id}`)
+      this.$http.delete(`role/${id}`)
         .then(res => {
-          this.Utils.toast('success', '删除用户成功！');
+          this.Utils.toast('success', '删除角色成功！');
           this.$state.reload();
         })
         .finally(() => {
@@ -110,21 +95,24 @@ export class UserIndexController {
     });
   }
 
+  refresh() {
+    this.$state.reload();
+  }
+
   query() {
     this.showLoading = true;
     this.$timeout(() => {
-      this.$http.get('user', {
+      this.$http.get('role', {
           params: this.$stateParams
         })
         .then(res => {
           this.pageOptions.count = res.data.count;
-          this.users = res.data.data;
+          this.roles = res.data.data;
         })
         .finally(() => {
           this.showLoading = false;
         });
     });
   }
-
 
 }
