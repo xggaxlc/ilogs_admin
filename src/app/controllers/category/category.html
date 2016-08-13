@@ -1,0 +1,20 @@
+<div class="page-content" id="page-category">
+  <md-card>
+    <md-list ng-cloak class="main-list">
+      <md-subheader class="md-no-sticky">
+        <md-input-container md-no-float class="md-block no-error">
+          <input type="" name="" value="" placeholder="输入新分类名" ng-model="vm.newCategory.name" ng-keydown="vm.add($event)">
+        </md-input-container>
+      </md-subheader>
+      <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
+      <md-list-item layout-padding class="secondary-button-padding dn-fade-down" ng-repeat="item in vm.categories" ng-click="vm.showEditPrompt($event, item)">
+        <p>{{item.name}}</p>
+        <md-button class="md-icon-button md-secondary" ng-click="vm.showDeleteConfirm($event, item)">
+          <md-icon>close</md-icon>
+        </md-button>
+      </md-list-item>
+    </md-list>
+    <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+  </md-card>
+  <md-progress-circular md-mode="indeterminate" class="page-loading" ng-show="vm.showCircleLoading" md-diameter="100"></md-progress-circular>
+</div>

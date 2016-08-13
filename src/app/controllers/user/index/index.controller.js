@@ -1,6 +1,10 @@
-import { UserAddController } from '../add/add.controller';
-import { UserEditController } from '../edit/edit.controller';
-export class UserIndexController{
+import {
+  UserAddController
+} from '../add/add.controller';
+import {
+  UserEditController
+} from '../edit/edit.controller';
+export class UserIndexController {
   constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
     'ngInject';
     this.$rootScope = $rootScope;
@@ -25,7 +29,7 @@ export class UserIndexController{
   }
 
   search(e) {
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
       this.$state.go(this.$state.current.name, {
         page: null,
         name: this.keyword
@@ -39,34 +43,41 @@ export class UserIndexController{
 
   showEditDialog(ev, item) {
     this.$mdDialog.show({
-      controller: UserEditController,
-      controllerAs: 'vm',
-      locals: {
-        user: angular.copy(item)
-      }, 
-      templateUrl: 'app/controllers/user/add/add.html',
-      targetEvent: ev,
-      clickOutsideToClose: false
-    })
-    .then(updatedUser => {
-      angular.copy(updatedUser, item);
-    });
+        controller: UserEditController,
+        controllerAs: 'vm',
+        locals: {
+          user: angular.copy(item)
+        },
+        templateUrl: 'app/controllers/user/add/add.html',
+        targetEvent: ev,
+        clickOutsideToClose: false
+      })
+      .then(updatedUser => {
+        angular.copy(updatedUser, item);
+      });
   }
 
   showAddDialog(ev) {
     this.$mdDialog.show({
-      controller: UserAddController,
-      controllerAs: 'vm',
-      templateUrl: 'app/controllers/user/add/add.html',
-      targetEvent: ev,
-      clickOutsideToClose: false
-    })
-    .then(newUser => {
-      this.users.unshift(newUser);
-      if (this.users.length > Number(this.$stateParams.limit)) {
-        this.users.pop();
-      }
-    });
+        controller: UserAddController,
+        controllerAs: 'vm',
+        templateUrl: 'app/controllers/user/add/add.html',
+        targetEvent: ev,
+        clickOutsideToClose: false
+      })
+      .then(newUser => {
+        if (this.$stateParams.page) {
+          this.$state.go(this.$state.current.name, {
+            page: null
+          });
+        } else {
+          this.users.unshift(newUser);
+          if (this.users.length > Number(this.$stateParams.limit)) {
+            this.users.pop();
+          }
+          this.pageOptions.count++;
+        }
+      });
   }
 
   showDeleteConfirm(ev, item) {
@@ -103,15 +114,15 @@ export class UserIndexController{
     this.showLoading = true;
     this.$timeout(() => {
       this.$http.get('user', {
-        params: this.$stateParams
-      })
-      .then(res => {
-        this.pageOptions.count = res.data.count;
-        this.users = res.data.data;
-      })
-      .finally(() => {
-        this.showLoading = false;
-      });
+          params: this.$stateParams
+        })
+        .then(res => {
+          this.pageOptions.count = res.data.count;
+          this.users = res.data.data;
+        })
+        .finally(() => {
+          this.showLoading = false;
+        });
     });
   }
 

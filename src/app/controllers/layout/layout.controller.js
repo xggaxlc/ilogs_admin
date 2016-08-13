@@ -17,9 +17,19 @@ export class LayoutController{
         state: '.article.index'
       },
       {
+        name: '分类',
+        icon: 'attachment',
+        state: '.category'
+      },
+      {
         name: '用户',
-        icon: 'people',
+        icon: 'perm_identity',
         state: '.user.index'
+      },
+      {
+        name: '角色',
+        icon: 'people',
+        state: '.role.index'
       },
       {
         name: '统计',

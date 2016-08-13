@@ -8,6 +8,7 @@ import {
   runBlock
 } from './index.run';
 
+import * as Filter from './filter/index';
 import * as Service from './service/index';
 import * as Directive from './components/index';
 
@@ -33,6 +34,7 @@ angular.module('ilogs', [
   .factory('errorInterceptor', Service.errorInterceptor)
   .service('Utils', Service.Utils)
   .service('AuthService', Service.AuthService)
+  .filter('permission', Filter.permission)
   .directive('editorMd', Directive.editorMd)
   .directive('mediumEditor', Directive.mediumEditor)
   .directive('paging', Directive.paging);

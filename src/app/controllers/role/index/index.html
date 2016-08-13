@@ -1,0 +1,64 @@
+<div class="page-content" id="page-role-index">
+  <md-card>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        角色列表
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.showAddDialog($event)">
+          <md-icon class="icon">group_add</md-icon>
+          <md-tooltip md-direction="bottom">
+            添加角色
+          </md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.refresh()">
+          <md-icon class="icon">refresh</md-icon>
+          <md-tooltip md-direction="bottom">
+            刷新
+          </md-tooltip>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
+    <md-table-container ng-hide="vm.showLoading && !vm.roles">
+      <table md-table>
+        <thead md-head>
+          <tr md-row>
+            <th md-column>#</th>
+            <th md-column>角色</th>
+            <th md-column>状态</th>
+            <th md-column>创建时间</th>
+            <th md-column>上次更新</th>
+            <th md-column>操作</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row ng-repeat="item in vm.roles" class="dn-fade-down">
+            <td md-cell>{{$index + 1}}</td>
+            <td md-cell>
+              {{item.name}}
+            </td>
+            <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
+            <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>
+              <md-icon ng-click="vm.showEditDialog($event, item)">
+                done_all
+                <md-tooltip md-direction="bottom">
+                  编辑
+                </md-tooltip>
+              </md-icon>
+              <md-icon ng-click="vm.showDeleteConfirm($event, item)">
+                delete
+                <md-tooltip md-direction="bottom">
+                  删除
+                </md-tooltip>
+              </md-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+    </md-table-container>
+  </md-card>
+  <md-progress-circular md-mode="indeterminate" class="page-loading" ng-show="vm.showCircleLoading" md-diameter="100"></md-progress-circular>
+</div>

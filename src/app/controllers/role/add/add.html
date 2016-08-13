@@ -1,0 +1,50 @@
+<md-dialog aria-label="edit user" ng-cloak flex="95" flex-gt-sm="80" flex-gt-md="60" flex-gt-lg="45">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{vm.title}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.$mdDialog.cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <form name="roleForm">
+        <md-input-container class="md-block">
+          <label>角色名</label>
+          <input ng-model="vm.role.name" type="text" name="name" required>
+          <div ng-messages="roleForm.name.$error">
+            <div ng-message="required">角色名必填。</div>
+          </div>
+        </md-input-container>
+        
+        <md-input-container class="md-block" layout="row" ng-show="vm.initLoading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </md-input-container>
+
+        <md-input-container class="md-block" ng-hide="vm.initLoading">
+          <md-switch ng-model="vm.role.active" class="md-primary" aria-label="active switch">
+            {{vm.role.active ? '正常' : '锁定'}}
+          </md-switch>
+        </md-input-container>
+        <md-input-container class="md-block dn-fade-left" ng-repeat="(parentKey, parentValue) in vm.role.permissions">
+          <md-checkbox class="md-primary" aria-label="Select All" ng-model="vm.permissions[parentKey]" ng-change="vm.toggleSelectAll(parentKey)">{{parentKey | permission:'name'}}</md-checkbox>
+          <div>
+            <md-checkbox class="md-primary" ng-repeat="(childKey, childValue) in parentValue" ng-model="vm.role.permissions[parentKey][childKey]" ng-change="vm.updateSelect(parentKey)">{{childKey | permission}}</md-checkbox>
+          </div>
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="vm.$mdDialog.cancel()">
+      关闭
+    </md-button>
+    <md-button ng-click="vm.submit()" ng-disabled="roleForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
+      <span ng-hide="vm.showLoading">提交</span>
+      <md-progress-circular md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

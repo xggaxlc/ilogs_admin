@@ -72,6 +72,31 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controller: Ctrl.UserIndexController,
       controllerAs: 'vm'
     })
+    .state('main.role', {
+      abstract: true,
+      url: '/role',
+      template: '<div ui-view id="editor-view"></div>'
+    })
+    .state('main.role.index', {
+      url: '?name&page',
+      params: {
+        limit: 10,
+        sort: '_id'
+      },
+      templateUrl: 'app/controllers/role/index/index.html',
+      controller: Ctrl.RoleIndexController,
+      controllerAs: 'vm'
+    })
+    .state('main.category', {
+      url: '/category?page',
+      params: {
+        limit: 10,
+        sort: '-_id'
+      },
+      controller: Ctrl.CategoryController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/category/category.html'
+    })
 
   $urlRouterProvider.when('', '/login');
   $urlRouterProvider.otherwise('/404');

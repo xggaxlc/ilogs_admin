@@ -16,9 +16,15 @@ import {
 import {
   EditArticleController
 } from './article/edit/edit.controller';
+import {
+  CategoryController
+} from './category/category.controller';
 import{
   UserIndexController
 } from './user/index/index.controller';
+import{
+  RoleIndexController
+} from './role/index/index.controller';
 
 export {
   LoginController,
@@ -27,5 +33,7 @@ export {
   ArticleIndexController,
   AddArticleController,
   EditArticleController,
-  UserIndexController
+  CategoryController,
+  UserIndexController,
+  RoleIndexController
 }
