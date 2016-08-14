@@ -9,7 +9,7 @@
       <div class="md-toolbar-tools">
         <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="vm.showLoading">保存</md-button>
         <md-button class="md-raised md-warn md-hue-2" ng-disabled="!vm.article._id || vm.showLoading" ng-click="vm.article.published ? vm.unPublish() : vm.publish()">{{vm.article.published ? '撤销发布' : '发布'}}</md-button>
-        <md-button class="md-raised md-accent" ng-click="vm.delete()" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
+        <md-button class="md-raised md-accent" ng-click="vm.showDeleteConfirm($event)" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
         <span flex></span>
         <md-button class="md-icon-button">
           <md-icon class="icon">info</md-icon>

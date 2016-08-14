@@ -23,9 +23,10 @@
     </md-toolbar>
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container>
-      <table md-table md-row-select multiple ng-model="vm.selected">
+      <table md-table>
         <thead md-head>
           <tr md-row ng-show="!vm.showLoading" ng-class="animateClass">
+            <th md-column>#</th>
             <th md-column>标题</th>
             <th md-column>作者</th>
             <th md-column>分类</th>
@@ -37,7 +38,8 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.posts" ng-class="animateClass">
+          <tr md-row ng-repeat="item in vm.posts" ng-class="animateClass">
+            <td md-cell>{{$index + 1}}</td>
             <td md-cell>
               {{item.title | limitTo: '8'}}
               <md-tooltip>
@@ -51,31 +53,16 @@
             <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>{{item.update_by.name || '/'}}</td>
             <td md-cell>
-              <md-menu md-position-mode="target-right target">
-                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin class="icon" ng-click="$mdOpenMenu($event)">more_vert</md-icon>
-                </md-button>
-                <md-menu-content>
-                  <md-menu-item>
-                    <md-button ng-click="ctrl.redial($event)">
-                      <md-icon md-menu-align-target>view_list</md-icon>
-                      预览
-                    </md-button>
-                  </md-menu-item>
-                  <md-menu-item>
-                    <md-button ui-sref="main.editArticle({id: item._id})">
-                      <md-icon md-menu-align-target>mode_edit</md-icon>
-                      编辑
-                    </md-button>
-                  </md-menu-item>
-                  <md-menu-item>
-                    <md-button ng-click="ctrl.redial($event)">
-                      <md-icon md-menu-align-target>delete</md-icon>
-                      删除
-                    </md-button>
-                  </md-menu-item>
-                </md-menu-content>
-              </md-menu>
+              <md-icon ui-sref="main.editArticle({id: item._id})">done_all
+                <md-tooltip md-direction="bottom">
+                  编辑
+                </md-tooltip>
+              </md-icon>
+              <md-icon ng-click="vm.showDeleteConfirm($event, item)">delete
+                <md-tooltip md-direction="bottom">
+                  删除
+                </md-tooltip>
+              </md-icon>
             </td>
           </tr>
         </tbody>

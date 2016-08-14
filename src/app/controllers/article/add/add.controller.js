@@ -1,10 +1,12 @@
 export class AddArticleController {
-  constructor($scope, $rootScope, $timeout, $http, Utils, AuthService) {
+  constructor($scope, $rootScope, $timeout, $http, $state, $mdDialog, Utils, AuthService) {
     'ngInject';
     this.$scope = $scope;
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
     this.$http = $http;
+    this.$state = $state;
+    this.$mdDialog = $mdDialog;
     this.Utils = Utils;
     this.currentUser = AuthService.currentUser;
     this.init();
@@ -20,9 +22,37 @@ export class AddArticleController {
     
   }
 
+  showDeleteConfirm(ev) {
+    let confirm = this.$mdDialog.confirm()
+      .title(`删除文章`)
+      .htmlContent(`你确定要 <strong class="red">删除</strong> 这篇文章吗 ?`)
+      .ariaLabel('delete article')
+      .theme('confirm')
+      .targetEvent(ev)
+      .ok('确定')
+      .cancel('取消');
+
+    this.$mdDialog.show(confirm)
+      .then(() => {
+        this.delete();
+      });
+  }
+
+  delete() {
+    this.Utils.showLoading();
+    this.$http.delete(`post/${this.article._id}`)
+      .then(() => {
+        this.Utils.toast('success', '删除文章成功！');
+        this.$state.go('main.article');
+      })
+      .finally(() => {
+        this.Utils.hideLoading();
+      });
+  }
+
   save() {
     this.showLoading = true;
-    this.article.content = this.editor.getContent();
+    this.article.content = this.editor.getHTML();
     this.article._id ? this.update() : this.create();
   }
 
@@ -66,10 +96,6 @@ export class AddArticleController {
       .finally(() => {
         this.showLoading = false;
       });
-  }
-
-  delete() {
-
   }
   
 }

@@ -1,7 +1,8 @@
 export class Utils {
-  constructor($mdToast) {
+  constructor($mdToast, $rootScope) {
     'ngInject';
     this.$mdToast = $mdToast;
+    this.$rootScope = $rootScope;
   }
 
   toast(type = 'success', msg, timeout = '5000', position = 'top right') {
@@ -26,6 +27,14 @@ export class Utils {
       hideDelay: timeout,
       position: position
     });
+  }
+
+  showLoading() {
+    this.$rootScope.showGlobalLoading = true;
+  }
+
+  hideLoading() {
+    this.$rootScope.showGlobalLoading = false;
   }
 
   isObjEmpty(obj) {

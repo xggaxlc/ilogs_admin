@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "medium-editor-insert-plugin": "^2.4.0",
     "ng-fx": "^2.0.4"
   }
 }

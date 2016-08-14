@@ -3,7 +3,7 @@ export function mediumEditor() {
   let directive = {
     restrict: 'E',
     scope: {
-      editor: '='
+      exprotEditor: '=editor'
     },
     replace: true,
     template: `
@@ -14,26 +14,76 @@ export function mediumEditor() {
 
   return directive;
 
-  function linkFunc(scope, ele) {
-    let editor = scope.editor = new MediumEditor(ele, {
+  function initMedium(ele) {
+    // https://github.com/yabwe/medium-editor/blob/master/OPTIONS.md
+    return new MediumEditor(ele, {
+      activeButtonClass: 'medium-editor-button-active',
+      buttonLabels: false,
+      contentWindow: window,
+      delay: 0,
+      disableReturn: false,
+      disableDoubleReturn: false,
+      disableExtraSpaces: false,
+      disableEditing: false,
+      elementsContainer: false,
+      extensions: {},
+      ownerDocument: document,
+      spellcheck: false,
+      targetBlank: false,
       placeholder: {
         text: '在此输入正文!',
         hideOnClick: true
       },
-      imageDragging: false,
-      targetBlank: true,
-      disableExtraSpaces: false,
+      imageDragging: true,
       toolbar: {
+        allowMultiParagraphSelection: true,
         buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'quote', 'strikethrough', 'pre', 'justifyLeft']
       },
+      autoLink: false,
       anchor: {
-        placeholderText: '输入链接'
+        // customClassOption: null,
+        // customClassOptionText: 'Button',
+        linkValidation: false,
+        placeholderText: '输入链接',
+        targetCheckbox: false,
+        targetCheckboxText: '在新窗口打开'
+      },
+      anchorPreview: {
+        hideDelay: 500,
+        previewValueSelector: 'a'
+      },
+      paste: {
+        forcePlainText: true,
+        cleanPastedHTML: true,
+        cleanReplacements: [],
+        cleanAttrs: ['class', 'style', 'dir'],
+        cleanTags: ['meta', 'style', 'script']
+      },
+      keyboardCommands: {
+        commands: [{
+          command: 'bold',
+          key: 'b',
+          meta: true,
+          shift: false
+        }, {
+          command: 'italic',
+          key: 'i',
+          meta: true,
+          shift: false
+        }, {
+          command: 'underline', //argument passed to editor.execAction() when key-combination is used
+          key: 'u',
+          meta: true, //whether the ctrl/meta key has to be active or inactive
+          shift: false
+        }]
       }
     });
+  }
 
-    angular.element(ele).mediumInsert({
+  function initMediumInsert(eleObj, editor, enabled = true) {
+    eleObj.mediumInsert({
       editor: editor,
-      enabled: false,
+      enabled: enabled,
       addons: {
         images: {
           label: '<i class="material-icons">image</i>',
@@ -89,7 +139,7 @@ export function mediumEditor() {
           captionPlaceholder: '视频标题',
           // oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
           styles: {
-            wide: { 
+            wide: {
               label: '<i class="material-icons">format_align_justify</i>',
               added: function($el) {},
               removed: function($el) {}
@@ -103,7 +153,7 @@ export function mediumEditor() {
           },
           actions: {
             remove: {
-              label: '<i class="material-icons">close</i>', 
+              label: '<i class="material-icons">close</i>',
               clicked: function($el) {
                 var $event = $.Event('keydown');
 
@@ -115,6 +165,22 @@ export function mediumEditor() {
         }
       }
     });
+  }
+
+  function linkFunc(scope, ele) {
+    //初始化编辑器
+    let editor = initMedium(ele);
+    //初始化编辑器insert插件
+    initMediumInsert(angular.element(ele), editor);
+
+    scope.exprotEditor = {
+      getHTML: () => {
+        return editor.serialize()['medium-editor'].value;
+      },
+      setHTML: (str) => {
+        return editor.setContent(str);
+      }
+    }
 
   }
 
