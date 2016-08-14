@@ -7,19 +7,25 @@
           <input type="text" placeholder="输入标题搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
         </div>
         <span flex></span>
-        <md-button class="md-icon-button" ui-sref="main.article.add">
-          <md-icon class="icon">add</md-icon>
+        <md-button class="md-icon-button" ui-sref="main.addArticle">
+          <md-icon class="icon">note_add</md-icon>
+          <md-tooltip md-direction="bottom">
+            新建文章
+          </md-tooltip>
         </md-button>
         <md-button class="md-icon-button" ng-click="vm.query()">
           <md-icon class="icon">refresh</md-icon>
+          <md-tooltip md-direction="bottom">
+            刷新
+          </md-tooltip>
         </md-button>
       </div>
     </md-toolbar>
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
-    <md-table-container ng-hide="vm.showLoading && !vm.posts">
+    <md-table-container>
       <table md-table md-row-select multiple ng-model="vm.selected">
         <thead md-head>
-          <tr md-row>
+          <tr md-row ng-show="!vm.showLoading" ng-class="animateClass">
             <th md-column>标题</th>
             <th md-column>作者</th>
             <th md-column>分类</th>
@@ -31,7 +37,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.posts" class="dn-fade-down">
+          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.posts" ng-class="animateClass">
             <td md-cell>
               {{item.title | limitTo: '8'}}
               <md-tooltip>
@@ -57,7 +63,7 @@
                     </md-button>
                   </md-menu-item>
                   <md-menu-item>
-                    <md-button ui-sref="main.article.edit({id: item._id})">
+                    <md-button ui-sref="main.editArticle({id: item._id})">
                       <md-icon md-menu-align-target>mode_edit</md-icon>
                       编辑
                     </md-button>
@@ -74,8 +80,6 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-class="animateClass" ng-if="!vm.showLoading"></paging>
     </md-table-container>
   </md-card>
-
-</div>

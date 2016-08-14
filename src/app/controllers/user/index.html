@@ -8,7 +8,7 @@
         </div>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="vm.showAddDialog($event)">
-          <md-icon class="icon">add</md-icon>
+          <md-icon class="icon">person_add</md-icon>
         </md-button>
         <md-button class="md-icon-button" ng-click="vm.query()">
           <md-icon class="icon">refresh</md-icon>
@@ -16,10 +16,10 @@
       </div>
     </md-toolbar>
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
-    <md-table-container ng-hide="vm.showLoading && !vm.users">
+    <md-table-container>
       <table md-table md-row-select multiple ng-model="vm.selected">
         <thead md-head>
-          <tr md-row>
+          <tr md-row ng-show="!vm.showLoading" ng-class="animateClass">
             <th md-column>用户名</th>
             <th md-column>邮箱</th>
             <th md-column>角色</th>
@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.users" class="dn-fade-down">
+          <tr md-row md-select-id="id" md-select="item" ng-repeat="item in vm.users" ng-class="animateClass">
             <td md-cell>
               {{item.name}}
             </td>
@@ -74,7 +74,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-class="animateClass" ng-if="!vm.showLoading"></paging>
     </md-table-container>
   </md-card>
   <md-progress-circular md-mode="indeterminate" class="page-loading" ng-show="vm.showCircleLoading" md-diameter="100"></md-progress-circular>

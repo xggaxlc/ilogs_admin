@@ -80,7 +80,7 @@ export class CategoryController {
       this.$http.delete(`category/${id}`)
         .then(res => {
           this.Utils.toast('success', '删除分类成功！');
-          this.$state.reload();
+          this.query();
         })
         .finally(() => {
           this.showCircleLoading = false;
@@ -114,8 +114,10 @@ export class CategoryController {
   }
 
   query() {
+    this.categories = [];
     this.showLoading = true;
-    this.$http.get('category', {
+    this.$timeout(() => {
+      this.$http.get('category', {
         params: this.$stateParams
       })
       .then(res => {
@@ -125,6 +127,7 @@ export class CategoryController {
       .finally(() => {
         this.showLoading = false;
       });
+    }, this.$rootScope.viewAnimateDelay);
   }
 
 }

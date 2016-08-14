@@ -3,6 +3,7 @@ export class HomeController {
     'ngInject';
 
     $rootScope.pageTitle = '首页';
+    this.$rootScope = $rootScope;
     this.$timeout = $timeout;
     this.$scope = $scope;
     this.$http = $http;
@@ -42,7 +43,7 @@ export class HomeController {
       this.getPublishedArticleCount();
       this.getAllUserCount();
       this.getAllCategoryCount();
-    });
+    }, this.$rootScope.viewAnimateDelay);
 
   }
 

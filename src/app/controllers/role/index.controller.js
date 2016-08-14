@@ -87,7 +87,7 @@ export class RoleController {
       this.$http.delete(`role/${id}`)
         .then(res => {
           this.Utils.toast('success', '删除角色成功！');
-          this.$state.reload();
+          this.query();
         })
         .finally(() => {
           this.showCircleLoading = false;
@@ -95,11 +95,8 @@ export class RoleController {
     });
   }
 
-  refresh() {
-    this.$state.reload();
-  }
-
   query() {
+    this.roles = [];
     this.showLoading = true;
     this.$timeout(() => {
       this.$http.get('role', {
@@ -112,7 +109,7 @@ export class RoleController {
         .finally(() => {
           this.showLoading = false;
         });
-    });
+    }, this.$rootScope.viewAnimateDelay);
   }
 
 }

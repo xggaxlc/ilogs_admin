@@ -18,11 +18,12 @@ export class ArticleIndexController {
     this.pageOptions = {
       perPage: this.$stateParams.limit
     }
+
     this.query();
   }
 
   search(e) {
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
       this.$state.go(this.$state.current.name, {
         page: null,
         title: this.keyword
@@ -31,19 +32,20 @@ export class ArticleIndexController {
   }
 
   query() {
+    this.posts = [];
     this.showLoading = true;
     this.$timeout(() => {
       this.$http.get('post', {
-        params: this.$stateParams
-      })
-      .then(res => {
-        this.pageOptions.count = res.data.count;
-        this.posts = res.data.data;
-      })
-      .finally(() => {
-        this.showLoading = false;
-      });
-    });
+          params: this.$stateParams
+        })
+        .then(res => {
+          this.pageOptions.count = res.data.count;
+          this.posts = res.data.data;
+        })
+        .finally(() => {
+          this.showLoading = false;
+        });
+    }, this.$rootScope.viewAnimateDelay);
   }
 
 }

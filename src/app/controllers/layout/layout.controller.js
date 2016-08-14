@@ -14,7 +14,7 @@ export class LayoutController{
       {
         name: '文章',
         icon: 'code',
-        state: '.article.index'
+        state: '.article'
       },
       {
         name: '分类',
@@ -158,18 +158,19 @@ export class LayoutController{
 
     this.sidebarMenuTheme = $localStorage.sidebarMenuTheme || this.themeColor[3];
     this.topNavTheme = $localStorage.topNavTheme || this.themeColor[3];
+    this.showNarrowMenu = this.$localStorage.showNarrowMenu || false;
 
     $scope.$on('event:showNarrowMenu', (ev) => {
       ev.stopPropagation();
       $timeout(() => {
-        this.showNarrowMenu = true;
+        this.showNarrowMenu = this.$localStorage.showNarrowMenu = true;
       });
     });
 
   }
 
   toggleNarrowMenu() {
-    this.showNarrowMenu = !this.showNarrowMenu;
+    this.showNarrowMenu = this.$localStorage.showNarrowMenu = !this.showNarrowMenu;
   }
 
   toggleMenu() {

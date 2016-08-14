@@ -111,6 +111,7 @@ export class UserController {
   }
 
   query() {
+    this.users = [];
     this.showLoading = true;
     this.$timeout(() => {
       this.$http.get('user', {
@@ -123,7 +124,7 @@ export class UserController {
         .finally(() => {
           this.showLoading = false;
         });
-    });
+    }, this.$rootScope.viewAnimateDelay);
   }
 
 

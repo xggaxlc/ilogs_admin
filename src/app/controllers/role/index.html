@@ -10,7 +10,7 @@
             添加角色
           </md-tooltip>
         </md-button>
-        <md-button class="md-icon-button" ng-click="vm.refresh()">
+        <md-button class="md-icon-button" ng-click="vm.query()">
           <md-icon class="icon">refresh</md-icon>
           <md-tooltip md-direction="bottom">
             刷新
@@ -19,10 +19,10 @@
       </div>
     </md-toolbar>
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
-    <md-table-container ng-hide="vm.showLoading && !vm.roles">
+    <md-table-container>
       <table md-table>
         <thead md-head>
-          <tr md-row>
+          <tr md-row ng-show="!vm.showLoading" ng-class="animateClass">
             <th md-column>#</th>
             <th md-column>角色</th>
             <th md-column>状态</th>
@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in vm.roles" class="dn-fade-down">
+          <tr md-row ng-repeat="item in vm.roles" ng-class="animateClass">
             <td md-cell>{{$index + 1}}</td>
             <td md-cell>
               {{item.name}}
@@ -57,7 +57,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" class="layout-double-margin" ng-class="animateClass" ng-if="!vm.showLoading"></paging>
     </md-table-container>
   </md-card>
   <md-progress-circular md-mode="indeterminate" class="page-loading" ng-show="vm.showCircleLoading" md-diameter="100"></md-progress-circular>
