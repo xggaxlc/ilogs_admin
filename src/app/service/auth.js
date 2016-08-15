@@ -11,7 +11,7 @@ export class AuthService {
   }
 
   login(userInfo) {
-    return this.$http.post('sign', userInfo)
+    return this.$http.post('sign/signin', userInfo)
       .then(res => {
         this.saveUserInfo(res.data.user);
         return res.data.user;

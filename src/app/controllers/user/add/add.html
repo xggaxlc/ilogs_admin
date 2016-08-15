@@ -44,13 +44,13 @@
             <div ng-message="md-maxlength">密码最多16位。</div>
           </div>
         </md-input-container>
-        <md-input-container class="md-block">
+        <md-input-container class="md-block" ng-hide="vm.user.master">
           <label>用户组</label>
           <md-select ng-model="vm.user.role" name="role">
             <md-option value="{{item._id}}" ng-repeat="item in vm.roles">{{item.name}}</md-option>
           </md-select>
         </md-input-container>
-        <md-input-container class="md-block">
+        <md-input-container class="md-block" ng-hide="vm.user.master">
           <md-switch ng-model="vm.user.active" class="md-primary" aria-label="active switch">
             {{vm.user.active ? '正常' : '锁定'}}
           </md-switch>

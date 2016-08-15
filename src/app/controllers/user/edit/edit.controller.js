@@ -4,7 +4,9 @@ export class UserEditController extends UserAddController{
     'ngInject';
     super($mdDialog, $http, Utils);
     this.user = user;
-    this.user.role = this.user.role._id;
+    if (!this.user.master) {
+      this.user.role = this.user.role._id;
+    }
   }
 
   init() {
