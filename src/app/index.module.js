@@ -13,7 +13,7 @@ import * as Service from './service/index';
 import * as Directive from './components/index';
 import { baseUrl } from '../config.js';
 
-angular.module('ilogs', [
+angular.module('ilogs_admin', [
     'ngSanitize',
     'ngMessages',
     'ngStorage',
