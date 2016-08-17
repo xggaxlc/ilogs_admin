@@ -11,8 +11,9 @@ import {
 import * as Filter from './filter/index';
 import * as Service from './service/index';
 import * as Directive from './components/index';
+import { baseUrl } from '../config.js';
 
-angular.module('ilogs', [
+angular.module('ilogs_admin', [
     'ngSanitize',
     'ngMessages',
     'ngStorage',
@@ -26,7 +27,7 @@ angular.module('ilogs', [
     'ngAnimate',
     'ng-fx'
   ])
-  .constant('BASEURL', 'http://localhost:9000/api/v1/')
+  .constant('BASEURL', baseUrl())
   .config(config)
   .config(routerConfig)
   .run(runBlock)
