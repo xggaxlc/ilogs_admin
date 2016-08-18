@@ -10,10 +10,14 @@ import {
 import {
   AuthService
 } from './auth';
+import {
+  ApiService
+} from './api';
 
 export {
   authInterceptor,
   errorInterceptor,
   Utils,
-  AuthService
+  AuthService,
+  ApiService
 }

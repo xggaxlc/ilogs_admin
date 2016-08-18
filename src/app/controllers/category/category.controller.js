@@ -78,7 +78,7 @@ export class CategoryController {
     this.showCircleLoading = true;
     this.$timeout(() => {
       this.$http.delete(`category/${id}`)
-        .then(res => {
+        .then(() => {
           this.Utils.toast('success', '删除分类成功！');
           this.query();
         })

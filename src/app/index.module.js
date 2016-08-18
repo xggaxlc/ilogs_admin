@@ -11,7 +11,7 @@ import {
 import * as Filter from './filter/index';
 import * as Service from './service/index';
 import * as Directive from './components/index';
-import { baseUrl } from '../config.js';
+import { BASEURL } from '../config.js';
 
 angular.module('ilogs_admin', [
     'ngSanitize',
@@ -27,7 +27,7 @@ angular.module('ilogs_admin', [
     'chart.js',
     'ng-fx'
   ])
-  .constant('BASEURL', baseUrl())
+  .constant('BASEURL', BASEURL)
   .config(config)
   .config(routerConfig)
   .run(runBlock)
@@ -35,6 +35,7 @@ angular.module('ilogs_admin', [
   .factory('errorInterceptor', Service.errorInterceptor)
   .service('Utils', Service.Utils)
   .service('AuthService', Service.AuthService)
+  .service('ApiService', Service.ApiService)
   .filter('permission', Filter.permission)
   .directive('editorMd', Directive.editorMd)
   .directive('mediumEditor', Directive.mediumEditor)
