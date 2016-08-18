@@ -17,14 +17,14 @@ angular.module('ilogs_admin', [
     'ngSanitize',
     'ngMessages',
     'ngStorage',
+    'ngAnimate',
+    'ngMaterial',
     'ui.router',
     'ui.bootstrap',
-    'ngMaterial',
     'md.data.table',
     'ngFileUpload',
 		'ngImgCrop',
     'chart.js',
-    'ngAnimate',
     'ng-fx'
   ])
   .constant('BASEURL', baseUrl())
