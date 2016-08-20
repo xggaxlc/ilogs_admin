@@ -8,8 +8,10 @@ export class ApiService {
   }
 
   get(api, params = {}, config = {}) {
-    config = angular.merge({}, config, { timeout: this.timeout });
-    let route = `${this.BASEURL}/Center/${api}`;
+    config = angular.merge({}, config, {
+      timeout: this.timeout
+    });
+    let route = `${this.BASEURL+ api}`;
     return this.$http.get(route, angular.merge({}, {
         params: params
       }, config))
@@ -19,8 +21,10 @@ export class ApiService {
   }
 
   post(api, data = {}, config = {}) {
-    config = angular.merge({}, config, { timeout: this.timeout });
-    let route = `${this.BASEURL}/Center/${api}`;
+    config = angular.merge({}, config, {
+      timeout: this.timeout
+    });
+    let route = `${this.BASEURL+ api}`;
     return this.$http.post(route, data, config)
       .then(res => {
         return res.data;
@@ -28,8 +32,10 @@ export class ApiService {
   }
 
   put(api, data = {}, config = {}) {
-    config = angular.merge({}, config, { timeout: this.timeout });
-    let route = `${this.BASEURL}/Center/${api}`;
+    config = angular.merge({}, config, {
+      timeout: this.timeout
+    });
+    let route = `${this.BASEURL+ api}`;
     return this.$http.put(route, data, config)
       .then(res => {
         return res.data;
@@ -37,8 +43,10 @@ export class ApiService {
   }
 
   delete(api, params, config = {}) {
-    config = angular.merge({}, config, { timeout: this.timeout });
-    let route = `${this.BASEURL}/Center/${api}`;
+    config = angular.merge({}, config, {
+      timeout: this.timeout
+    });
+    let route = `${this.BASEURL+ api}`;
     return this.$http.delete(route, angular.merge({}, {
         params: params
       }, config))

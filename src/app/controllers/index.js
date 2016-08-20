@@ -1,6 +1,12 @@
 import {
-  LoginController
-} from './login/login.controller';
+  SigninController
+} from './sign/signin/signin.controller';
+import {
+  SignupController
+} from './sign/signup/signup.controller';
+import {
+  ResetPassController
+} from './sign/reset_pass/reset_pass.controller';
 import {
   LayoutController
 } from './layout/layout.controller';
@@ -36,7 +42,9 @@ import {
 } from './settings/settings.controller';
 
 export {
-  LoginController,
+  SigninController,
+  SignupController,
+  ResetPassController,
   LayoutController,
   HomeController,
   ArticleIndexController,

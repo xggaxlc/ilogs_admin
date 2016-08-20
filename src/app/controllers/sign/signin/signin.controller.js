@@ -1,4 +1,4 @@
-export class LoginController {
+export class SigninController {
   constructor($rootScope, $state, $timeout, AuthService, Utils) {
     'ngInject';
     this.$rootScope = $rootScope;
@@ -17,7 +17,8 @@ export class LoginController {
   submit() {
     this.showLoading = true;
     this.AuthService.login(this.user)
-      .then(userInfo => {
+      .then(res => {
+        let userInfo = res.user;
         this.$timeout(() => {
           this.Utils.toast('success', `登录成功！欢迎${userInfo.name}`);
           this.$state.go('main.home', {}, {

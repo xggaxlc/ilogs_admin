@@ -2,10 +2,22 @@ import * as Ctrl from './controllers/index';
 export function routerConfig($stateProvider, $urlRouterProvider) {
   'ngInject';
   $stateProvider
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/controllers/login/login.html',
-      controller: Ctrl.LoginController,
+    .state('signin', {
+      url: '/signin',
+      templateUrl: 'app/controllers/sign/signin/signin.html',
+      controller: Ctrl.SigninController,
+      controllerAs: 'vm'
+    })
+    .state('signup', {
+      url: '/signup?key',
+      templateUrl: 'app/controllers/sign/signup/signup.html',
+      controller: Ctrl.SignupController,
+      controllerAs: 'vm'
+    })
+    .state('resetPass', {
+      url: '/reset_pass?key',
+      templateUrl: 'app/controllers/sign/reset_pass/reset_pass.html',
+      controller: Ctrl.ResetPassController,
       controllerAs: 'vm'
     })
     .state('logout', {
@@ -113,6 +125,6 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/controllers/settings/settings.html'
     });
 
-  $urlRouterProvider.when('', '/login');
+  $urlRouterProvider.when('', '/signin');
   $urlRouterProvider.otherwise('/404');
 }

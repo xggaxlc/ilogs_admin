@@ -10,18 +10,19 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
       return response || $q.when(response);
     },
     'responseError': function(rejection) {
-       let Utils = $injector.get('Utils');
-      switch(rejection.status) {
+      let Utils = $injector.get('Utils');
+      switch (rejection.status) {
         case -1:
-          Utils.toast('error', '请求失败！可能AJAX请求被取消，也可能是网络原因！');
+          Utils.toast('error', '网络不给力');
           break;
         case 401:
-          $injector.get('AuthService').requireLogin();
-          break;
+          //打开登陆弹窗
+          Utils.toast('error', rejection.data.message || '请登陆');
+          return $injector.get('AuthService').requireLogin(rejection);
         case 403:
           Utils.toast('error', '你没有权限！');
           break;
-        case 404: 
+        case 404:
           Utils.toast('error', '没有这条数据！');
           break;
         default:
@@ -30,7 +31,7 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
       return $q.reject(rejection);
     },
     'requestError': function(rejection) {
-      $injector.get('Utils').toast('error', '请求失败！请检查网络！');
+      $injector.get('Utils').toast('error', '请检查网络！');
       return $q.reject(rejection);
     }
   }
