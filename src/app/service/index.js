@@ -5,6 +5,9 @@ import {
   errorInterceptor
 } from './interceptor/error.factory';
 import {
+  loadingInterceptor
+} from './interceptor/loading.factory';
+import {
   Utils
 } from './utils';
 import {
@@ -17,6 +20,7 @@ import {
 export {
   authInterceptor,
   errorInterceptor,
+  loadingInterceptor,
   Utils,
   AuthService,
   ApiService

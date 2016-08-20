@@ -33,6 +33,7 @@ angular.module('ilogs_admin', [
   .run(runBlock)
   .factory('authInterceptor', Service.authInterceptor)
   .factory('errorInterceptor', Service.errorInterceptor)
+  .factory('loadingInterceptor', Service.loadingInterceptor)
   .service('Utils', Service.Utils)
   .service('AuthService', Service.AuthService)
   .service('ApiService', Service.ApiService)

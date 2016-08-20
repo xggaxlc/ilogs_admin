@@ -17,7 +17,6 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
           break;
         case 401:
           //打开登陆弹窗
-          Utils.toast('error', rejection.data.message || '请登陆');
           return $injector.get('AuthService').requireLogin(rejection);
         case 403:
           Utils.toast('error', '你没有权限！');

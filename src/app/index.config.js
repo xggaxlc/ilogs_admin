@@ -24,6 +24,7 @@ export function config($httpProvider, $mdThemingProvider, $logProvider, $localSt
 
   $httpProvider.interceptors.push('authInterceptor');
   $httpProvider.interceptors.push('errorInterceptor');
+  $httpProvider.interceptors.push('loadingInterceptor');
 
 
 }
