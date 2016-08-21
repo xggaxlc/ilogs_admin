@@ -1,10 +1,11 @@
 export class SettingsController {
-  constructor($rootScope, $http, Utils, ApiService) {
+  constructor($rootScope, $http, Utils, ApiService, $timeout) {
     'ngInject';
     this.$rootScope = $rootScope;
-    this.$http =  $http;
+    this.$http = $http;
     this.Utils = Utils;
     this.ApiService = ApiService;
+    this.$timeout = $timeout;
 
     this.init();
   }
@@ -16,13 +17,16 @@ export class SettingsController {
 
   query() {
     this.showLoading = true;
-    this.ApiService.get('setting')
-      .then(res => {
-        this.settings = res.data;
-      })
-      .finally(() => {
-        this.showLoading = false;
-      });
+    this.$timeout(() => {
+      this.ApiService.get('setting')
+        .then(res => {
+          this.settings = res.data;
+        })
+        .finally(() => {
+          this.showLoading = false;
+        });
+    });
+
   }
 
   save() {

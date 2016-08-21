@@ -39,7 +39,7 @@ export class AuthService {
     this.$mdDialog = $mdDialog;
     this.ApiService = ApiService;
     this.Utils = Utils;
-    this.currentUser = $localStorage.currentUser || $localStorage.currentUser || {};
+    this.currentUser = $localStorage.currentUser || $sessionStorage.currentUser || {};
 
     this.isReLoginDialogOpen = false;
   }
