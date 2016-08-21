@@ -85,7 +85,6 @@ export class UserController {
       .title(`删除用户`)
       .htmlContent(`你确定要删除用户 <strong class="red">${item.name}</strong> ?`)
       .ariaLabel('delete user')
-      .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');

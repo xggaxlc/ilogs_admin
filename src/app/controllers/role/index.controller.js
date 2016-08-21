@@ -70,7 +70,6 @@ export class RoleController {
       .title(`删除角色`)
       .htmlContent(`你确定要删除角色 <strong class="red">${item.name}</strong> ?`)
       .ariaLabel('delete role')
-      .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');

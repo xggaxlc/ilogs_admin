@@ -9,6 +9,7 @@ export function authInterceptor($rootScope, $localStorage, $sessionStorage, BASE
         config.headers.token = $localStorage.token || $sessionStorage.token;
         config.url = BASEURL + config.url;
       }
+      config.headers.token = $localStorage.token || $sessionStorage.token;
       return config;
     },
     'response': function(response) {

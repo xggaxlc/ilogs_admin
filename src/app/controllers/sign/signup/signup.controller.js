@@ -1,13 +1,17 @@
 export class SignupController {
-  constructor(ApiService, AuthService, $stateParams, $rootScope, $state, Utils) {
+  constructor(ApiService, AuthService, $stateParams, $rootScope, $state, $timeout, Utils) {
     'ngInject';
     this.ApiService = ApiService;
     this.AuthService = AuthService;
     this.$stateParams = $stateParams;
     this.$rootScope = $rootScope;
     this.$state = $state;
+    this.$timeout = $timeout;
     this.Utils = Utils;
     this.$rootScope.autoLogin = false;
+
+    // 注册页清空个人信息先
+    this.AuthService.clearUserInfo();
   }
 
   submit() {

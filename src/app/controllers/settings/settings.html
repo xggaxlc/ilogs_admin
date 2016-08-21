@@ -5,8 +5,9 @@
         <span class="md-headline">设置</span>
       </md-card-title-text>
     </md-card-title>
+    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-card-content>
-      <form>
+      <form name="settingForm">
         <md-input-container class="md-block">
           <label>注册链接</label>
           <input ng-model="vm.settings.signup_link" type="text">
@@ -26,7 +27,10 @@
       </form>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-      <md-button class="md-raised md-primary">保存</md-button>
+      <md-button style="height:36px;" class="md-raised md-primary" ng-click="vm.save()" ng-disabled="settingForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
+        <span ng-show="!vm.showLoading">保存</span>
+        <md-progress-circular md-diameter="36px;" md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
+      </md-button>
     </md-card-actions>
   </md-card>
 </div>

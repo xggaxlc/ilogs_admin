@@ -15,7 +15,7 @@
   </md-input-container>
   <div layout="row" layout-align="space-between center">
     <md-switch ng-model="vm.autoLogin" ng-change="vm.changeAutoLogin()">下次自动登录</md-switch>
-    <md-button>忘记密码？</md-button>
+    <md-button ng-click="vm.forgetPass($event)" ng-if="vm.$state.is('signin')">忘记密码？</md-button>
   </div>
   <md-input-container>
     <md-button style="height:36px;" type="submit" class="md-primary md-raised" ng-click="vm.submit()" ng-disabled="userForm.$invalid || vm.showLoading" layout="row" layout-align="center center">

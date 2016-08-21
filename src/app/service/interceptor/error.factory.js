@@ -19,7 +19,7 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
           //打开登陆弹窗
           return $injector.get('AuthService').requireLogin(rejection);
         case 403:
-          Utils.toast('error', '你没有权限！');
+          Utils.toast('error', rejection.data.message || '你没有权限！');
           break;
         case 404:
           Utils.toast('error', '没有这条数据！');

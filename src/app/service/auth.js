@@ -1,9 +1,8 @@
 import { SigninController } from '../controllers/sign/signin/signin.controller';
 class LoginCtrl extends SigninController{
-  constructor($rootScope, $state, $timeout, AuthService, Utils, $mdDialog) {
+  constructor($q, $rootScope, $state, $timeout, AuthService, Utils, $mdDialog, ApiService) {
     'ngInject';
-    super($rootScope, $state, $timeout, AuthService, Utils);
-    this.$mdDialog = $mdDialog;
+    super($q, $rootScope, $state, $timeout, AuthService, Utils, $mdDialog, ApiService);
   }
 
   submit() {
@@ -77,6 +76,10 @@ export class AuthService {
             <md-toolbar>
               <div class="md-toolbar-tools">
                 <h2>请登录</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.$mdDialog.cancel()">
+                  <md-icon>close</md-icon>
+                </md-button>
               </div>
             </md-toolbar>
             <md-dialog-content>

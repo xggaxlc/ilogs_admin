@@ -27,7 +27,6 @@ export class AddArticleController {
       .title(`删除文章`)
       .htmlContent(`你确定要 <strong class="red">删除</strong> 这篇文章吗 ?`)
       .ariaLabel('delete article')
-      .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');

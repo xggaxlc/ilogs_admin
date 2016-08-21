@@ -33,7 +33,6 @@ export class CategoryController {
       .title(`删除分类`)
       .htmlContent(`你确定要删除分类 <strong class="red">${item.name}</strong> ?`)
       .ariaLabel('delete category')
-      .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');
@@ -50,7 +49,6 @@ export class CategoryController {
       .htmlContent(`你正在修改分类 <strong class="red">${item.name}</strong>`)
       .placeholder('新分类名')
       .ariaLabel('category name')
-      .theme('prompt')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');

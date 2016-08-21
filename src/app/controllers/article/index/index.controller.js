@@ -37,7 +37,6 @@ export class ArticleIndexController {
       .title(`删除文章`)
       .htmlContent(`你确定要删除 <strong class="red">${item.title}</strong> ?`)
       .ariaLabel('delete article')
-      .theme('confirm')
       .targetEvent(ev)
       .ok('确定')
       .cancel('取消');

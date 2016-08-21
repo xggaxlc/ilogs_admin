@@ -9,7 +9,7 @@ export function config($httpProvider, $mdThemingProvider, $logProvider, $localSt
     .primaryPalette('purple')
     .accentPalette('red')
     .warnPalette('orange')
-
+    
   $mdThemingProvider.setDefaultTheme('ilogsTheme');
 
   $localStorageProvider.setKeyPrefix('ilogs_admin_');
