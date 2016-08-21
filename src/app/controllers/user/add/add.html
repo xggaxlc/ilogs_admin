@@ -37,11 +37,12 @@
         </md-input-container>
         <md-input-container class="md-block">
           <label>重复输入密码</label>
-          <input ng-model="pwrepeat" name="pwrepeat" type="password" minlength="6" md-maxlength="16">
-          <div ng-messages="userForm.pwrepeat.$error">
+          <input ng-model="repeatPw" name="repeatPw" type="password" compare-to="vm.user.password" minlength="6" md-maxlength="16">
+          <div ng-messages="userForm.repeatPw.$error">
             <div ng-message="required">请重复输入密码。</div>
             <div ng-message="minlength">密码至少6位。</div>
             <div ng-message="md-maxlength">密码最多16位。</div>
+            <div ng-message="compareTo">两次密码输入不一致。</div>
           </div>
         </md-input-container>
         <md-input-container class="md-block" ng-hide="vm.user.master">

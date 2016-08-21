@@ -1,0 +1,38 @@
+<div id="page-sign">
+  <md-card flex="95" flex-gt-xs="60" flex-gt-sm="40" flex-gt-md="30" flex-gt-lg="20" id="sign-card">
+    <md-card-title>
+      <md-card-title-text>
+        <h2 class="md-headline">重置密码</h2>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <form layout="column" name="userForm">
+        <md-input-container>
+          <label>新密码</label>
+          <input type="password" name="password" ng-model="vm.user.password" minlength="6" md-maxlength="16" required>
+          <div ng-messages="userForm.password.$error">
+            <div ng-message="required">密码必填</div>
+            <div ng-message="minlength">密码至少6位。</div>
+            <div ng-message="md-maxlength">密码最多16位。</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <label>重复新密码</label>
+          <input type="password" name="repeatPw" ng-model="repeatPw" compare-to="vm.user.password" minlength="6" md-maxlength="16" required>
+          <div ng-messages="userForm.repeatPw.$error">
+            <div ng-message="required">请重复填写密码</div>
+            <div ng-message="minlength">密码至少6位。</div>
+            <div ng-message="md-maxlength">密码最多16位。</div>
+            <div ng-message="compareTo">两次密码输入不一致。</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <md-button style="height:36px;" type="submit" class="md-primary md-raised" ng-click="vm.submit()" ng-disabled="userForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
+            <span ng-show="!vm.showLoading">提交</span>
+            <md-progress-circular md-diameter="36px;" md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
+          </md-button>
+        </md-input-container>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

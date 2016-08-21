@@ -40,4 +40,5 @@ angular.module('ilogs_admin', [
   .filter('permission', Filter.permission)
   .directive('editorMd', Directive.editorMd)
   .directive('mediumEditor', Directive.mediumEditor)
-  .directive('paging', Directive.paging);
+  .directive('paging', Directive.paging)
+  .directive('compareTo', Directive.compareTo);

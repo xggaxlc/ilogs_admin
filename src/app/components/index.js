@@ -7,9 +7,13 @@ import {
 import {
   paging
 } from './paging/paging.directive';
+import {
+  compareTo
+} from './compare_to/compare_to.directive';
 
 export {
   editorMd,
   mediumEditor,
-  paging
+  paging,
+  compareTo
 }
