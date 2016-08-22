@@ -1,9 +1,10 @@
-export function runBlock($rootScope, $state, Utils, AuthService) {
+export function runBlock($rootScope, $state, Utils, AuthService, $mdDialog) {
   'ngInject';
 
   // 状态改变关掉全局loading
   $rootScope.$on('$stateChangeStart', () => {
     Utils.hideLoading();
+    $mdDialog.cancel();
   });
 
   $rootScope.$on('$stateChangeStart', function(ev, toState) {
