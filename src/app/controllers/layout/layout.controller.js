@@ -167,6 +167,10 @@ export class LayoutController{
       });
     });
 
+    $scope.$on('event:userInfoChanged', (ev, userInfo) => {
+      this.currentUser = userInfo;
+    });
+
   }
 
   toggleNarrowMenu() {

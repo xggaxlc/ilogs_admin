@@ -121,6 +121,8 @@ export class AuthService {
     } else {
       this.$sessionStorage.currentUser = userInfo;
     }
+    // 全局通知用户信息
+    this.$rootScope.$broadcast('event:userInfoChanged', userInfo);
   }
 
   clearUserInfo() {

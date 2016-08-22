@@ -1,6 +1,11 @@
 export function runBlock($rootScope, $state, Utils, AuthService) {
   'ngInject';
 
+  // 状态改变关掉全局loading
+  $rootScope.$on('$stateChangeStart', () => {
+    Utils.hideLoading();
+  });
+
   $rootScope.$on('$stateChangeStart', function(ev, toState) {
     let isLogged = Utils.isObjEmpty(AuthService.currentUser) ? false : true;
     if (toState.name === 'signin' && isLogged) {
