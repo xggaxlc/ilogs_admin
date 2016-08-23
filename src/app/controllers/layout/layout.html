@@ -12,7 +12,7 @@
     </div>
     <md-subheader class="subheader" ng-if="!vm.showNarrowMenu">NAVIGATION</md-subheader>
     <md-list class="nav-wrap">
-      <md-list-item ng-repeat="item in vm.menu" layout="column">
+      <md-list-item ng-repeat="item in vm.menu">
         <md-button ui-sref="{{item.state}}" ui-sref-active="active" class="nav-item">
           <div layout="row" layout-align="center center">
             <md-icon class="icon">{{item.icon}}</md-icon>
@@ -69,7 +69,7 @@
       </md-button>
     </md-toolbar>
 
-    <md-content id="content" style="height: -webkit-calc(100vh - 56px); height: calc(100vh - 56px);" md-scroll-y ui-view ng-class="viewAnimateClass">
+    <md-content id="content" style="height: -webkit-calc(100vh - 56px); height: calc(100vh - 56px);" md-scroll-y ui-view>
     </md-content>
 
   </md-content>

@@ -22,7 +22,7 @@ export function runBlock($rootScope, $state, Utils, AuthService, $mdDialog) {
   $rootScope.animateClass = `fx-fade-up fx-dur-${$rootScope.animateDur} fx-ease-cubic`;
 
   // view动画
-  $rootScope.viewAnimateDur = 900;
+  $rootScope.viewAnimateDur = 100;
   
   // 动画延迟, 等待view动画结束再开始加载数据 相同路由状态没有动画没有延迟
   $rootScope.$on('$stateChangeStart', (ev, toState) => {

@@ -110,7 +110,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     .state('main.log', {
       url: '/log?page',
       params: {
-        limit: 20,
+        limit: 10,
         sort: '-_id'
       },
       controller: Ctrl.LogController,

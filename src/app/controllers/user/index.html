@@ -1,7 +1,7 @@
 <div class="page-content" id="page-user-index">
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools md-default">
         <div class="search-box" layout="row">
           <md-icon>search</md-icon>
           <input type="text" placeholder="输入用户名搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
@@ -15,6 +15,7 @@
         </md-button>
       </div>
     </md-toolbar>
+
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container>
       <table md-table md-row-select multiple ng-model="vm.selected">

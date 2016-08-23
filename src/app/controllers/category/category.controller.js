@@ -31,7 +31,7 @@ export class CategoryController {
   showDeleteConfirm(ev, item) {
     let confirm = this.$mdDialog.confirm()
       .title(`删除分类`)
-      .htmlContent(`你确定要删除分类 <strong class="red">${item.name}</strong> ?`)
+      .htmlContent(`<p class="margin-top-16">你确定要删除分类 <strong class="red">${item.name}</strong> ?</p>`)
       .ariaLabel('delete category')
       .targetEvent(ev)
       .ok('确定')
@@ -46,7 +46,7 @@ export class CategoryController {
   showEditPrompt(ev, item) {
     let confirm = this.$mdDialog.prompt()
       .title('修改分类')
-      .htmlContent(`你正在修改分类 <strong class="red">${item.name}</strong>`)
+      .htmlContent(`<p class="margin-top-16">你正在修改分类 <strong class="red">${item.name}</strong></p>`)
       .placeholder('新分类名')
       .ariaLabel('category name')
       .targetEvent(ev)
@@ -62,18 +62,19 @@ export class CategoryController {
   }
 
   update(item, newName) {
+    this.Utils.showLoading();
     this.$http.put(`category/${item._id}`, angular.merge({}, item, { name: newName }))
       .then(res => {
         this.Utils.toast('success', '更新分类成功！');
         angular.copy(res.data.data, item);
       })
       .finally(() => {
-
+        this.Utils.hideLoading();
       });
   }
 
   delete(id) {
-    this.showCircleLoading = true;
+    this.Utils.showLoading();
     this.$timeout(() => {
       this.$http.delete(`category/${id}`)
         .then(() => {
@@ -81,13 +82,13 @@ export class CategoryController {
           this.query();
         })
         .finally(() => {
-          this.showCircleLoading = false;
+          this.Utils.hideLoading();
         });
     });
   }
 
   create() {
-    this.showCircleLoading = true;
+    this.Utils.showLoading();
     this.$http.post('category', this.newCategory)
       .then(res => {
         
@@ -107,7 +108,7 @@ export class CategoryController {
         this.newCategory = {}
       })
       .finally(() => {
-        this.showCircleLoading = false;
+        this.Utils.hideLoading();
       });
   }
 

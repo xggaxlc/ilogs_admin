@@ -27,10 +27,7 @@
           </div>
         </md-input-container>
         <md-input-container>
-          <md-button style="height:36px;" type="submit" class="md-primary md-raised" ng-click="vm.submit()" ng-disabled="userForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
-            <span ng-show="!vm.showLoading">提交</span>
-            <md-progress-circular md-diameter="36px;" md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
-          </md-button>
+          <loading-button class="md-primary md-raised" text="提交" loading="vm.showLoading" click="vm.submit()" disabled="userForm.$invalid || vm.showLoading"></loading-button>
         </md-input-container>
       </form>
     </md-card-content>
