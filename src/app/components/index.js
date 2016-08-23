@@ -10,10 +10,14 @@ import {
 import {
   compareTo
 } from './compare_to/compare_to.directive';
+import {
+  loadingButton
+} from './loading_button/loading_button.directive';
 
 export {
   editorMd,
   mediumEditor,
   paging,
-  compareTo
+  compareTo,
+  loadingButton
 }

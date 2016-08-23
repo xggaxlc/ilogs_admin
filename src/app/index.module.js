@@ -41,4 +41,5 @@ angular.module('ilogs_admin', [
   .directive('editorMd', Directive.editorMd)
   .directive('mediumEditor', Directive.mediumEditor)
   .directive('paging', Directive.paging)
-  .directive('compareTo', Directive.compareTo);
+  .directive('compareTo', Directive.compareTo)
+  .directive('loadingButton', Directive.loadingButton)
