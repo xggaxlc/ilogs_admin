@@ -12,7 +12,10 @@ export function loadingInterceptor($q, $rootScope) {
       return response;
     },
     'responseError': function(rejection) {
-      $rootScope.reqPending--;
+      // cancel请求可能导致reqPending < 0
+      if ($rootScope.reqPending > 0) {
+        $rootScope.reqPending--;
+      }
       return $q.reject(rejection);
     }
   }

@@ -2,20 +2,23 @@
 
   <md-sidenav id="sidenav" ng-style="{backgroundColor: vm.sidebarMenuTheme.backgroundColor, color: vm.sidebarMenuTheme.color}" class="md-sidenav-left md-whiteframe-z2" ng-class="{'narrow-menu': vm.showNarrowMenu}" md-component-id="menu-left" md-is-locked-open="$mdMedia('gt-sm')">
     <div class="widget">
-      <div class="user-info" ng-class="{'layout-padding': !vm.showNarrowMenu}" layout="row" layout-align="space-around center">
+      <div class="user-info" layout="row" layout-align="space-around center">
         <div class="avatar" alt="avatar"></div>
-        <div class="info" layout="column" layout-align="space-between start" ng-hide="vm.showNarrowMenu">
+        <div class="info" layout="column" ng-if="!vm.showNarrowMenu">
           <span class="username">{{vm.currentUser.name}}</span>
           <span class="useremail">{{vm.currentUser.email}}</span>
         </div>
       </div>
     </div>
-    <md-subheader class="subheader" ng-hide="vm.showNarrowMenu">NAVIGATION</md-subheader>
+    <md-subheader class="subheader" ng-if="!vm.showNarrowMenu">NAVIGATION</md-subheader>
     <md-list class="nav-wrap">
-      <md-list-item ng-repeat="item in vm.menu">
-        <md-button ui-sref="{{item.state}}" class="nav-item" ui-sref-active="active" layout="row">
-          <md-icon class="icon">{{item.icon}}</md-icon>
-          <span ng-hide="vm.showNarrowMenu">{{item.name}}</span>
+      <md-list-item ng-repeat="item in vm.menu" layout="column">
+        <md-button ui-sref="{{item.state}}" ui-sref-active="active" class="nav-item">
+          <div layout="row" layout-align="center center">
+            <md-icon class="icon">{{item.icon}}</md-icon>
+            <span ng-if="!vm.showNarrowMenu">{{item.name}}</span>
+            <span flex ng-if="!vm.showNarrowMenu"></span>
+          </div>
         </md-button>
       </md-list-item>
     </md-list>
