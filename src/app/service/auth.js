@@ -94,10 +94,12 @@ export class AuthService {
         rejection.config.headers.token = token;
         return this.$http(rejection.config);
       })
-      .catch(() => {
-        this.$rootScope.$broadcast('event:loginCancel');
-        this.logout();
-        return this.$q.reject(rejection);
+      .catch(err => {
+        if (!err.handled) {
+          this.$rootScope.$broadcast('event:loginCancel');
+          this.logout();
+        }
+        return this.$q.reject(err);
       })
       .finally(() => {
         this.isReLoginDialogOpen = false;

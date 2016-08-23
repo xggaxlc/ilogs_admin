@@ -5,7 +5,7 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
       if (response.data.success === 0) {
         let Utils = $injector.get('Utils');
         Utils.toast('error', response.data.message);
-        return $q.reject(response);
+        return $q.reject(angular.merge(response, { handled: true }));
       }
       return response || $q.when(response);
     },
