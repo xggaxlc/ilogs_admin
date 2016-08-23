@@ -14,9 +14,7 @@ class LoginCtrl extends SigninController{
     this.showLoading = true;
     this.AuthService.login(this.user)
       .then(res => {
-        let userInfo = res.user;
         this.$timeout(() => {
-          this.Utils.toast('success', `登录成功！欢迎${userInfo.name}`);
           this.$mdDialog.hide(res.token);
         });
       })
