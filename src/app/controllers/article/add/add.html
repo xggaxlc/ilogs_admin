@@ -1,23 +1,20 @@
-<div id="page-editor">
-  <md-card style="height: -webkit-calc(100% - 20px);height: calc(100% - 20px);">
-    <md-input-container md-no-float class="editor-title">
-       <input type="text" placeholder="标题" class="md-title" ng-model="vm.article.title">
-    </md-input-container>
-    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[!!vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
-    <medium-editor editor="vm.editor"></medium-editor>
-    <md-toolbar class="bottom-toolbar white-toolbar md-default">
-      <div class="md-toolbar-tools">
-        <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="vm.showLoading">保存</md-button>
-        <md-button class="md-raised md-warn md-hue-2" ng-disabled="!vm.article._id || vm.showLoading" ng-click="vm.article.published ? vm.unPublish() : vm.publish()">{{vm.article.published ? '撤销发布' : '发布'}}</md-button>
-        <md-button class="md-raised md-accent" ng-click="vm.showDeleteConfirm($event)" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
-        <span flex></span>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">info</md-icon>
-        </md-button>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">menu</md-icon>
-        </md-button>
-      </div>
-    </md-toolbar>
-  </md-card>
-</div>
+<md-card id="page-editor" class="page-content">
+  <md-input-container md-no-float class="editor-title">
+    <input type="text" placeholder="标题" class="md-title" ng-model="vm.article.title">
+  </md-input-container>
+  <medium-editor editor="vm.editor"></medium-editor>
+  <md-toolbar class="bottom-toolbar white-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="vm.showLoading">保存</md-button>
+      <md-button class="md-raised md-warn md-hue-2" ng-disabled="!vm.article._id || vm.showLoading" ng-click="vm.article.published ? vm.unPublish() : vm.publish()">{{vm.article.published ? '撤销发布' : '发布'}}</md-button>
+      <md-button class="md-raised md-accent" ng-click="vm.showDeleteConfirm($event)" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
+      <span flex></span>
+      <md-button class="md-icon-button">
+        <md-icon class="icon">info</md-icon>
+      </md-button>
+      <md-button class="md-icon-button">
+        <md-icon class="icon">menu</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+</md-card>

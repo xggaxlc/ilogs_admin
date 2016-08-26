@@ -42,7 +42,7 @@ export class AddArticleController {
     this.$http.delete(`post/${this.article._id}`)
       .then(() => {
         this.Utils.toast('success', '删除文章成功！');
-        this.$state.go('main.article');
+        this.$state.go('main.article.index');
       })
       .finally(() => {
         this.Utils.hideLoading();
