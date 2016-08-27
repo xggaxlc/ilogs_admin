@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+    <script type="text/javascript">
+      (function() {
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
+          alert('不支持IE(内核)浏览器，请使用现代浏览器浏览！国产浏览器请切换高速模式!');
+          return window.location.href = 'http://browsehappy.com/';
+        }
+      })();
+    </script>
+
     <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
     <!-- bower:css -->
     <!-- run `gulp inject` to automatically populate bower styles dependencies -->
     <!-- endbower -->
-    <link rel="stylesheet" href="assets/lib/medium-editor/dist/css/medium-editor.css">
-    <link rel="stylesheet" href="assets/lib/medium-editor/dist/css/themes/default.css">
-    <link rel="stylesheet" href="assets/lib/medium-editor-insert-plugin/dist/css/medium-editor-insert-plugin.css">
     <!-- endbuild -->
 
     <!-- build:css({.tmp/serve,src}) styles/app.css -->
@@ -35,16 +41,10 @@
     <!-- bower:js -->
     <!-- run `gulp inject` to automatically populate bower script dependencies -->
     <!-- endbower -->
-    <script src="assets/lib/chart.js/dist/Chart.js"></script>
-    <script src="assets/lib/angular-chart.js/dist/angular-chart.js"></script>
-    <script src="assets/lib/ng-fx/dist/ng-fx.js"></script>
+    <script src="assets/lib/chartjs/Chart.js"></script>
+    <script src="assets/lib/chartjs/angular-chart.js"></script>
+    <script src="assets/lib/ng-fx/ng-fx.js"></script>
     <script src="assets/lib/ui-bootstrap-custom/ui-bootstrap-custom-2.0.0.js"></script>
-    <script src="assets/lib/medium-editor/dist/js/medium-editor.js"></script>
-    <script src="assets/lib/handlebars/handlebars.runtime.js"></script>
-    <script src="assets/lib/jquery-sortable/source/js/jquery-sortable.js"></script>
-    <script src="assets/lib/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="assets/lib/blueimp-file-upload/js/jquery.fileupload.js"></script>
-    <script src="assets/lib/medium-editor-insert-plugin/dist/js/medium-editor-insert-plugin.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp/serve,.tmp/partials}) scripts/app.js -->
