@@ -47,22 +47,27 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     })
     // article
     .state('main.article', {
-      url: '/article?title&page',
+      abstract: true,
+      url: '/article',
+      template: '<div ui-view></div>'
+    })
+    .state('main.article.index', {
+      url: '?title&page',
       params: {
-        limit: 10
+        limit: 15
       },
       templateUrl: 'app/controllers/article/index/index.html',
       controller: Ctrl.ArticleIndexController,
       controllerAs: 'vm'
     })
-    .state('main.addArticle', {
-      url: '/article/add',
+    .state('main.article.add', {
+      url: '/add',
       templateUrl: 'app/controllers/article/add/add.html',
       controller: Ctrl.AddArticleController,
       controllerAs: 'vm'
     })
-    .state('main.editArticle', {
-      url: '/article/edit/:id',
+    .state('main.article.edit', {
+      url: '/edit/:id',
       templateUrl: 'app/controllers/article/add/add.html',
       controller: Ctrl.EditArticleController,
       controllerAs: 'vm'

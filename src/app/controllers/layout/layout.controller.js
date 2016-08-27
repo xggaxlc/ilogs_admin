@@ -14,7 +14,7 @@ export class LayoutController{
       {
         name: '文章',
         icon: 'code',
-        state: '.article'
+        state: '.article.index'
       },
       {
         name: '分类',
