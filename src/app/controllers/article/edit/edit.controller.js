@@ -3,22 +3,30 @@ import {
 } from '../add/add.controller';
 
 export class EditArticleController extends AddArticleController {
-  constructor($scope, $rootScope, $timeout, $http, $state, $mdDialog, Utils, AuthService, $stateParams) {
+  constructor($scope, $rootScope, $timeout, $state, $mdDialog, Utils, AuthService, ApiService, $stateParams, $document, $mdSidenav) {
     'ngInject';
-    super($scope, $rootScope, $timeout, $http, $state, $mdDialog, Utils, AuthService);
+    super($scope, $rootScope, $timeout, $state, $mdDialog, Utils, AuthService, ApiService, $stateParams, $document, $mdSidenav);
 
-    this.$stateParams = $stateParams;
+    this.$rootScope.pageTitle = '编辑文章';
+
+    this.$timeout(() => {
+      this.queryArticle();
+    });
+
   }
 
-  init() {
-    this.$scope.$emit('event:showNarrowMenu');
-    this.$rootScope.pageTitle = '编辑文章';
+  queryArticle() {
     this.showLoading = true;
     this.$timeout(() => {
-      this.$http.get(`post/${this.$stateParams.id}`)
+      this.ApiService.get(`post/${this.$stateParams.id}`)
         .then(res => {
-          this.article = res.data.data;
+          this.article = res.data;
+          this.categorySelected = this.article.category;
           this.editor.setHTML(this.article.content);
+          // 判断自定义简介
+          if ($(this.article.content).text().substring(0, this.summary_length) !== this.article.summary) {
+            this.custom_summary = true;
+          }
         })
         .finally(() => {
           this.showLoading = false;

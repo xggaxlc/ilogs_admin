@@ -1,20 +1,63 @@
-<md-card id="page-editor" class="page-content">
-  <md-input-container md-no-float class="editor-title">
-    <input type="text" placeholder="标题" class="md-title" ng-model="vm.article.title">
-  </md-input-container>
-  <medium-editor editor="vm.editor"></medium-editor>
-  <md-toolbar class="bottom-toolbar white-toolbar md-default">
-    <div class="md-toolbar-tools">
-      <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="vm.showLoading">保存</md-button>
-      <md-button class="md-raised md-warn md-hue-2" ng-disabled="!vm.article._id || vm.showLoading" ng-click="vm.article.published ? vm.unPublish() : vm.publish()">{{vm.article.published ? '撤销发布' : '发布'}}</md-button>
-      <md-button class="md-raised md-accent" ng-click="vm.showDeleteConfirm($event)" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
-      <span flex></span>
-      <md-button class="md-icon-button">
-        <md-icon class="icon">info</md-icon>
-      </md-button>
-      <md-button class="md-icon-button">
-        <md-icon class="icon">menu</md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-</md-card>
+<form name="editorForm" id="page-editor" class="page-content">
+  <md-card class="editor-box">
+    <md-input-container md-no-float class="editor-title">
+      <input type="text" placeholder="在此输入标题" class="md-title" ng-model="vm.article.title" name="title" required>
+    </md-input-container>
+    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
+    <medium-editor editor="vm.editor"></medium-editor>
+    <md-toolbar class="bottom-toolbar white-toolbar md-default">
+      <div class="md-toolbar-tools">
+
+        <md-button class="md-raised md-primary" ng-click="vm.save()" ng-disabled="editorForm.$invalid || vm.showLoading">保存</md-button>
+        <md-button class="md-raised md-warn" ng-disabled="editorForm.$invalid || !vm.article._id || vm.showLoading" ng-click="vm.article.published ? vm.unPublish() : vm.publish()">{{vm.article.published ? '撤销发布' : '发布'}}</md-button>
+        <md-button class="md-raised md-accent" ng-click="vm.showDeleteConfirm($event)" ng-disabled="!vm.article._id || vm.showLoading">删除</md-button>
+
+        <md-autocomplete class="catogory-autocomplete" md-require-match="true" md-no-cache="true" ng-disabled="!vm.allCategories" md-selected-item="vm.categorySelected" md-search-text="searchText" md-items="item in vm.searchCategory(searchText)" md-item-text="item.name"
+          md-min-length="0" placeholder="选择或者新建一个分类">
+          <md-item-template>
+            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+          </md-item-template>
+          <md-not-found>
+            <a ng-click="vm.addNewCategory(searchText)">点我创建新分类&nbsp;<em class="red">{{searchText}}</em>&nbsp;？</a>
+          </md-not-found>
+        </md-autocomplete>
+
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.openInfo($event)">
+          <md-icon class="icon">info</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.toggleSidebar()">
+          <md-icon class="icon">menu</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+  </md-card>
+
+  <md-sidenav id="editor-sidebar" class="md-sidenav-right md-whiteframe-z2" md-component-id="editor-right-sidebar">
+
+    <md-toolbar class="md-accent">
+      <div class="md-toolbar-tools">
+        <span class="md-headline">文章设置</span>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.$mdSidenav('editor-right-sidebar').close()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding>
+      <md-switch ng-model="vm.custom_summary" aria-label="switch">
+        自定义简介
+      </md-switch>
+      <md-input-container class="md-block" ng-if="vm.custom_summary && vm.showSidebar">
+        <label>自定义简介</label>
+        <textarea ng-model="vm.article.summary" name="summary" md-maxlength="200" rows="2" required></textarea>
+        <div ng-messages="editorForm.summary.$error">
+          <div ng-message="required">自定义简介必填</div>
+          <div ng-message="md-maxlength">超过最大长度</div>
+        </div>
+      </md-input-container>
+    </md-content>
+
+  </md-sidenav>
+</form>

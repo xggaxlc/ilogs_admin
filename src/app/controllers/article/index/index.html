@@ -6,13 +6,7 @@
           <md-icon>search</md-icon>
           <input type="text" placeholder="输入标题搜索" ng-model="vm.keyword" ng-keydown="vm.search($event)">
         </div>
-        <span flex></span>
-        <md-button class="md-icon-button" ui-sref="main.article.add">
-          <md-icon class="icon">add</md-icon>
-          <md-tooltip md-direction="bottom">
-            新建文章
-          </md-tooltip>
-        </md-button>
+        <span flex></span> 
         <md-button class="md-icon-button" ng-click="vm.query()">
           <md-icon class="icon">refresh</md-icon>
           <md-tooltip md-direction="bottom">
@@ -21,7 +15,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
+    <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[!!vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container>
       <table md-table>
         <thead md-head>

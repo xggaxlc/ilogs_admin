@@ -1,10 +1,23 @@
 #page-editor{
+  max-width: 100%;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  .editor-box{
+    width: 100%;
+    height: 100%;
+  }
   .editor-title{
     margin: 0;
     padding: 0;
+    .md-title{
+      &::-webkit-input-placeholder {
+        font-style: italic;
+      }
+      &::-moz-placeholder {
+        font-style: italic;
+      }
+    }
     .md-input{
       height: 50px;
       padding: 0 8px;
@@ -18,7 +31,51 @@
     box-shadow: none;
     border-top: 1px solid rgba(0,0,0,0.12);
     .md-warn{
+      color: rgba(255,255,255,0.87);
+    }
+    .md-warn[disabled] {
+      color: rgba(0,0,0,0.38);
+    }
+  }
+  .catogory-autocomplete[disabled] {
+    background-color: rgba(0,0,0,0.12);
+    md-autocomplete-wrap{
+      box-shadow: none;
+    }
+    input{
+      &::-webkit-input-placeholder {
+        color: rgba(255,255,255, .8);
+        color: rgba(0,0,0,0.38);
+      }
+      &::-moz-placeholder {
+        color: rgba(255,255,255, .8);
+        color: rgba(0,0,0,0.38);
+      }
+    }
+  }
+  .catogory-autocomplete{
+    background-color: @purple;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 8px;
+    md-autocomplete-wrap{
+      height: 36px;
+    }
+    input{
+      &::-webkit-input-placeholder {
+        color: rgba(255,255,255, .8);
+      }
+      &::-moz-placeholder {
+        color: rgba(255,255,255, .8);
+      }
+      height: 36px;
+      line-height: 36px;
       color: rgb(255,255,255);
+    }
+    md-icon{
+      path{
+        fill:rgb(255,255,255);
+      }
     }
   }
 }

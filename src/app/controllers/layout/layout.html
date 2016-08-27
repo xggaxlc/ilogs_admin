@@ -55,13 +55,21 @@
       </md-button>
       <h3 class="title">{{pageTitle}}</h3>
       <span flex></span>
-      <md-button class="logout" ui-sref="logout">
+
+      <md-button class="right-button" ui-sref="main.article.add">
+        <md-tooltip md-direction="bottom">
+          新建文章
+        </md-tooltip>
+        <md-icon class="icon">add</md-icon>
+      </md-button>
+
+      <md-button class="right-button" ui-sref="logout">
         <md-tooltip md-direction="bottom">
           退出登录
         </md-tooltip>
         <md-icon class="icon">lock</md-icon>
       </md-button>
-      <md-button class="config" ng-click="vm.toggleSettings()">
+      <md-button class="right-button" ng-click="vm.toggleSettings()">
         <md-tooltip md-direction="bottom">
           设置
         </md-tooltip>

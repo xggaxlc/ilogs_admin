@@ -31,8 +31,8 @@ export function mediumEditor() {
       spellcheck: false,
       targetBlank: false,
       placeholder: {
-        text: '在此输入正文!',
-        hideOnClick: true
+        text: '在此输入正文',
+        hideOnClick: false
       },
       imageDragging: true,
       toolbar: {
@@ -86,6 +86,9 @@ export function mediumEditor() {
     //初始化编辑器insert插件
 
     scope.exprotEditor = {
+      getText: () => {
+        return $(editor.serialize()['medium-editor'].value).text();
+      },
       getHTML: () => {
         return editor.serialize()['medium-editor'].value;
       },
