@@ -26,8 +26,14 @@ import {
   CategoryController
 } from './category/category.controller';
 import{
-  UserController
-} from './user/index.controller';
+  UserIndexController
+} from './user/index/index.controller';
+import {
+  UserAddController
+} from './user/add/add.controller';
+import {
+  UserEditController
+} from './user/edit/edit.controller';
 import{
   RoleController
 } from './role/index.controller';
@@ -51,7 +57,9 @@ export {
   AddArticleController,
   EditArticleController,
   CategoryController,
-  UserController,
+  UserIndexController,
+  UserAddController,
+  UserEditController,
   RoleController,
   StatController,
   LogController,

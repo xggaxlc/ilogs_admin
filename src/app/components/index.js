@@ -13,11 +13,19 @@ import {
 import {
   loadingButton
 } from './loading_button/loading_button.directive';
+import {
+  search
+} from './search/search.directive';
+import {
+  filter
+} from './filter/filter.directive';
 
 export {
   editorMd,
   mediumEditor,
   paging,
   compareTo,
-  loadingButton
+  loadingButton,
+  search,
+  filter
 }

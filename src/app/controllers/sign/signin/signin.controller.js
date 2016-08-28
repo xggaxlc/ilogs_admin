@@ -30,7 +30,7 @@ export class SigninController {
       .then(email => {
         if (!email) return this.$q.reject();
         this.Utils.showLoading();
-        return this.ApiService.post('sign/applyResetPass', { email: email });
+        return this.ApiService.post('sign/resetPass', { email: email });
       })
       .then(res => {
         this.Utils.toast('success', res.message, 7000);

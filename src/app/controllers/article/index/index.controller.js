@@ -1,44 +1,78 @@
 export class ArticleIndexController {
-  constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
+  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
-    this.$http = $http;
     this.$state = $state;
     this.$stateParams = $stateParams;
     this.$mdDialog = $mdDialog;
     this.Utils = Utils;
+    this.ApiService = ApiService;
 
-    this.init();
-
-  }
-
-  init() {
     this.$rootScope.pageTitle = '文章列表';
-    this.keyword = this.$stateParams.title;
+
+    this.searchOptions = {
+      search: [{
+        name: '文章标题',
+        value: 'title'
+      }]
+    }
+
+    this.categoryFilterOptions = {
+      field: 'category',
+      filter: [{
+        name: '全部分类',
+        value: ''
+      }]
+    }
+
     this.pageOptions = {
       perPage: this.$stateParams.limit
     }
 
-    this.query();
+
+    this.$timeout(() => {
+      this.queryCategory();
+      this.query();
+    }, 200);
+
+
   }
 
-  search(e) {
-    if (e.keyCode === 13) {
-      this.$state.go(this.$state.current.name, {
-        page: null,
-        title: this.keyword
+  queryCategory() {
+    this.ApiService.get('category')
+      .then(res => {
+        this.categoryFilterOptions.filter = this.categoryFilterOptions.filter
+          .concat(
+            res.data.map(item => {
+              return {
+                name: item.name,
+                value: item._id
+              }
+            })
+          );
       });
-    }
+  }
+
+  query() {
+    this.showLoading = true;
+    this.ApiService.get('post', this.$stateParams)
+      .then(res => {
+        this.pageOptions.count = res.count;
+        this.posts = res.data;
+      })
+      .finally(() => {
+        this.showLoading = false;
+      });
   }
 
   showDeleteConfirm(ev, item) {
     let confirm = this.$mdDialog.confirm()
       .title(`删除文章`)
-      .htmlContent(`你确定要删除 <strong class="red">${item.title}</strong> ?`)
+      .htmlContent(`<p class="margin-top-16">你确定要删除 <strong class="red">${item.title}</strong> ?</p>`)
       .ariaLabel('delete article')
       .targetEvent(ev)
-      .ok('确定')
+      .ok('删除')
       .cancel('取消');
 
     this.$mdDialog.show(confirm)
@@ -49,7 +83,7 @@ export class ArticleIndexController {
 
   delete(id) {
     this.Utils.showLoading();
-    this.$http.delete(`post/${id}`)
+    this.ApiService.delete(`post/${id}`)
       .then(() => {
         this.Utils.toast('success', '删除文章成功！');
         this.$state.reload();
@@ -57,23 +91,6 @@ export class ArticleIndexController {
       .finally(() => {
         this.Utils.hideLoading();
       });
-  }
-
-  query() {
-    this.posts = [];
-    this.showLoading = true;
-    this.$timeout(() => {
-      this.$http.get('post', {
-          params: this.$stateParams
-        })
-        .then(res => {
-          this.pageOptions.count = res.data.count;
-          this.posts = res.data.data;
-        })
-        .finally(() => {
-          this.showLoading = false;
-        });
-    }, this.$rootScope.viewAnimateDelay);
   }
 
 }

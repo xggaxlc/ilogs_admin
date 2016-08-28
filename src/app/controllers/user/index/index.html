@@ -1,46 +1,60 @@
-<div class="page-content" id="page-role-index">
+<div class="page-content" id="page-user-index">
   <md-card>
     <md-toolbar class="white-toolbar md-default">
       <div class="md-toolbar-tools" layout="row" layout-align="start center">
-        <md-button class="md-raised md-primary" ng-click="vm.showAddDialog($event)">
-          添加角色
+        <md-button ui-sref="main.user.add" class="md-raised md-primary">
+          添加用户
+        </md-button>
+        <md-button ng-disabled="!vm.allRoles" ng-click="vm.inviteUser($event)" class="md-raised md-accent">
+          邀请用户
         </md-button>
         <span flex></span>
         <filter ng-if="vm.statusFilterOptions" options="vm.statusFilterOptions"></filter>
-        <search placeholder="输入角色名搜索" options="vm.searchOptions"></search>
+        <filter ng-if="vm.roleFilterOptions" options="vm.roleFilterOptions"></filter>
+        <search placeholder="输入用户名搜索" options="vm.searchOptions"></search>
       </div>
     </md-toolbar>
+
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container>
       <table md-table>
         <thead md-head>
           <tr md-row>
             <th md-column>#</th>
+            <th md-column>用户名</th>
+            <th md-column>邮箱</th>
             <th md-column>角色</th>
             <th md-column>状态</th>
             <th md-column>创建时间</th>
-            <th md-column>上次更新</th>
+            <th md-column>最后登录</th>
             <th md-column>操作</th>
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in vm.roles">
-            <td md-cell>{{$index + 1}}</td>
+          <tr md-row ng-repeat="item in vm.users">
             <td md-cell>
-              {{item.name}}
+              {{$index+1}}
             </td>
+            <td md-cell>
+              {{item.name | limitTo: 10}}
+            </td>
+            <td md-cell>
+              {{item.email | limitTo: 22}}
+              <md-tooltip>
+                {{item.email}}
+              </md-tooltip>
+            </td>
+            <td md-cell>{{item.role.name}}</td>
             <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td md-cell>{{item.last_login_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
-              <md-icon ng-click="vm.showEditDialog($event, item)">
-                open_in_new
+              <md-icon ui-sref="main.user.edit({id: item._id})">open_in_new
                 <md-tooltip md-direction="bottom">
                   编辑
                 </md-tooltip>
               </md-icon>
-              <md-icon ng-click="vm.showDeleteConfirm($event, item)">
-                delete
+              <md-icon ng-click="vm.showDeleteConfirm($event,item)">delete
                 <md-tooltip md-direction="bottom">
                   删除
                 </md-tooltip>

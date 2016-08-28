@@ -5,25 +5,46 @@ import {
   RoleEditController
 } from './edit/edit.controller';
 export class RoleController {
-  constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
+  constructor($rootScope, $timeout, ApiService, $state, $stateParams, $mdDialog, Utils) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
-    this.$http = $http;
+    this.ApiService = ApiService;
     this.$state = $state;
     this.$stateParams = $stateParams;
     this.$mdDialog = $mdDialog;
     this.Utils = Utils;
 
-    this.init();
-  }
-
-  init() {
     this.$rootScope.pageTitle = '角色';
     this.pageOptions = {
       perPage: this.$stateParams.limit
     }
-    this.query();
+
+    this.searchOptions = {
+      search: [{
+        name: '角色名',
+        value: 'name'
+      }]
+    }
+
+    this.statusFilterOptions = {
+      field: 'active',
+      filter: [{
+        name: '全部状态',
+        value: ''
+      }, {
+        name: '正常',
+        value: true
+      }, {
+        name: '锁定',
+        value: false
+      }]
+    }
+
+    this.$timeout(() => {
+      this.query();
+    }, 200);
+
   }
 
   showAddDialog(ev) {
@@ -68,7 +89,7 @@ export class RoleController {
   showDeleteConfirm(ev, item) {
     let confirm = this.$mdDialog.confirm()
       .title(`删除角色`)
-      .htmlContent(`你确定要删除角色 <strong class="red">${item.name}</strong> ?`)
+      .htmlContent(`<p class="margin-top-16">你确定要删除角色 <strong class="red">${item.name}</strong> ？</p>`)
       .ariaLabel('delete role')
       .targetEvent(ev)
       .ok('确定')
@@ -81,34 +102,27 @@ export class RoleController {
   }
 
   delete(id) {
-    this.showCircleLoading = true;
-    this.$timeout(() => {
-      this.$http.delete(`role/${id}`)
-        .then(res => {
-          this.Utils.toast('success', '删除角色成功！');
-          this.query();
-        })
-        .finally(() => {
-          this.showCircleLoading = false;
-        });
-    });
+    this.Utils.showLoading();
+    this.ApiService.delete(`role/${id}`)
+      .then(() => {
+        this.Utils.toast('success', '删除角色成功！');
+        this.$state.reload();
+      })
+      .finally(() => {
+        this.Utils.hideLoading();
+      });
   }
 
   query() {
-    this.roles = [];
     this.showLoading = true;
-    this.$timeout(() => {
-      this.$http.get('role', {
-          params: this.$stateParams
-        })
-        .then(res => {
-          this.pageOptions.count = res.data.count;
-          this.roles = res.data.data;
-        })
-        .finally(() => {
-          this.showLoading = false;
-        });
-    }, this.$rootScope.viewAnimateDelay);
+    this.ApiService.get('role', this.$stateParams)
+      .then(res => {
+        this.pageOptions.count = res.count;
+        this.roles = res.data;
+      })
+      .finally(() => {
+        this.showLoading = false;
+      });
   }
 
 }

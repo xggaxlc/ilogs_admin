@@ -24,7 +24,7 @@ export class LayoutController{
       {
         name: '用户',
         icon: 'perm_identity',
-        state: '.user'
+        state: '.user.index'
       },
       {
         name: '角色',

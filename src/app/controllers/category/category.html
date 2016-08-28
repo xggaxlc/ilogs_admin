@@ -3,21 +3,17 @@
   <md-card>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
-        <div class="search-box" layout="row">
+        <div class="add-box" layout="row">
           <md-icon>add</md-icon>
           <input type="text" placeholder="输入新分类名" ng-model="vm.newCategory.name" ng-keydown="vm.add($event)">
         </div>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.query()">
-          <md-icon class="icon">refresh</md-icon>
-        </md-button>
       </div>
     </md-toolbar>
     <md-progress-linear ng-class="{true: 'visible', false: 'invisible'}[vm.showLoading]" md-mode="indeterminate"></md-progress-linear>
     <md-table-container>
       <table md-table>
         <thead md-head>
-          <tr md-row ng-show="!vm.showLoading" ng-class="animateClass">
+          <tr md-row>
             <th md-column>#</th>
             <th md-column>分类名</th>
             <th md-column>创建时间</th>
@@ -26,7 +22,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in vm.categories" ng-class="animateClass">
+          <tr md-row ng-repeat="item in vm.categories">
             <td md-cell>
               {{$index + 1}}
             </td>
@@ -38,7 +34,7 @@
 
             <td md-cell>
               <md-icon ng-click="vm.showEditPrompt($event, item)">
-                done_all
+                open_in_new
                 <md-tooltip md-direction="bottom">
                   编辑
                 </md-tooltip>
@@ -53,7 +49,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" class="layout-double-margin" ng-class="animateClass" ng-if="!vm.showLoading"></paging>
+      <paging options="vm.pageOptions" ng-if="vm.pageOptions.count"></paging>
     </md-table-container>
   </md-card>
 

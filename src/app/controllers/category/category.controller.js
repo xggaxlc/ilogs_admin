@@ -1,24 +1,24 @@
 export class CategoryController {
-  constructor($rootScope, $timeout, $http, $state, $stateParams, $mdDialog, Utils) {
+  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
-    this.$http = $http;
     this.$state = $state;
     this.$stateParams = $stateParams;
     this.$mdDialog = $mdDialog;
     this.Utils = Utils;
+    this.ApiService = ApiService;
 
-    this.init();
-  }
-
-  init() {
     this.$rootScope.pageTitle = '分类';
     this.newCategory = {}
     this.pageOptions = {
       perPage: this.$stateParams.limit
     }
-    this.query();
+
+    this.$timeout(() => {
+      this.query();
+    }, 200);
+
   }
 
 
@@ -63,10 +63,10 @@ export class CategoryController {
 
   update(item, newName) {
     this.Utils.showLoading();
-    this.$http.put(`category/${item._id}`, angular.merge({}, item, { name: newName }))
+    this.ApiService.put(`category/${item._id}`, angular.merge({}, item, { name: newName }))
       .then(res => {
         this.Utils.toast('success', '更新分类成功！');
-        angular.copy(res.data.data, item);
+        angular.copy(res.data, item);
       })
       .finally(() => {
         this.Utils.hideLoading();
@@ -75,21 +75,19 @@ export class CategoryController {
 
   delete(id) {
     this.Utils.showLoading();
-    this.$timeout(() => {
-      this.$http.delete(`category/${id}`)
-        .then(() => {
-          this.Utils.toast('success', '删除分类成功！');
-          this.query();
-        })
-        .finally(() => {
-          this.Utils.hideLoading();
-        });
-    });
+    this.ApiService.delete(`category/${id}`)
+      .then(() => {
+        this.Utils.toast('success', '删除分类成功！');
+        this.$state.reload();
+      })
+      .finally(() => {
+        this.Utils.hideLoading();
+      });
   }
 
   create() {
     this.Utils.showLoading();
-    this.$http.post('category', this.newCategory)
+    this.ApiService.post('category', this.newCategory)
       .then(res => {
         
         if (this.$stateParams.page) {
@@ -97,7 +95,7 @@ export class CategoryController {
             page: null
           });
         } else {
-          this.categories.unshift(res.data.data);
+          this.categories.unshift(res.data);
           if (this.categories.length > Number(this.$stateParams.limit)) {
             this.categories.pop();
           }
@@ -113,20 +111,15 @@ export class CategoryController {
   }
 
   query() {
-    this.categories = [];
     this.showLoading = true;
-    this.$timeout(() => {
-      this.$http.get('category', {
-        params: this.$stateParams
-      })
-      .then(res => {
-        this.categories = res.data.data;
-        this.pageOptions.count = res.data.count;
-      })
-      .finally(() => {
-        this.showLoading = false;
-      });
-    }, this.$rootScope.viewAnimateDelay);
+    this.ApiService.get('category', this.$stateParams)
+    .then(res => {
+      this.categories = res.data;
+      this.pageOptions.count = res.count;
+    })
+    .finally(() => {
+      this.showLoading = false;
+    });
   }
 
 }

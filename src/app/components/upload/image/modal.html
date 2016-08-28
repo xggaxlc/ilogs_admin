@@ -1,0 +1,33 @@
+<md-dialog ng-cloak aria-label="upload dialog" id="upload-dialog" flex="80">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>上传图片</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="vm.$mdDialog.cancel()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	 <md-dialog-content flex class="content">
+		 <!-- 裁剪 -->
+			<div class="image-wrap" ng-if="vm.options.crop" layout="row" layout-align="space-between center">
+				<img-crop class="image-origin" image="vm.file | ngfDataUrl" result-image-size="vm.options.resize.width" result-image-format="image/png" area-type='{{vm.options.areaType}}' result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
+				<img class="image-croped" ng-src="{{vm.croppedDataUrl}}" />
+			</div>
+			
+			<!-- 只预览 -->
+			<div class="image-wrap text-center" ng-if="!vm.options.crop" layout="row" layout-align="center center">
+				<img ngf-thumbnail="vm.file" class="image-preview">
+			</div>
+	 </md-dialog-content>
+	 <md-dialog-actions layout="row" layout="end center">
+      <md-button aria-label="upload cancel" class="md-default" ng-click="vm.$mdDialog.cancel()">
+        取消
+      </md-button>
+      <md-button aria-label="upload reselect button" class="md-accent" ngf-select="vm.selectFile($file, $invalidFiles)" ng-model="vm.file" accept="image/*" ngf-max-size="vm.options.maxSize">
+        重新选择
+      </md-button>
+      <md-button aria-label="upload button" class="md-primary" ng-click="vm.upload()" ng-disabled="!vm.file || global_loading" md-autofocus ng-bind-template="{{vm.progress && vm.progress < 100 ? vm.progress + '%' : '上传'}}">
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>

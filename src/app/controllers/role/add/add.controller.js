@@ -1,23 +1,27 @@
 export class RoleAddController {
-  constructor($mdDialog, $http, Utils) {
+  constructor($mdDialog, ApiService, Utils, $timeout) {
     'ngInject';
     this.$mdDialog = $mdDialog;
-    this.$http = $http;
+    this.ApiService = ApiService;
     this.Utils = Utils;
+    this.$timeout = $timeout;
+
+    this.title = '添加角色';
 
     this.init();
   }
 
   init() {
-    this.title = '添加角色';
-    this.getRole();
+    this.$timeout(() => {
+      this.getRole();
+    });
   }
 
   getRole() {
     this.initLoading = true;
-    this.$http.get('role/template')
+    this.ApiService.get('role/template')
       .then(res => {
-        this.role = res.data.data;
+        this.role = res.data;
         this.permissions = {}
       })
       .finally(() => {
@@ -27,10 +31,10 @@ export class RoleAddController {
 
   submit() {
     this.showLoading = true;
-    this.$http.post('role', this.role)
+    this.ApiService.post('role', this.role)
       .then(res => {
         this.Utils.toast('success', '添加角色成功！');
-        this.$mdDialog.hide(res.data.data);
+        this.$mdDialog.hide(res.data);
       })
       .finally(() => {
         this.showLoading = false;

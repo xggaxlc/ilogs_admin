@@ -11,7 +11,6 @@ export class Utils {
       <md-toast class="md-toast ${type}"> 
         <div class="md-toast-content" style="max-width: 300px;">
           <span>${msg}</span>
-          <span flex></span>
           <md-button class="md-icon-button md-default" ng-click="closeToast()">
             <md-icon>close</md-icon>
           </md-button>

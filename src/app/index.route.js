@@ -52,7 +52,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       template: '<div ui-view></div>'
     })
     .state('main.article.index', {
-      url: '?title&page',
+      url: '?category&title&page',
       params: {
         limit: 15
       },
@@ -74,17 +74,34 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     })
     // user
     .state('main.user', {
-      url: '/user?name&page',
+      abstract: true,
+      url: '/user',
+      template: '<div ui-view></div>'
+    })
+    .state('main.user.index', {
+      url: '?role&active&name&page',
       params: {
         limit: 10
       },
-      templateUrl: 'app/controllers/user/index.html',
-      controller: Ctrl.UserController,
+      templateUrl: 'app/controllers/user/index/index.html',
+      controller: Ctrl.UserIndexController,
+      controllerAs: 'vm'
+    })
+    .state('main.user.add', {
+      url: '/add',
+      templateUrl: 'app/controllers/user/add/add.html',
+      controller: Ctrl.UserAddController,
+      controllerAs: 'vm'
+    })
+    .state('main.user.edit', {
+      url: '/add/:id',
+      templateUrl: 'app/controllers/user/add/add.html',
+      controller: Ctrl.UserEditController,
       controllerAs: 'vm'
     })
     // role
     .state('main.role', {
-      url: '/role?name&page',
+      url: '/role?active&name&page',
       params: {
         limit: 10,
         sort: '_id'

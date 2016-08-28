@@ -13,6 +13,8 @@ export function permission() {
       }
     } else if (condition.toLowerCase() === 'name') {
       switch (val.toLowerCase()) {
+        case 'invite': 
+          return '邀请注册';
         case 'category':
           return '分类管理';
         case 'post':
@@ -21,6 +23,8 @@ export function permission() {
           return '角色管理';
         case 'setting':
           return '站点设置';
+        case 'upload':
+          return '上传';
         case 'user':
           return '用户管理';
       }

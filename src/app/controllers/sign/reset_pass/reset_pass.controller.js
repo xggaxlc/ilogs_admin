@@ -10,7 +10,7 @@ export class ResetPassController {
 
   submit() {
     this.showLoading = true;
-    this.ApiService.post('sign/resetPass', angular.merge({}, this.user, {
+    this.ApiService.put('sign/resetPass', angular.merge({}, this.user, {
         key: this.$stateParams.key
       }))
       .then(() => {

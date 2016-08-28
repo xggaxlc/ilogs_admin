@@ -43,3 +43,5 @@ angular.module('ilogs_admin', [
   .directive('paging', Directive.paging)
   .directive('compareTo', Directive.compareTo)
   .directive('loadingButton', Directive.loadingButton)
+  .directive('search', Directive.search)
+  .directive('filter', Directive.filter);
