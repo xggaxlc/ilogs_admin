@@ -93,7 +93,7 @@ export class AuthService {
         return this.$http(rejection.config);
       })
       .catch(err => {
-        if (!err.handled) {
+        if (!err || !err.handled) {
           this.$rootScope.$broadcast('event:loginCancel');
           this.logout();
         }
