@@ -24,8 +24,12 @@ export class EditArticleController extends AddArticleController {
           this.categorySelected = this.article.category;
           this.editor.setHTML(this.article.content);
           // 判断自定义简介
-          if ($(this.article.content).text().substring(0, this.summary_length) !== this.article.summary) {
+          if (this.article.summary && !this.article.content) {
             this.custom_summary = true;
+          } else if (this.article.content && ($(this.article.content).text().substring(0, this.summary_length) !== this.article.summary)) {
+            this.custom_summary = true;
+          } else {
+            this.custom_summary = false;
           }
         })
         .finally(() => {

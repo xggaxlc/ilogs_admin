@@ -1,13 +1,13 @@
 export class HomeController {
-  constructor($timeout, $scope, $rootScope, $http) {
+  constructor($timeout, $scope, $rootScope, ApiService) {
     'ngInject';
 
-    $rootScope.pageTitle = '首页';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
     this.$scope = $scope;
-    this.$http = $http;
+    this.ApiService = ApiService;
 
+    this.$rootScope.pageTitle = '首页';
     this.labels = ["January", "February", "March", "April", "May", "June", "July"];
     this.series = ['Series A', 'Series B'];
     this.data = [
@@ -48,13 +48,11 @@ export class HomeController {
   }
 
   getAllArticleCount() {
-    this.$http.get('post', {
-        params: {
-          limit: 1
-        }
+    this.ApiService.get('post', {
+        limit: 1
       })
       .then(res => {
-        this.Count.allArticle = res.data.count;
+        this.Count.allArticle = res.count;
       })
       .finally(() => {
         this.CountLoading.allArticle = false;
@@ -62,14 +60,12 @@ export class HomeController {
   }
 
   getPublishedArticleCount() {
-    this.$http.get('post', {
-        params: {
-          limit: 1,
-          published: true
-        }
+    this.ApiService.get('post', {
+        limit: 1,
+        published: true
       })
       .then(res => {
-        this.Count.publishedArticle = res.data.count;
+        this.Count.publishedArticle = res.count;
       })
       .finally(() => {
         this.CountLoading.publishedArticle = false;
@@ -77,13 +73,11 @@ export class HomeController {
   }
 
   getAllUserCount() {
-    this.$http.get('user', {
-        params: {
-          limit: 1
-        }
+    this.ApiService.get('user', {
+        limit: 1
       })
       .then(res => {
-        this.Count.allUser = res.data.count;
+        this.Count.allUser = res.count;
       })
       .finally(() => {
         this.CountLoading.allUser = false;
@@ -91,13 +85,11 @@ export class HomeController {
   }
 
   getAllCategoryCount() {
-    this.$http.get('category', {
-        params: {
-          limit: 1
-        }
+    this.ApiService.get('category', {
+        limit: 1
       })
       .then(res => {
-        this.Count.allCategory = res.data.count;
+        this.Count.allCategory = res.count;
       })
       .finally(() => {
         this.CountLoading.allCategory = false;

@@ -130,7 +130,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     })
     // log
     .state('main.log', {
-      url: '/log?page',
+      url: '/log?content&page',
       params: {
         limit: 10,
         sort: '-_id'

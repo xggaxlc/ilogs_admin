@@ -1,4 +1,4 @@
-export function authInterceptor($rootScope, $localStorage, $sessionStorage, BASEURL) {
+export function authInterceptor($rootScope, $localStorage, $sessionStorage) {
   'ngInject';
   return {
     'request': function(config) {

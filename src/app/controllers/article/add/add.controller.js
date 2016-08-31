@@ -111,7 +111,7 @@ export class AddArticleController {
   showDeleteConfirm(ev) {
     let confirm = this.$mdDialog.confirm()
       .title(`删除文章`)
-      .htmlContent(`你确定要 <strong class="red">删除</strong> 这篇文章吗 ?`)
+      .htmlContent(`<p class="margin-top-16">你确定要 <strong class="red">删除</strong> 这篇文章吗 ?</p>`)
       .ariaLabel('delete article')
       .targetEvent(ev)
       .ok('确定')
@@ -128,7 +128,13 @@ export class AddArticleController {
     if (this.showLoading) return;
     this.showLoading = true;
 
-    this.article.summary = this.custom_summary ? this.article.summary.substring(0, this.summary_length) : this.editor.getText().substring(0, this.summary_length);
+    if (this.custom_summary) {
+      if (this.article.summary) {
+        this.article.summary = this.article.summary.substring(0, this.summary_length);
+      }
+    } else {
+      this.article.summary = this.editor.getText().substring(0, this.summary_length);
+    }
 
     this.article.author = this.currentUser._id;
     this.article.category = this.categorySelected ? this.categorySelected._id : null;
