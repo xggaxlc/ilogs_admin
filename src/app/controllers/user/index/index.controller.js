@@ -1,5 +1,5 @@
 export class UserIndexController {
-  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService) {
+  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService, AuthService) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
@@ -8,6 +8,8 @@ export class UserIndexController {
     this.$mdDialog = $mdDialog;
     this.Utils = Utils;
     this.ApiService = ApiService;
+    this.AuthService = AuthService;
+    this.currentUser = AuthService.currentUser;
 
     this.$rootScope.pageTitle = '用户列表';
     this.searchOptions = {

@@ -1,10 +1,10 @@
 class ModalController {
-  constructor($log, $scope, $timeout, ApiService, Upload, Utils, file, options, $mdDialog) {
+  constructor($log, $scope, $timeout, BASEURL, Upload, Utils, file, options, $mdDialog) {
     'ngInject';
     this.$log = $log;
     this.$scope = $scope;
     this.$timeout = $timeout;
-    this.ApiService = ApiService;
+    this.BASEURL = BASEURL;
     this.Upload = Upload;
     this.Utils = Utils;
     this.file = file;
@@ -30,13 +30,13 @@ class ModalController {
   }
 
   upload() {
-    let url = `${this.ApiService.apiHost}/pub/upload/uploadImage`;
+    let url = `${this.BASEURL}upload/image`;
     let fileUpload;
     if (this.options.crop) {
       fileUpload = this.Upload.upload({
         url: url,
         data: {
-          file: this.Upload.dataUrltoBlob(this.croppedDataUrl, this.file.name)
+          image:this.Upload.dataUrltoBlob(this.croppedDataUrl, this.file.name)
         }
       });
     } else {
@@ -48,7 +48,7 @@ class ModalController {
             return this.Upload.upload({
               url: url,
               data: {
-                file: resizedFile
+                image: resizedFile
               }
             });
           });
@@ -56,7 +56,7 @@ class ModalController {
         fileUpload = this.Upload.upload({
           url: url,
           data: {
-            file: this.file
+            image: this.file
           }
         });
       }
@@ -65,11 +65,10 @@ class ModalController {
     fileUpload.then(response => {
       this.$timeout(() => {
         this.Utils.toast('success', '上传成功!');
-        this.$mdDialog.hide(response.data.Data);
+        this.$mdDialog.hide(response.data.files);
       });
     }, error => {
-      this.Utils.toast('error', '上传失败!');
-      this.$log.toast('error', error);
+      this.$log.error(error);
     }, evt => {
       this.progress = parseInt(100.0 * evt.loaded / evt.total);
     });
@@ -91,7 +90,7 @@ export function uploadImage($timeout, $mdDialog, Utils) {
     template: `
 			<div layout="column" layout-align="center center" id="upload-priview">
 				<a ng-href="{{imagePreview || placeholderUrl}}" target="_blank" ><img ng-src="{{imagePreview || placeholderUrl}}"></a>
-        <md-button class="upload-btn md-fab md-mini md-primary" aria-label="upload button" ngf-select="selectFile($file, $invalidFiles)" accept="image/*" ngf-max-size="options.maxSize">
+        <md-button class="upload-btn md-fab md-mini md-primary" name="image" aria-label="upload button" ngf-select="selectFile($file, $invalidFiles)" accept="image/*" ngf-max-size="options.maxSize">
           <md-icon>cloud_upload</md-icon>
         </md-button>
 			</div>
@@ -159,9 +158,10 @@ export function uploadImage($timeout, $mdDialog, Utils) {
             options: scope.options
           }
         })
-        .then(data => {
-          scope.imagePreview = data.url;
-          scope.response = data.id;
+        .then(files => {
+          // files => array
+          scope.image = files[0].url;
+          scope.response = files;
         });
     }
 

@@ -3,10 +3,10 @@
   <md-sidenav id="sidenav" ng-style="{backgroundColor: vm.sidebarMenuTheme.backgroundColor, color: vm.sidebarMenuTheme.color}" class="md-sidenav-left md-whiteframe-z2" ng-class="{'narrow-menu': vm.showNarrowMenu}" md-component-id="menu-left" md-is-locked-open="$mdMedia('gt-sm')">
     <div class="widget">
       <div class="user-info" layout="row" layout-align="space-around center">
-        <div class="avatar" alt="avatar"></div>
+        <img class="avatar" ng-src="{{vm.currentUser.avatar}}" alt="">
         <div class="info" layout="column" ng-if="!vm.showNarrowMenu">
           <span class="username">{{vm.currentUser.name}}</span>
-          <span class="useremail">{{vm.currentUser.email}}</span>
+          <span class="user-role">{{vm.currentUser.role.name || 'master'}}</span>
         </div>
       </div>
     </div>
@@ -25,28 +25,21 @@
   </md-sidenav>
 
   <md-sidenav id="settings-sidebar" class="md-sidenav-right md-whiteframe-z2" md-component-id="settings-right">
-    <md-subheader class="subheader">侧边栏主题</md-subheader>
+    <md-subheader class="subheader">侧边栏颜色</md-subheader>
     <md-divider></md-divider>
-    <ul class="color-wrap" layout="row" layout-wrap  layout-align="start center">
+    <ul class="color-wrap" layout="row" layout-wrap layout-align="start center">
       <li ng-repeat="item in vm.themeColor" ng-style="{backgroundColor: item.backgroundColor}" ng-click="vm.changeSidebarMenuTheme(item)"></li>
     </ul>
     <md-divider></md-divider>
-    <md-subheader class="subheader">顶部导航主题</md-subheader>
+    <md-subheader class="subheader">顶部导航颜色</md-subheader>
     <md-divider></md-divider>
-    <ul class="color-wrap" layout="row" layout-wrap  layout-align="start center">
+    <ul class="color-wrap" layout="row" layout-wrap layout-align="start center">
       <li ng-repeat="item in vm.themeColor" ng-style="{backgroundColor: item.backgroundColor}" ng-click="vm.changeTopNavTheme(item)"></li>
     </ul>
   </md-sidenav>
 
   <md-content flex style="overflow:hidden;">
-
-    <md-toolbar 
-      layout="row" 
-      layout-align="left center" 
-      id="topnav" 
-      class="md-menu-toolbar md-whiteframe-z1"
-      ng-style="{backgroundColor: vm.topNavTheme.backgroundColor, color: vm.topNavTheme.color}"
-    >
+    <md-toolbar layout="row" layout-align="left center" id="topnav" class="md-menu-toolbar md-whiteframe-z1" ng-style="{backgroundColor: vm.topNavTheme.backgroundColor, color: vm.topNavTheme.color}">
       <md-button class="menu" hide-xs hide-sm ng-click="vm.toggleNarrowMenu()">
         <md-icon class="icon">menu</md-icon>
       </md-button>
@@ -60,7 +53,21 @@
         <md-tooltip md-direction="bottom">
           新建文章
         </md-tooltip>
-        <md-icon class="icon">add</md-icon>
+        <md-icon class="icon">library_add</md-icon>
+      </md-button>
+
+      <md-button class="right-button" ng-click="vm.toggleFullScreen()">
+        <md-tooltip md-direction="bottom">
+          {{vm.isFullScreen ? '退出全屏' : '全屏'}}
+        </md-tooltip>
+        <md-icon class="icon">{{vm.isFullScreen ? 'fullscreen_exit' : 'fullscreen'}}</md-icon>
+      </md-button>
+
+      <md-button class="right-button" ui-sref="main.profile">
+        <md-tooltip md-direction="bottom">
+          个人设置
+        </md-tooltip>
+        <md-icon class="icon">perm_identity</md-icon>
       </md-button>
 
       <md-button class="right-button" ui-sref="logout">
@@ -76,7 +83,6 @@
         <md-icon class="icon">settings</md-icon>
       </md-button>
     </md-toolbar>
-
     <md-content id="content" style="height: -webkit-calc(100vh - 56px); height: calc(100vh - 56px);" ui-view>
     </md-content>
 

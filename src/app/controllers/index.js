@@ -43,6 +43,9 @@ import {
 import {
   SettingsController
 } from './settings/settings.controller';
+import {
+  ProfileController
+} from './profile/profile.controller';
 
 export {
   SigninController,
@@ -59,5 +62,6 @@ export {
   UserEditController,
   RoleController,
   LogController,
-  SettingsController
+  SettingsController,
+  ProfileController
 }

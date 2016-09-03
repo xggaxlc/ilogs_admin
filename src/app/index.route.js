@@ -72,6 +72,13 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controller: Ctrl.EditArticleController,
       controllerAs: 'vm'
     })
+    // profile
+    .state('main.profile', {
+      url: '/profile',
+      templateUrl:'app/controllers/profile/profile.html',
+      controller: Ctrl.ProfileController,
+      controllerAs: 'vm'
+    })
     // user
     .state('main.user', {
       abstract: true,
@@ -94,10 +101,11 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm'
     })
     .state('main.user.edit', {
-      url: '/add/:id',
+      url: '/edit/:id',
       templateUrl: 'app/controllers/user/add/add.html',
       controller: Ctrl.UserEditController,
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: Ctrl.UserEditController.resolve
     })
     // role
     .state('main.role', {

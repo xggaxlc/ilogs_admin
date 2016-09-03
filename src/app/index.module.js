@@ -44,4 +44,5 @@ angular.module('ilogs_admin', [
   .directive('compareTo', Directive.compareTo)
   .directive('loadingButton', Directive.loadingButton)
   .directive('search', Directive.search)
-  .directive('filter', Directive.filter);
+  .directive('filter', Directive.filter)
+  .directive('uploadImage', Directive.uploadImage);

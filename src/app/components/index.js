@@ -19,6 +19,9 @@ import {
 import {
   filter
 } from './filter/filter.directive';
+import {
+  uploadImage
+} from './upload/image/image.directive';
 
 export {
   editorMd,
@@ -27,5 +30,6 @@ export {
   compareTo,
   loadingButton,
   search,
-  filter
+  filter,
+  uploadImage
 }

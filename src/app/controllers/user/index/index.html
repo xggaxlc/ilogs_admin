@@ -44,21 +44,23 @@
                 {{item.email}}
               </md-tooltip>
             </td>
-            <td md-cell>{{item.role.name}}</td>
+            <td md-cell>{{item.role.name || '/'}}</td>
             <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>{{item.last_login_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
-              <md-icon ui-sref="main.user.edit({id: item._id})">open_in_new
-                <md-tooltip md-direction="bottom">
-                  编辑
-                </md-tooltip>
-              </md-icon>
-              <md-icon ng-click="vm.showDeleteConfirm($event,item)">delete
-                <md-tooltip md-direction="bottom">
-                  删除
-                </md-tooltip>
-              </md-icon>
+              <div ng-hide="vm.currentUser._id == item._id || item.master">
+                <md-icon ui-sref="main.user.edit({id: item._id})">open_in_new
+                  <md-tooltip md-direction="bottom">
+                    编辑
+                  </md-tooltip>
+                </md-icon>
+                <md-icon ng-click="vm.showDeleteConfirm($event,item)">delete
+                  <md-tooltip md-direction="bottom">
+                    删除
+                  </md-tooltip>
+                </md-icon>
+              </div>
             </td>
           </tr>
         </tbody>

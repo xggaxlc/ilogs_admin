@@ -19,6 +19,7 @@
     "module": true,
     "inject": true,
     "$": true,
+    "placeholder": true,
     "jquery": true,
     "MediumEditor": true
   }
