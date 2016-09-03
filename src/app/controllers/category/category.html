@@ -33,13 +33,13 @@
             <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
 
             <td md-cell>
-              <md-icon ng-click="vm.showEditPrompt($event, item)">
+              <md-icon ng-click="vm.showEditPrompt($event, item)" permission="category.put">
                 open_in_new
                 <md-tooltip md-direction="bottom">
                   编辑
                 </md-tooltip>
               </md-icon>
-              <md-icon ng-click="vm.showDeleteConfirm($event, item)">
+              <md-icon ng-click="vm.showDeleteConfirm($event, item)" permission="category.delete">
                 delete
                 <md-tooltip md-direction="bottom">
                   删除

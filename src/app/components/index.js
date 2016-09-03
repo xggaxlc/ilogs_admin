@@ -22,6 +22,9 @@ import {
 import {
   uploadImage
 } from './upload/image/image.directive';
+import {
+  permission
+} from './permission/permission.directive';
 
 export {
   editorMd,
@@ -31,5 +34,6 @@ export {
   loadingButton,
   search,
   filter,
-  uploadImage
+  uploadImage,
+  permission
 }

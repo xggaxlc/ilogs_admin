@@ -14,7 +14,7 @@ export class ProfileController extends UserAddController{
       .then(res => {
         this.Utils.toast('success', '保存信息成功！');
         angular.copy(res.data, this.user);
-        this.AuthService.saveUserInfo(res.data);
+        this.AuthService.saveUserInfo(angular.merge({}, this.user, res.data));
       })
       .finally(() => {
         this.showLoading = false;

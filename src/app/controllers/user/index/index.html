@@ -2,10 +2,10 @@
   <md-card>
     <md-toolbar class="white-toolbar md-default">
       <div class="md-toolbar-tools" layout="row" layout-align="start center">
-        <md-button ui-sref="main.user.add" class="md-raised md-primary">
+        <md-button ui-sref="main.user.add" class="md-raised md-primary" permission="user.post">
           添加用户
         </md-button>
-        <md-button ng-disabled="!vm.allRoles" ng-click="vm.inviteUser($event)" class="md-raised md-accent">
+        <md-button ng-disabled="!vm.allRoles" ng-click="vm.inviteUser($event)" class="md-raised md-accent" permission="invite.post">
           邀请用户
         </md-button>
         <span flex></span>
@@ -50,12 +50,12 @@
             <td md-cell>{{item.last_login_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
               <div ng-hide="vm.currentUser._id == item._id || item.master">
-                <md-icon ui-sref="main.user.edit({id: item._id})">open_in_new
+                <md-icon ui-sref="main.user.edit({id: item._id})" permission="user.put">open_in_new
                   <md-tooltip md-direction="bottom">
                     编辑
                   </md-tooltip>
                 </md-icon>
-                <md-icon ng-click="vm.showDeleteConfirm($event,item)">delete
+                <md-icon ng-click="vm.showDeleteConfirm($event,item)" permission="user.delete">delete
                   <md-tooltip md-direction="bottom">
                     删除
                   </md-tooltip>

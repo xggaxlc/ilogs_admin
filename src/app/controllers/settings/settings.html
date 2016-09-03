@@ -26,7 +26,7 @@
         </md-input-container>
       </form>
     </md-card-content>
-    <md-card-actions layout="row" layout-align="end center">
+    <md-card-actions layout="row" layout-align="end center" permission="setting.post">
       <loading-button class="md-primary md-raised" text="保存" loading="vm.showLoading" click="vm.save()" disabled="settingForm.$invalid || vm.showLoading"></loading-button>
     </md-card-actions>
   </md-card>

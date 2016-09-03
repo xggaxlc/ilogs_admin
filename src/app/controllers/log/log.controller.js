@@ -6,7 +6,7 @@ export class LogController{
     this.$stateParams = $stateParams;
     this.$rootScope = $rootScope;
 
-    this.$rootScope.pageTitle = '事件';
+    this.$rootScope.pageTitle = '记录';
     this.pageOptions = {}
     this.searchOptions = {
       search: [{

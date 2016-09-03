@@ -12,7 +12,7 @@
     </div>
     <md-subheader class="subheader" ng-if="!vm.showNarrowMenu">NAVIGATION</md-subheader>
     <md-list class="nav-wrap">
-      <md-list-item ng-repeat="item in vm.menu">
+      <md-list-item ng-repeat="item in vm.menu" ng-hide="item.hide">
         <md-button ui-sref="{{item.state}}" ui-sref-active="active" class="nav-item">
           <div layout="row" layout-align="center center">
             <md-icon class="icon">{{item.icon}}</md-icon>

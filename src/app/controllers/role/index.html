@@ -2,7 +2,7 @@
   <md-card>
     <md-toolbar class="white-toolbar md-default">
       <div class="md-toolbar-tools" layout="row" layout-align="start center">
-        <md-button class="md-raised md-primary" ng-click="vm.showAddDialog($event)">
+        <md-button class="md-raised md-primary" ng-click="vm.showAddDialog($event)" permission="role.post">
           添加角色
         </md-button>
         <span flex></span>
@@ -33,13 +33,13 @@
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>{{item.update_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
-              <md-icon ng-click="vm.showEditDialog($event, item)">
+              <md-icon ng-click="vm.showEditDialog($event, item)" permission="role.put">
                 open_in_new
                 <md-tooltip md-direction="bottom">
                   编辑
                 </md-tooltip>
               </md-icon>
-              <md-icon ng-click="vm.showDeleteConfirm($event, item)">
+              <md-icon ng-click="vm.showDeleteConfirm($event, item)" permission="role.delete">
                 delete
                 <md-tooltip md-direction="bottom">
                   删除

@@ -1,42 +1,13 @@
 export class LayoutController {
-  constructor($mdSidenav, $localStorage, $scope, $timeout, AuthService) {
+  constructor($mdSidenav, $localStorage, $scope, $timeout, AuthService, PermissionService) {
     'ngInject';
     this.$mdSidenav = $mdSidenav;
     this.$localStorage = $localStorage;
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.AuthService = AuthService;
+    this.PermissionService = PermissionService;
     this.currentUser = AuthService.currentUser;
-
-    this.menu = [{
-      name: '首页',
-      icon: 'home',
-      state: '.home'
-    }, {
-      name: '文章',
-      icon: 'code',
-      state: '.article.index'
-    }, {
-      name: '分类',
-      icon: 'attachment',
-      state: '.category'
-    }, {
-      name: '用户',
-      icon: 'perm_identity',
-      state: '.user.index'
-    }, {
-      name: '角色',
-      icon: 'people',
-      state: '.role'
-    }, {
-      name: '记录',
-      icon: 'event',
-      state: '.log'
-    }, {
-      name: '设置',
-      icon: 'settings',
-      state: '.settings'
-    }]
 
     this.themeColor = [{
       name: 'White',
@@ -128,10 +99,50 @@ export class LayoutController {
     this.topNavTheme = $localStorage.topNavTheme || this.themeColor[3];
     this.showNarrowMenu = this.$localStorage.showNarrowMenu || false;
 
+    this.menu = this.createMenu();
     this.handleEvent();
+
+    // 监听用户资料  事件来自AuthService，全局广播
+    this.$scope.$on('event:userInfoChanged', (ev, userInfo) => {
+      //根据用户权限 重新渲染菜单
+      this.currentUser = userInfo;
+      this.menu = this.createMenu();
+    });
 
   }
 
+  createMenu() {
+    return [{
+      name: '首页',
+      icon: 'home',
+      state: '.home'
+    }, {
+      name: '文章',
+      icon: 'code',
+      state: '.article.index'
+    }, {
+      name: '分类',
+      icon: 'attachment',
+      state: '.category'
+    }, {
+      name: '用户',
+      icon: 'perm_identity',
+      state: '.user.index'
+    }, {
+      name: '角色',
+      icon: 'people',
+      state: '.role'
+    }, {
+      name: '记录',
+      icon: 'event',
+      state: '.log'
+    }, {
+      name: '设置',
+      icon: 'settings',
+      state: '.settings',
+      hide: !this.PermissionService.hasPermission('setting', 'get')
+    }]
+  }
 
   handleEvent() {
 
@@ -140,18 +151,6 @@ export class LayoutController {
       this.$timeout(() => {
         this.showNarrowMenu = this.$localStorage.showNarrowMenu = true;
       });
-    });
-
-    this.$scope.$on('event:userInfoChanged', (ev, userInfo) => {
-      this.currentUser = userInfo;
-    });
-
-    // 监听用户资料  事件来自AuthService，全局广播
-    this.$scope.$on('event:userInfoChanged', (ev, userInfo) => {
-      this.currentUser = userInfo;
-      // 更新菜单
-      this.showUserProfile = this.Permission.hasPermission('UserProfile', 'gets');
-      this.showNote = this.Permission.hasPermission('Note', 'gets');
     });
 
     this.$scope.$on('event:showNarrowMenu', (ev) => {
