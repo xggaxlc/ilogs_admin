@@ -13,6 +13,11 @@
   "ecmaFeatures": {
     "modules": true
   },
+  "rules": {
+    "angular/document-service": 0,
+  	"angular/angularelement": 0,
+    "no-case-declarations" : 0
+  },
   "globals": {
     "angular": true,
     "editormd": true,
