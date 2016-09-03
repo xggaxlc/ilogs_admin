@@ -79,7 +79,7 @@
 
         <md-card-actions layout="row" layout-align="end center">
           <md-button class="md-raised md-primary" ui-sref="main.user.index" style="margin-right:16px;">返回用户列表</md-button>
-          <loading-button data-class="md-raised md-accent" data-text="提交" data-click="vm.submit()" data-loading="vm.showLoading" data-disabled="userForm.$invalid || vm.showLoading"></loading-button>
+          <loading-button data-class="md-raised md-accent" data-text="提交" data-click="vm.submit($event)" data-loading="vm.showLoading" data-disabled="userForm.$invalid || vm.showLoading"></loading-button>
         </md-card-actions>
       </form>
     </md-card-content>

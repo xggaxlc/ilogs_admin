@@ -1,11 +1,13 @@
 export class UserAddController {
-  constructor(ApiService, Utils, $state, $timeout) {
+  constructor($rootScope, ApiService, Utils, $state, $timeout) {
     'ngInject';
+    this.$rootScope = $rootScope;
     this.ApiService = ApiService;
     this.Utils = Utils;
     this.$state = $state;
     this.$timeout = $timeout;
 
+    this.$rootScope.pageTitle = '添加用户';
     this.title = '添加用户';
     this.requirePass = true;
 
