@@ -1,8 +1,10 @@
 import { UserAddController } from '../user/add/add.controller';
 export class ProfileController extends UserAddController{
-  constructor(ApiService, Utils, $state, $timeout, AuthService) {
+  constructor($rootScope, ApiService, Utils, $state, $timeout, AuthService) {
     'ngInject';
-    super(ApiService, Utils, $state, $timeout);
+    super($rootScope, ApiService, Utils, $state, $timeout);
+
+    this.$rootScope.pageTitle = '个人资料设置';
 
     this.AuthService = AuthService;
     this.user = angular.copy(AuthService.currentUser);
