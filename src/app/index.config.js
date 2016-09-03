@@ -16,7 +16,7 @@ export function config($httpProvider, $mdThemingProvider, $logProvider, $localSt
   $sessionStorageProvider.setKeyPrefix('ilogs_admin_');
 
   ChartJsProvider.setOptions({
-    chartColors: ['#FF5252', '#FF8A80'],
+    chartColors: ['#F44336', '#4CAF50', '#9C27B0', '#FFC107', '#4CAF50', '#FFEB3B', '#FF5722', '#795548'],
     responsive: true
   });
 

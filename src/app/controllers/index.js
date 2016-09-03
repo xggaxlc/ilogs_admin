@@ -38,9 +38,6 @@ import{
   RoleController
 } from './role/index.controller';
 import {
-  StatController
-} from './stat/stat.controller';
-import {
   LogController
 } from './log/log.controller';
 import {
@@ -61,7 +58,6 @@ export {
   UserAddController,
   UserEditController,
   RoleController,
-  StatController,
   LogController,
   SettingsController
 }

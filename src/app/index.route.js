@@ -121,13 +121,6 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm',
       templateUrl: 'app/controllers/category/category.html'
     })
-    // stat
-    .state('main.stat', {
-      url: '/stat',
-      controller: Ctrl.StatController,
-      controllerAs: 'vm',
-      templateUrl: 'app/controllers/stat/stat.html'
-    })
     // log
     .state('main.log', {
       url: '/log?content&page',

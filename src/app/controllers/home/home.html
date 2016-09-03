@@ -7,8 +7,8 @@
           文章总数
         </div>
         <div class="content">
-          <md-progress-circular ng-show="vm.CountLoading.allArticle" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
-          <h2 style="height:36px;" ng-hide="vm.CountLoading.allArticle">{{vm.Count.allArticle}}</h2>
+          <md-progress-circular ng-show="vm.CountLoading.post" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.post">{{vm.Count.post}}</h2>
         </div>
       </div>
     </md-card>
@@ -19,8 +19,8 @@
           已发布文章数
         </div>
         <div class="content">
-          <md-progress-circular ng-show="vm.CountLoading.publishedArticle" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
-          <h2 style="height:36px;" ng-hide="vm.CountLoading.publishedArticle">{{vm.Count.publishedArticle}}</h2>
+          <md-progress-circular ng-show="vm.CountLoading.postPublished" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.postPublished">{{vm.Count.postPublished}}</h2>
         </div>
       </div>
     </md-card>
@@ -31,8 +31,8 @@
           用户总数
         </div>
         <div class="content">
-          <md-progress-circular ng-show="vm.CountLoading.allUser" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
-          <h2 style="height:36px;" ng-hide="vm.CountLoading.allUser">{{vm.Count.allUser}}</h2>
+          <md-progress-circular ng-show="vm.CountLoading.user" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.user">{{vm.Count.user}}</h2>
         </div>
       </div>
     </md-card>
@@ -43,8 +43,8 @@
           分类总数
         </div>
         <div class="content">
-          <md-progress-circular ng-show="vm.CountLoading.allCategory" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
-          <h2 style="height:36px;" ng-hide="vm.CountLoading.allCategory">{{vm.Count.allCategory}}</h2>
+          <md-progress-circular ng-show="vm.CountLoading.category" md-diameter="36px;" md-mode="indeterminate"></md-progress-circular>
+          <h2 style="height:36px;" ng-hide="vm.CountLoading.category">{{vm.Count.category}}</h2>
         </div>
       </div>
     </md-card>
@@ -53,77 +53,96 @@
 
   <div layout-gt-md="row" layout="column">
     <md-card flex="100" flex-gt-md="50" class="chart-card">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">统计</span>
-        </md-card-title-text>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.refreshMainChart()">
-          <md-icon class="icon">refresh</md-icon>
-        </md-button>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">more_vert</md-icon>
-        </md-button>
-      </md-card-title>
-      <md-card-content>
-        <canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series" chart-click="onClick"></canvas>
+      <md-toolbar class="white-toolbar">
+        <div class="md-toolbar-tools" layout="row">
+          <span class="md-headline">文章趋势统计</span>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.getPostTrend()" ng-disabled="vm.postTrendChartLoading">
+            <md-icon class="icon">refresh</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content layout="row" layout-align="center center">
+        <md-progress-circular ng-show="vm.postTrendChartLoading" md-diameter="50px;" md-mode="indeterminate"></md-progress-circular>
+        <canvas class="chart chart-line" ng-if="!vm.postTrendChartLoading" chart-colors="vm.trendColors" chart-data="vm.trendData" chart-labels="vm.trendLabels" chart-series="vm.trendSeries"></canvas>
       </md-card-content>
     </md-card>
 
     <md-card flex="100" flex-gt-md="50" class="chart-card">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">分类统计</span>
-        </md-card-title-text>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.refreshMainChart()">
-          <md-icon class="icon">refresh</md-icon>
-        </md-button>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">more_vert</md-icon>
-        </md-button>
-      </md-card-title>
-      <md-card-content>
-        <canvas class="chart-pie" chart-data="vm.categoryChartData" chart-labels="vm.categoryChartLabels"></canvas>
+      <md-toolbar class="white-toolbar">
+        <div class="md-toolbar-tools" layout="row">
+          <span class="md-headline">事件</span>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.getLog()" ng-disabled="vm.logLoading">
+            <md-icon class="icon">refresh</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content ng-show="vm.logLoading" layout="column" layout-align="center center">
+        <md-progress-circular md-diameter="50px;" md-mode="indeterminate"></md-progress-circular>
       </md-card-content>
+      <md-table-container ng-if="!vm.logLoading">
+        <table md-table>
+          <thead md-head>
+            <tr md-row>
+              <th md-column>#</th>
+              <th md-column>用户名</th>
+              <th md-column>操作</th>
+              <th md-column>时间</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="item in vm.logs">
+              <td md-cell>
+                {{$index+1}}
+              </td>
+              <td md-cell>
+                {{item.name.name}}
+              </td>
+              <td md-cell>
+                {{item.content | limitTo: 15}}
+                <md-tooltip>
+                  {{item.content}}
+                </md-tooltip>
+              </td>
+              <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
     </md-card>
   </div>
 
   <div layout-gt-md="row" layout="column">
     <md-card flex="100" flex-gt-md="50" class="chart-card">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">用户统计</span>
-        </md-card-title-text>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.refreshMainChart()">
-          <md-icon class="icon">refresh</md-icon>
-        </md-button>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">more_vert</md-icon>
-        </md-button>
-      </md-card-title>
-      <md-card-content>
-        <canvas class="chart-bar" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"></canvas>
+      <md-toolbar class="white-toolbar">
+        <div class="md-toolbar-tools" layout="row">
+          <span class="md-headline">用户文章统计</span>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.getUserStat()" ng-disabled="vm.userChartLoading">
+            <md-icon class="icon">refresh</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content layout="row" layout-align="center center">
+        <md-progress-circular ng-show="vm.userChartLoading" md-diameter="50px;" md-mode="indeterminate"></md-progress-circular>
+        <canvas class="chart-bar" ng-if="!vm.userChartLoading" chart-data="vm.userChartData" chart-labels="vm.userChartLabels"></canvas>
       </md-card-content>
     </md-card>
 
     <md-card flex="100" flex-gt-md="50" class="chart-card">
-
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">事件</span>
-        </md-card-title-text>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.refreshMainChart()">
-          <md-icon class="icon">refresh</md-icon>
-        </md-button>
-        <md-button class="md-icon-button">
-          <md-icon class="icon">more_vert</md-icon>
-        </md-button>
-      </md-card-title>
-      <md-card-content>
-
+      <md-toolbar class="white-toolbar">
+        <div class="md-toolbar-tools" layout="row">
+          <span class="md-headline">文章分类统计</span>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.getCategoryStat()" ng-disabled="vm.categoryChartLoading">
+            <md-icon class="icon">refresh</md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-card-content layout="row" layout-align="center center">
+        <md-progress-circular ng-show="vm.categoryChartLoading" md-diameter="50px;" md-mode="indeterminate"></md-progress-circular>
+        <canvas class="chart-pie" ng-if="!vm.categoryChartLoading" chart-data="vm.categoryChartData" chart-labels="vm.categoryChartLabels"></canvas>
       </md-card-content>
     </md-card>
 

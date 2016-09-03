@@ -32,11 +32,6 @@ export class LayoutController{
         state: '.role'
       },
       {
-        name: '统计',
-        icon: 'trending_up',
-        state: '.stat'
-      },
-      {
         name: '记录',
         icon: 'event',
         state: '.log'

@@ -26,7 +26,10 @@
               {{item.name.name}}
             </td>
             <td md-cell>
-              {{item.content}}
+              {{item.content | limitTo: 25}}
+              <md-tooltip>
+                {{item.content}}
+              </md-tooltip>
             </td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
           </tr>
