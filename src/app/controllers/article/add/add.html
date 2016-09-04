@@ -57,6 +57,9 @@
           <div ng-message="md-maxlength">超过最大长度</div>
         </div>
       </md-input-container>
+      <div layout-padding>
+        <upload-image  image="vm.article.cover" response="vm.coverUploadResult" options="vm.uploadOptions"></upload-image>
+      </div>
     </md-content>
 
   </md-sidenav>

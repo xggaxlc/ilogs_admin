@@ -31,6 +31,20 @@ export class AddArticleController {
       this.attachEvent();
       this.detachEvent();
     });
+
+    this.uploadOptions = {
+      crop: true,
+      maxSize: '2MB',
+      resize: {
+        width: 240,
+        height: 240
+      },
+      placeholder: {
+        size: '500x500',
+        text: '上传封面'
+      }
+    };
+
   }
 
   listenEvent(e) {
