@@ -36,8 +36,8 @@ export class AddArticleController {
       crop: true,
       maxSize: '2MB',
       resize: {
-        width: 240,
-        height: 240
+        width: 400,
+        height: 400
       },
       placeholder: {
         size: '500x500',
