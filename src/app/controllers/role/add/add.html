@@ -29,7 +29,7 @@
           </md-switch>
         </md-input-container>
 
-        <md-input-container class="md-block" ng-repeat="(parentKey, parentValue) in vm.role.permissions">
+        <md-input-container class="md-block" ng-repeat="(parentKey, parentValue) in vm.role.permissions" ng-hide="vm.initLoading">
           <md-checkbox class="md-primary" aria-label="Select All" ng-model="vm.permissions[parentKey]" ng-change="vm.toggleSelectAll(parentKey)">{{parentKey | permission:'name'}}</md-checkbox>
           <div>
             <md-checkbox class="md-primary" ng-repeat="(childKey, childValue) in parentValue" ng-model="vm.role.permissions[parentKey][childKey]" ng-change="vm.updateSelect(parentKey)">{{childKey | permission}}</md-checkbox>
