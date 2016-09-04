@@ -153,13 +153,6 @@ export class LayoutController {
       });
     });
 
-    this.$scope.$on('event:showNarrowMenu', (ev) => {
-      ev.stopPropagation();
-      this.$timeout(() => {
-        this.showNarrowMenu = true;
-      });
-    });
-
     document.addEventListener('fullscreenchange', () => {
       // angular不知道要更新...
       this.$scope.$apply(() => {
@@ -220,6 +213,9 @@ export class LayoutController {
 
   toggleNarrowMenu() {
     this.showNarrowMenu = this.$localStorage.showNarrowMenu = !this.showNarrowMenu;
+    this.$timeout(() => {
+      $(window).trigger('resize');
+    }, 350);
   }
 
   toggleMenu() {

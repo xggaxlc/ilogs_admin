@@ -70,7 +70,8 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       url: '/edit/:id',
       templateUrl: 'app/controllers/article/add/add.html',
       controller: Ctrl.EditArticleController,
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: Ctrl.EditArticleController.resolve
     })
     // profile
     .state('main.profile', {

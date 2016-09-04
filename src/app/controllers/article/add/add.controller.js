@@ -15,7 +15,10 @@ export class AddArticleController {
 
     this.$rootScope.pageTitle = '新建文章';
     this.currentUser = AuthService.currentUser;
+    
     this.article = {};
+    this.markdown = '';
+
     this.showLoading = false;
     // 自定义简介开关
     this.custom_summary = false;
@@ -142,17 +145,21 @@ export class AddArticleController {
     if (this.showLoading) return;
     this.showLoading = true;
 
+    let html = this.editor.getHTML();
+    let md = this.editor.getMarkdown();
+
     if (this.custom_summary) {
       if (this.article.summary) {
         this.article.summary = this.article.summary.substring(0, this.summary_length);
       }
     } else {
-      this.article.summary = this.editor.getText().substring(0, this.summary_length);
+      this.article.summary = $(html).text().substring(0, this.summary_length);
     }
 
     this.article.author = this.currentUser._id;
     this.article.category = this.categorySelected ? this.categorySelected._id : null;
-    this.article.content = this.editor.getHTML();
+    this.article.md = md;
+    this.article.html = html;
     this.article._id ? this.update() : this.create();
   }
 

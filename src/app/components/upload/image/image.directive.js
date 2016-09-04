@@ -1,4 +1,4 @@
-class ModalController {
+export class ModalController {
   constructor($log, $scope, $timeout, BASEURL, Upload, Utils, file, options, $mdDialog) {
     'ngInject';
     this.$log = $log;
