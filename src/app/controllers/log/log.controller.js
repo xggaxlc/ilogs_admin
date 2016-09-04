@@ -17,7 +17,7 @@ export class LogController{
 
     this.$timeout(() => {
       this.query();
-    });
+    }, 300);
 
   }
 

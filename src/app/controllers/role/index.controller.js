@@ -43,7 +43,7 @@ export class RoleController {
 
     this.$timeout(() => {
       this.query();
-    }, 200);
+    }, 300);
 
   }
 

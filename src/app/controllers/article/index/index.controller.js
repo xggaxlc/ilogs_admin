@@ -34,8 +34,7 @@ export class ArticleIndexController {
     this.$timeout(() => {
       this.queryCategory();
       this.query();
-    }, 200);
-
+    }, 300);
 
   }
 

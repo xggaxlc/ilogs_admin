@@ -18,7 +18,7 @@ export class CategoryController {
 
     this.$timeout(() => {
       this.query();
-    }, 200);
+    }, 300);
 
   }
 

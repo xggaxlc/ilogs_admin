@@ -48,7 +48,7 @@ export class UserIndexController {
     this.$timeout(() => {
       this.query();
       this.queryRole();
-    }, 200);
+    }, 300);
   }
 
   inviteUser(ev) {
