@@ -11,7 +11,7 @@ export class UserIndexController {
     this.AuthService = AuthService;
     this.currentUser = AuthService.currentUser;
 
-    this.$rootScope.pageTitle = '用户列表';
+    this.$rootScope.pageTitle = '用户';
     this.searchOptions = {
       search: [{
         name: '用户名',

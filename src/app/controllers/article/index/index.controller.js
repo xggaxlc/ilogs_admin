@@ -9,7 +9,7 @@ export class ArticleIndexController {
     this.Utils = Utils;
     this.ApiService = ApiService;
 
-    this.$rootScope.pageTitle = '文章列表';
+    this.$rootScope.pageTitle = '文章';
 
     this.searchOptions = {
       search: [{

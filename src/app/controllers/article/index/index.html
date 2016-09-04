@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in vm.posts">
+          <tr md-row ng-repeat="item in vm.posts" ng-class="listAnimateClass">
             <td md-cell>{{$index + 1}}</td>
             <td md-cell>
               {{item.title | limitTo: '8'}}
@@ -53,7 +53,7 @@
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" ng-if="vm.pageOptions.count" ng-class="listAnimateClass"></paging>
     </md-table-container>
   </md-card>
 </div>
