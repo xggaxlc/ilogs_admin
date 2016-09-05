@@ -40,7 +40,6 @@ angular.module('ilogs_admin', [
   .service('PermissionService', Service.PermissionService)
   .filter('permission', Filter.permission)
   .directive('editorMd', Directive.editorMd)
-  .directive('mediumEditor', Directive.mediumEditor)
   .directive('paging', Directive.paging)
   .directive('compareTo', Directive.compareTo)
   .directive('loadingButton', Directive.loadingButton)
