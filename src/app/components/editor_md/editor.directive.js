@@ -59,7 +59,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
         });
     }
 
-    scope.selectFile = scope.selectFile = function(file, invalidFile) {
+    scope.selectFile = function(file, invalidFile) {
       if (invalidFile[0]) {
         toastrInvalidFile(invalidFile[0]);
       } else {
