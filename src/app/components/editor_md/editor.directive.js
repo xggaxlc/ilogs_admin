@@ -25,7 +25,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
     Utils.showLoading();
     $ocLazyLoad.load([
         'assets/lib/editor.md/css/editormd.min.css',
-        'assets/lib/editor.md/editormd.js'
+        'assets/lib/editor.md/editormd.min.js'
       ])
       .then(() => {
         initEditor();
