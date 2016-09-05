@@ -1,7 +1,7 @@
 import {
   ModalController
 } from '../upload/image/image.directive';
-export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
+export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
   'ngInject';
   let directive = {
     restrict: 'E',
@@ -21,17 +21,18 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
 
   return directive;
 
-  function toastrInvalidFile(invalidFile) {
-    switch (invalidFile.$error) {
-      case 'maxSize':
-        Utils.toast('error', '图片超出最大值！ (<=' + invalidFile.$errorParam + ')');
-        break;
-      default:
-        Utils.toast('error', 'error: ' + invalidFile.$error + 'errorParam: ' + 'invalidFile.$errorParam');
-    }
-  }
-
   function linkFunc(scope) {
+    Utils.showLoading();
+    $ocLazyLoad.load([
+        'assets/lib/editor.md/css/editormd.min.css',
+        'assets/lib/editor.md/editormd.js'
+      ])
+      .then(() => {
+        initEditor();
+      })
+      .finally(() => {
+        Utils.hideLoading();
+      });
 
     // 图片上传配置
     scope.uploadImageOptions = {
@@ -41,22 +42,6 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
         width: 600,
         height: 600
       }
-    }
-
-    function openModal(file) {
-      $mdDialog.show({
-          templateUrl: 'app/components/upload/image/modal.html',
-          controller: ModalController,
-          controllerAs: 'vm',
-          locals: {
-            file: file,
-            options: scope.uploadImageOptions
-          }
-        })
-        .then(files => {
-          // files => array
-          scope.$emit('event:editorUploadImageSuccess', files[0].url);
-        });
     }
 
     scope.selectFile = function(file, invalidFile) {
@@ -69,28 +54,29 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
 
     // 销毁事件监听
     scope.$on('$destroy', () => {
-      try {
-        scope.imageUploadListener();
-        scope.imageUploadListener = null;
-      } catch (e) {
-        scope.imageUploadListener = null;
-      }
+      destroyUploadEvent();
     });
 
-    function insertImage(cm) {
-      // 只监听一次
+    function destroyUploadEvent() {
       try {
         scope.imageUploadListener();
         scope.imageUploadListener = null;
       } catch (e) {
         scope.imageUploadListener = null;
       }
-      scope.imageUploadListener = $rootScope.$on('event:editorUploadImageSuccess', (ev, imageUrl) => {
-        cm.replaceSelection("![" + '图片' + "](" + imageUrl + ")");
-      });
     }
 
-    $timeout(() => {
+    function toastrInvalidFile(invalidFile) {
+      switch (invalidFile.$error) {
+        case 'maxSize':
+          Utils.toast('error', '图片超出最大值！ (<=' + invalidFile.$errorParam + ')');
+          break;
+        default:
+          Utils.toast('error', 'error: ' + invalidFile.$error + 'errorParam: ' + 'invalidFile.$errorParam');
+      }
+    }
+
+    function initEditor() {
       scope.editor = editormd({
         id: 'editormd',
         path: 'assets/lib/editor.md/lib/',
@@ -105,16 +91,17 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
         flowChart: true, // 开启流程图支持，默认关闭
         sequenceDiagram: true, // 开启时序/序列图支持，默认关闭,
         imageUpload: false, //使用自定义上传
-        saveHTMLToTextarea : true,
+        saveHTMLToTextarea: true,
         toolbarIcons: () => {
-          return  ["undo", "redo", "|", 
-            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
-            "h1", "h2", "h3", "h4", "h5", "h6", "|", 
+          return ["undo", "redo", "|",
+            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+            "h1", "h2", "h3", "h4", "h5", "h6", "|",
             "list-ul", "list-ol", "hr", "|",
             "uploadImage", "insertImage", "|",
             "link", "reference-link", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
             "goto-line", "watch", "preview", "clear", "search", "|",
-            "help", "info"]
+            "help", "info"
+          ]
         },
         toolbarIconsClass: {
           uploadImage: 'fa-upload',
@@ -164,8 +151,32 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope) {
           }
         }
       });
+    }
 
-    });
+    function openModal(file) {
+      $mdDialog.show({
+          templateUrl: 'app/components/upload/image/modal.html',
+          controller: ModalController,
+          controllerAs: 'vm',
+          locals: {
+            file: file,
+            options: scope.uploadImageOptions
+          }
+        })
+        .then(files => {
+          // files => array
+          scope.$emit('event:editorUploadImageSuccess', files[0].url);
+        });
+    }
+
+    function insertImage(cm) {
+      // 只监听一次
+      destroyUploadEvent();
+      scope.imageUploadListener = $rootScope.$on('event:editorUploadImageSuccess', (ev, imageUrl) => {
+        cm.replaceSelection("![" + '图片' + "](" + imageUrl + ")");
+      });
+    }
+
   }
 
 }

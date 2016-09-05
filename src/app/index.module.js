@@ -25,7 +25,8 @@ angular.module('ilogs_admin', [
     'ngFileUpload',
 		'ngImgCrop',
     'chart.js',
-    'ng-fx'
+    'ng-fx',
+    'oc.lazyLoad'
   ])
   .constant('BASEURL', BASEURL)
   .config(config)
