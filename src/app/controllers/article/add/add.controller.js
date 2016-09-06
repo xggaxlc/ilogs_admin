@@ -130,7 +130,6 @@ export class AddArticleController {
 
     this.article.summary = this.custom_summary ? this.article.summary.substring(0, this.summary_length) : this.editor.getText().substring(0, this.summary_length);
 
-    this.article.author = this.currentUser._id;
     this.article.category = this.categorySelected ? this.categorySelected._id : null;
     this.article.content = this.editor.getHTML();
     this.article._id ? this.update() : this.create();
