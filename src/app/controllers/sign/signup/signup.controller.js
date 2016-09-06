@@ -15,6 +15,7 @@ export class SignupController {
   }
 
   submit() {
+    this.showLoading = true;
     this.ApiService.post('sign/signup', angular.merge({}, this.user, { key: this.$stateParams.key }))
       .then(res => {
         let userInfo = res.user;
@@ -25,6 +26,9 @@ export class SignupController {
             replace: true
           });
         });
+      })
+      .finally(() => {
+        this.showLoading = false;
       });
   }
 
