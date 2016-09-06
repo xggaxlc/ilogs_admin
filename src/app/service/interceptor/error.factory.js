@@ -13,7 +13,7 @@ export function errorInterceptor($log, $rootScope, $q, $injector) {
       let Utils = $injector.get('Utils');
       switch (rejection.status) {
         case -1:
-          Utils.toast('error', '网络不给力');
+          $log.log(rejection);
           break;
         case 401:
           //打开登陆弹窗

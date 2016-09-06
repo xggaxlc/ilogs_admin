@@ -11,7 +11,22 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
     },
     template: `
       <div class="editor-wrap">
-        <input type="hidden" id="upload-image-btn-js" ngf-select="selectFile($file, $invalidFiles)" accept="image/*" ngf-max-size="uploadImageOptions.maxSize">
+        <input 
+          type="hidden" 
+          id="upload-image-btn-js" 
+          ngf-select="selectFile($file, $invalidFiles)" 
+          accept="image/*" 
+          ngf-max-size="uploadImageOptions.maxSize"
+           ngf-resize="{
+            width: uploadImageOptions.resize.width,
+					  height: uploadImageOptions.resize.height,
+            quality: .8,
+            type: 'image/jpeg',
+            centerCrop: true
+          }"
+          ngf-validate-after-resize="true"
+          ngf-resize-if="uploadImageOptions.resize && uploadImageOptions.resize.width && uploadImageOptions.resize.height"
+        >
         <div id="editormd"></div>
       </div>
     `,
@@ -39,8 +54,8 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
       maxSize: '2MB',
       crop: false,
       resize: {
-        width: 600,
-        height: 600
+        width: 800,
+        height: 800
       }
     }
 
@@ -80,7 +95,6 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
       scope.editor = editormd({
         id: 'editormd',
         path: 'assets/lib/editor.md/lib/',
-        // markdown: scope.markdown,
         watch: true,
         lineNumbers: true,
         htmlDecode: 'style,script,iframe',
@@ -125,7 +139,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
           // 上传图片
           uploadImage: (cm) => {
             $('#upload-image-btn-js').click();
-            insertImage(cm);
+            addImageToEditor(cm);
           },
           // 插入图片
           insertImage: (cm) => {
@@ -169,7 +183,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
         });
     }
 
-    function insertImage(cm) {
+    function addImageToEditor(cm) {
       // 只监听一次
       destroyUploadEvent();
       scope.imageUploadListener = $rootScope.$on('event:editorUploadImageSuccess', (ev, imageUrl) => {

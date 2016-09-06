@@ -1,5 +1,5 @@
 export class ModalController {
-  constructor($log, $scope, $timeout, BASEURL, Upload, Utils, file, options, $mdDialog) {
+  constructor($log, $scope, $timeout, BASEURL, Upload, Utils, file, options, $mdDialog, $q) {
     'ngInject';
     this.$log = $log;
     this.$scope = $scope;
@@ -11,6 +11,15 @@ export class ModalController {
     this.options = options;
     this.progress = 0;
     this.$mdDialog = $mdDialog;
+
+    this.$scope.$on('$destroy', () => {
+      try {
+        this.fileUpload && this.fileUpload.abort();
+      } catch (err) {
+        this.$log.log('无法取消上传');
+      }
+    });
+
   }
 
   toastrInvalidFile(invalidFile) {
@@ -24,58 +33,44 @@ export class ModalController {
   }
 
   selectFile(file, invalidFile) {
+    // 重新选择先abort请求
+    try {
+      this.fileUpload && this.fileUpload.abort();
+    } catch (err) {
+      this.$log.log('无法取消上传');
+    }
     if (invalidFile[0]) {
-      this.UtilsInvalidFile(invalidFile[0]);
+      this.toastrInvalidFile(invalidFile[0]);
     }
   }
 
   upload() {
-    let url = `${this.BASEURL}upload/image`;
-    let fileUpload;
-    if (this.options.crop) {
-      fileUpload = this.Upload.upload({
-        url: url,
-        data: {
-          image:this.Upload.dataUrltoBlob(this.croppedDataUrl, this.file.name)
-        }
-      });
-    } else {
-      //返回裁剪后的图片上传promise
-      if (this.options.resize) {
-        //resize后的fileUpload对象拿不到进度条  也不能取消AJAX
-        fileUpload = this.Upload.resize(this.file, this.options.resize.width, this.options.resize.height)
-          .then(resizedFile => {
-            return this.Upload.upload({
-              url: url,
-              data: {
-                image: resizedFile
-              }
-            });
-          });
-      } else {
-        fileUpload = this.Upload.upload({
-          url: url,
-          data: {
-            image: this.file
-          }
-        });
-      }
-    }
 
-    fileUpload.then(response => {
+    this.uploading = true;
+
+    this.fileUpload = this.Upload.upload({
+      url: `${this.BASEURL}upload/image`,
+      data: {
+        image: this.options.crop ? this.Upload.dataUrltoBlob(this.croppedDataUrl, this.file.name) : this.file
+      }
+    });
+
+    this.fileUpload.then(response => {
       this.$timeout(() => {
         this.Utils.toast('success', '上传成功!');
         this.$mdDialog.hide(response.data.files);
       });
     }, error => {
-      this.$log.error(error);
+      if (error.status === -1) {
+        this.Utils.toast('error', '上传被取消');
+      }
     }, evt => {
       this.progress = parseInt(100.0 * evt.loaded / evt.total);
     });
 
-    this.$scope.$on('$destroy', () => {
-      fileUpload && fileUpload.abort && fileUpload.abort();
-    }, fileUpload);
+    this.fileUpload.finally(() => {
+      this.uploading = false;
+    });
 
   }
 
@@ -90,7 +85,22 @@ export function uploadImage($timeout, $mdDialog, Utils) {
     template: `
 			<div layout="column" layout-align="center center" id="upload-priview">
 				<a ng-href="{{imagePreview || placeholderUrl}}" target="_blank" ><img ng-src="{{imagePreview || placeholderUrl}}"></a>
-        <md-button class="upload-btn md-fab md-mini md-primary" name="image" aria-label="upload button" ngf-select="selectFile($file, $invalidFiles)" accept="image/*" ngf-max-size="options.maxSize">
+        <md-button 
+          aria-label="upload button"
+          class="upload-btn md-fab md-mini md-primary" 
+          ngf-select="selectFile($file, $invalidFiles)" 
+          accept="image/*" 
+          ngf-max-size="options.maxSize"
+          ngf-resize="{
+            width: options.resize.width,
+					  height: options.resize.height,
+            quality: .8,
+            type: 'image/jpeg',
+            centerCrop: true
+          }"
+          ngf-validate-after-resize="true"
+          ngf-resize-if="options.resize && options.resize.width && options.resize.height"
+        >
           <md-icon>cloud_upload</md-icon>
         </md-button>
 			</div>
@@ -115,7 +125,7 @@ export function uploadImage($timeout, $mdDialog, Utils) {
       crop: opts.crop || false,
       areaType: opts.areaType || 'circle',
       maxSize: opts.maxSize || '2MB',
-      resize: opts.resize
+      resize: opts.resize //resize.width resize.height
     }
 
     scope.placeholderOpts = {
