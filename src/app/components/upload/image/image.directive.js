@@ -99,7 +99,7 @@ export function uploadImage($timeout, $mdDialog, Utils) {
             centerCrop: true
           }"
           ngf-validate-after-resize="true"
-          ngf-resize-if="options.resize && options.resize.width && options.resize.height"
+          ngf-resize-if="!options.crop && options.resize && options.resize.width && options.resize.height"
         >
           <md-icon>cloud_upload</md-icon>
         </md-button>

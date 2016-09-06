@@ -39,7 +39,7 @@
 					centerCrop: true
 				}"
 				ngf-validate-after-resize="true"
-				ngf-resize-if="vm.options.resize && vm.options.resize.width && vm.options.resize.height"
+				ngf-resize-if="!vm.options.crop && vm.options.resize && vm.options.resize.width && vm.options.resize.height"
 			>
         重新选择
       </md-button>
