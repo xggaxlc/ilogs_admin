@@ -1,17 +1,14 @@
 export class RoleAddController {
-  constructor($mdDialog, ApiService, Utils, $timeout) {
+  constructor($mdDialog, ApiService, Utils, $timeout, $state) {
     'ngInject';
     this.$mdDialog = $mdDialog;
     this.ApiService = ApiService;
     this.Utils = Utils;
     this.$timeout = $timeout;
+    this.$state = $state;
 
     this.title = '添加角色';
 
-    this.init();
-  }
-
-  init() {
     this.$timeout(() => {
       this.getRole();
     });
@@ -32,9 +29,9 @@ export class RoleAddController {
   submit() {
     this.showLoading = true;
     this.ApiService.post('role', this.role)
-      .then(res => {
+      .then(() => {
         this.Utils.toast('success', '添加角色成功！');
-        this.$mdDialog.hide(res.data);
+        this.$state.reload();
       })
       .finally(() => {
         this.showLoading = false;

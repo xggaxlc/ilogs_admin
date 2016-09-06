@@ -2,9 +2,6 @@ import {
   editorMd
 } from './editor_md/editor.directive';
 import {
-  mediumEditor
-} from './medium_editor/editor.directive';
-import {
   paging
 } from './paging/paging.directive';
 import {
@@ -19,13 +16,20 @@ import {
 import {
   filter
 } from './filter/filter.directive';
+import {
+  uploadImage
+} from './upload/image/image.directive';
+import {
+  permission
+} from './permission/permission.directive';
 
 export {
   editorMd,
-  mediumEditor,
   paging,
   compareTo,
   loadingButton,
   search,
-  filter
+  filter,
+  uploadImage,
+  permission
 }

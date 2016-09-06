@@ -38,14 +38,14 @@ import{
   RoleController
 } from './role/index.controller';
 import {
-  StatController
-} from './stat/stat.controller';
-import {
   LogController
 } from './log/log.controller';
 import {
   SettingsController
 } from './settings/settings.controller';
+import {
+  ProfileController
+} from './profile/profile.controller';
 
 export {
   SigninController,
@@ -61,7 +61,7 @@ export {
   UserAddController,
   UserEditController,
   RoleController,
-  StatController,
   LogController,
-  SettingsController
+  SettingsController,
+  ProfileController
 }

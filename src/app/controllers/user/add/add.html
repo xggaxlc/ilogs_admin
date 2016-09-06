@@ -1,16 +1,19 @@
-<md-dialog aria-label="edit user" ng-cloak flex="95" flex-gt-sm="80" flex-gt-md="60" flex-gt-lg="45">
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>{{vm.title}}</h2>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="vm.$mdDialog.cancel()">
-        <md-icon>close</md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-  <md-dialog-content>
-    <div class="md-dialog-content">
-      <form name="userForm">
+<div id="page-user-add" class="page-content" layout="row" layout-align="center center">
+  <md-card class="form-box">
+    <md-card-title>
+      <md-card-title-text class="md-headline">
+        <span class="md-headline">{{vm.title}}</span>
+        <span class="md-subhead">带*必填</span>
+        <span class="md-subhead">用户组必选</span>
+      </md-card-title-text>
+      <md-card-title-media>
+        <div class="md-media-lg card-media avatar">
+          <upload-image image="vm.user.avatar" response="vm.avatarUploadResult" options="vm.uploadOptions"></upload-image>
+        </div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-card-content>
+      <form name="userForm" novalidate>
         <md-input-container class="md-block">
           <label>用户名</label>
           <input ng-model="vm.user.name" type="text" name="name" required>
@@ -28,7 +31,7 @@
         </md-input-container>
         <md-input-container class="md-block">
           <label>密码</label>
-          <input ng-model="vm.user.password" name="password" type="password" minlength="6" md-maxlength="16">
+          <input ng-model="vm.user.password" name="password" type="password" minlength="6" md-maxlength="16" ng-required="vm.requirePass">
           <div ng-messages="userForm.password.$error">
             <div ng-message="required">密码必填。</div>
             <div ng-message="minlength">密码至少6位。</div>
@@ -73,17 +76,12 @@
           <label>签名</label>
           <textarea ng-model="vm.user.remark" md-maxlength="150" rows="5" md-select-on-focus></textarea>
         </md-input-container>
+
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="md-raised md-primary" ui-sref="main.user.index" style="margin-right:16px;">返回用户列表</md-button>
+          <loading-button data-class="md-raised md-accent" data-text="提交" data-click="vm.submit($event)" data-loading="vm.showLoading" data-disabled="userForm.$invalid || vm.showLoading"></loading-button>
+        </md-card-actions>
       </form>
-    </div>
-  </md-dialog-content>
-  <md-dialog-actions layout="row">
-    <span flex></span>
-    <md-button ng-click="vm.$mdDialog.cancel()">
-      关闭
-    </md-button>
-    <md-button ng-click="vm.submit()" ng-disabled="userForm.$invalid || vm.showLoading" layout="row" layout-align="center center">
-      <span ng-hide="vm.showLoading">提交</span>
-      <md-progress-circular md-mode="indeterminate" ng-show="vm.showLoading"></md-progress-circular>
-    </md-button>
-  </md-dialog-actions>
-</md-dialog>
+    </md-card-content>
+  </md-card>
+</div>

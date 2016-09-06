@@ -2,10 +2,10 @@
   <md-card>
     <md-toolbar class="white-toolbar md-default">
       <div class="md-toolbar-tools" layout="row" layout-align="start center">
-        <md-button ui-sref="main.user.add" class="md-raised md-primary">
+        <md-button ui-sref="main.user.add" class="md-raised md-primary" permission="user.post">
           添加用户
         </md-button>
-        <md-button ng-disabled="!vm.allRoles" ng-click="vm.inviteUser($event)" class="md-raised md-accent">
+        <md-button ng-disabled="!vm.allRoles" ng-click="vm.inviteUser($event)" class="md-raised md-accent" permission="invite.post">
           邀请用户
         </md-button>
         <span flex></span>
@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody md-body>
-          <tr md-row ng-repeat="item in vm.users">
+          <tr md-row ng-repeat="item in vm.users" ng-class="listAnimateClass">
             <td md-cell>
               {{$index+1}}
             </td>
@@ -44,26 +44,28 @@
                 {{item.email}}
               </md-tooltip>
             </td>
-            <td md-cell>{{item.role.name}}</td>
+            <td md-cell>{{item.role.name || '/'}}</td>
             <td md-cell ng-class="{true: 'active', false: 'locked'}[item.active]">{{item.active ? '正常' : '锁定'}}</td>
             <td md-cell>{{item.create_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>{{item.last_login_at || '/' | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
             <td md-cell>
-              <md-icon ui-sref="main.user.edit({id: item._id})">open_in_new
-                <md-tooltip md-direction="bottom">
-                  编辑
-                </md-tooltip>
-              </md-icon>
-              <md-icon ng-click="vm.showDeleteConfirm($event,item)">delete
-                <md-tooltip md-direction="bottom">
-                  删除
-                </md-tooltip>
-              </md-icon>
+              <div ng-hide="vm.currentUser._id == item._id || item.master">
+                <md-icon ui-sref="main.user.edit({id: item._id})" permission="user.put">open_in_new
+                  <md-tooltip md-direction="bottom">
+                    编辑
+                  </md-tooltip>
+                </md-icon>
+                <md-icon ng-click="vm.showDeleteConfirm($event,item)" permission="user.delete">delete
+                  <md-tooltip md-direction="bottom">
+                    删除
+                  </md-tooltip>
+                </md-icon>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <paging options="vm.pageOptions" ng-if="vm.pageOptions.count"></paging>
+      <paging options="vm.pageOptions" ng-if="vm.pageOptions.count" ng-class="listAnimateClass"></paging>
     </md-table-container>
   </md-card>
 </div>

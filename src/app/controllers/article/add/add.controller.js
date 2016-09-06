@@ -15,7 +15,10 @@ export class AddArticleController {
 
     this.$rootScope.pageTitle = '新建文章';
     this.currentUser = AuthService.currentUser;
+    
     this.article = {};
+    this.markdown = '';
+
     this.showLoading = false;
     // 自定义简介开关
     this.custom_summary = false;
@@ -31,6 +34,20 @@ export class AddArticleController {
       this.attachEvent();
       this.detachEvent();
     });
+
+    this.uploadOptions = {
+      crop: true,
+      maxSize: '2MB',
+      resize: {
+        width: 400,
+        height: 400
+      },
+      placeholder: {
+        size: '500x500',
+        text: '上传封面'
+      }
+    };
+
   }
 
   listenEvent(e) {
@@ -111,7 +128,7 @@ export class AddArticleController {
   showDeleteConfirm(ev) {
     let confirm = this.$mdDialog.confirm()
       .title(`删除文章`)
-      .htmlContent(`你确定要 <strong class="red">删除</strong> 这篇文章吗 ?`)
+      .htmlContent(`<p class="margin-top-16">你确定要 <strong class="red">删除</strong> 这篇文章吗 ?</p>`)
       .ariaLabel('delete article')
       .targetEvent(ev)
       .ok('确定')
@@ -128,10 +145,20 @@ export class AddArticleController {
     if (this.showLoading) return;
     this.showLoading = true;
 
-    this.article.summary = this.custom_summary ? this.article.summary.substring(0, this.summary_length) : this.editor.getText().substring(0, this.summary_length);
+    let html = this.editor.getHTML();
+    let md = this.editor.getMarkdown();
+
+    if (this.custom_summary) {
+      if (this.article.summary) {
+        this.article.summary = this.article.summary.substring(0, this.summary_length);
+      }
+    } else {
+      this.article.summary = $(html).text().substring(0, this.summary_length);
+    }
 
     this.article.category = this.categorySelected ? this.categorySelected._id : null;
-    this.article.content = this.editor.getHTML();
+    this.article.md = md;
+    this.article.html = html;
     this.article._id ? this.update() : this.create();
   }
 

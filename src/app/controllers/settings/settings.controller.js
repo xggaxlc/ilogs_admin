@@ -7,25 +7,21 @@ export class SettingsController {
     this.ApiService = ApiService;
     this.$timeout = $timeout;
 
-    this.init();
-  }
-
-  init() {
     this.$rootScope.pageTitle = '设置';
-    this.query();
+    this.$timeout(() => {
+      this.query();
+    }, 300);
   }
 
   query() {
     this.showLoading = true;
-    this.$timeout(() => {
-      this.ApiService.get('setting')
-        .then(res => {
-          this.settings = res.data;
-        })
-        .finally(() => {
-          this.showLoading = false;
-        });
-    });
+    this.ApiService.get('setting')
+      .then(res => {
+        this.settings = res.data;
+      })
+      .finally(() => {
+        this.showLoading = false;
+      });
 
   }
 

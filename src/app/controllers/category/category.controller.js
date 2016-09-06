@@ -1,5 +1,5 @@
 export class CategoryController {
-  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService) {
+  constructor($rootScope, $timeout, $state, $stateParams, $mdDialog, Utils, ApiService, PermissionService) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.$timeout = $timeout;
@@ -8,6 +8,7 @@ export class CategoryController {
     this.$mdDialog = $mdDialog;
     this.Utils = Utils;
     this.ApiService = ApiService;
+    this.PermissionService = PermissionService;
 
     this.$rootScope.pageTitle = '分类';
     this.newCategory = {}
@@ -17,13 +18,16 @@ export class CategoryController {
 
     this.$timeout(() => {
       this.query();
-    }, 200);
+    }, 300);
 
   }
 
 
   add(ev) {
     if (ev.keyCode === 13 && this.newCategory.name) {
+      if (!this.PermissionService.hasPermission('category', 'post')) {
+        return this.Utils.toast('error', '你没有新建分类的权限');
+      }
       this.create();
     }
   }

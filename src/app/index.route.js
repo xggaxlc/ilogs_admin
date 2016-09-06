@@ -70,6 +70,14 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       url: '/edit/:id',
       templateUrl: 'app/controllers/article/add/add.html',
       controller: Ctrl.EditArticleController,
+      controllerAs: 'vm',
+      resolve: Ctrl.EditArticleController.resolve
+    })
+    // profile
+    .state('main.profile', {
+      url: '/profile',
+      templateUrl:'app/controllers/profile/profile.html',
+      controller: Ctrl.ProfileController,
       controllerAs: 'vm'
     })
     // user
@@ -94,10 +102,11 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm'
     })
     .state('main.user.edit', {
-      url: '/add/:id',
+      url: '/edit/:id',
       templateUrl: 'app/controllers/user/add/add.html',
       controller: Ctrl.UserEditController,
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: Ctrl.UserEditController.resolve
     })
     // role
     .state('main.role', {
@@ -121,16 +130,9 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       controllerAs: 'vm',
       templateUrl: 'app/controllers/category/category.html'
     })
-    // stat
-    .state('main.stat', {
-      url: '/stat',
-      controller: Ctrl.StatController,
-      controllerAs: 'vm',
-      templateUrl: 'app/controllers/stat/stat.html'
-    })
     // log
     .state('main.log', {
-      url: '/log?page',
+      url: '/log?content&page',
       params: {
         limit: 10,
         sort: '-_id'

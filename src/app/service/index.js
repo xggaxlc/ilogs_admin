@@ -16,6 +16,9 @@ import {
 import {
   ApiService
 } from './api';
+import {
+  PermissionService
+} from './permission';
 
 export {
   authInterceptor,
@@ -23,5 +26,6 @@ export {
   loadingInterceptor,
   Utils,
   AuthService,
-  ApiService
+  ApiService,
+  PermissionService
 }

@@ -25,7 +25,8 @@ angular.module('ilogs_admin', [
     'ngFileUpload',
 		'ngImgCrop',
     'chart.js',
-    'ng-fx'
+    'ng-fx',
+    'oc.lazyLoad'
   ])
   .constant('BASEURL', BASEURL)
   .config(config)
@@ -37,11 +38,13 @@ angular.module('ilogs_admin', [
   .service('Utils', Service.Utils)
   .service('AuthService', Service.AuthService)
   .service('ApiService', Service.ApiService)
+  .service('PermissionService', Service.PermissionService)
   .filter('permission', Filter.permission)
   .directive('editorMd', Directive.editorMd)
-  .directive('mediumEditor', Directive.mediumEditor)
   .directive('paging', Directive.paging)
   .directive('compareTo', Directive.compareTo)
   .directive('loadingButton', Directive.loadingButton)
   .directive('search', Directive.search)
-  .directive('filter', Directive.filter);
+  .directive('filter', Directive.filter)
+  .directive('uploadImage', Directive.uploadImage)
+  .directive('permission', Directive.permission);

@@ -13,12 +13,18 @@
   "ecmaFeatures": {
     "modules": true
   },
+  "rules": {
+    "angular/document-service": 0,
+  	"angular/angularelement": 0,
+    "no-case-declarations" : 0
+  },
   "globals": {
     "angular": true,
     "editormd": true,
     "module": true,
     "inject": true,
     "$": true,
+    "placeholder": true,
     "jquery": true,
     "MediumEditor": true
   }

@@ -116,7 +116,7 @@ export class AuthService {
 
   saveUserInfo(userInfo) {
     this.currentUser = userInfo;
-    if (this.$rootScope.autoLogin) {
+    if (this.$rootScope.autoLogin || this.$localStorage.currentUser) {
       this.$localStorage.currentUser = userInfo;
     } else {
       this.$sessionStorage.currentUser = userInfo;

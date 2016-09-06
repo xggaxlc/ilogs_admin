@@ -43,47 +43,31 @@ export class RoleController {
 
     this.$timeout(() => {
       this.query();
-    }, 200);
+    }, 300);
 
   }
 
   showAddDialog(ev) {
     this.$mdDialog.show({
-        controller: RoleAddController,
-        controllerAs: 'vm',
-        templateUrl: 'app/controllers/role/add/add.html',
-        targetEvent: ev,
-        clickOutsideToClose: false
-      })
-      .then(newRole => {
-        if (this.$stateParams.page) {
-          this.$state.go(this.$state.current.name, {
-            page: null
-          });
-        } else {
-          this.roles.unshift(newRole);
-          if (this.roles.length > Number(this.$stateParams.limit)) {
-            this.roles.pop();
-          }
-          this.pageOptions.count++;
-        }
-      });
+      controller: RoleAddController,
+      controllerAs: 'vm',
+      templateUrl: 'app/controllers/role/add/add.html',
+      targetEvent: ev,
+      clickOutsideToClose: false
+    });
   }
 
   showEditDialog(ev, item) {
     this.$mdDialog.show({
-        controller: RoleEditController,
-        controllerAs: 'vm',
-        locals: {
-          role: angular.copy(item)
-        },
-        templateUrl: 'app/controllers/role/add/add.html',
-        targetEvent: ev,
-        clickOutsideToClose: false
-      })
-      .then(updatedRole => {
-        angular.copy(updatedRole, item);
-      });
+      controller: RoleEditController,
+      controllerAs: 'vm',
+      locals: {
+        role: angular.copy(item)
+      },
+      templateUrl: 'app/controllers/role/add/add.html',
+      targetEvent: ev,
+      clickOutsideToClose: false
+    });
   }
 
   showDeleteConfirm(ev, item) {

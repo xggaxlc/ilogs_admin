@@ -1,4 +1,4 @@
-<md-dialog ng-cloak aria-label="upload dialog" id="upload-dialog" flex="80">
+<md-dialog aria-label="upload dialog" id="upload-dialog" flex="80">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<h2>上传图片</h2>
@@ -11,7 +11,7 @@
 	 <md-dialog-content flex class="content">
 		 <!-- 裁剪 -->
 			<div class="image-wrap" ng-if="vm.options.crop" layout="row" layout-align="space-between center">
-				<img-crop class="image-origin" image="vm.file | ngfDataUrl" result-image-size="vm.options.resize.width" result-image-format="image/png" area-type='{{vm.options.areaType}}' result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
+				<img-crop class="image-origin" image="vm.file | ngfDataUrl" result-image-size="vm.options.resize.width" result-image-format="image/jpeg" area-type='{{vm.options.areaType}}' result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
 				<img class="image-croped" ng-src="{{vm.croppedDataUrl}}" />
 			</div>
 			
@@ -27,7 +27,7 @@
       <md-button aria-label="upload reselect button" class="md-accent" ngf-select="vm.selectFile($file, $invalidFiles)" ng-model="vm.file" accept="image/*" ngf-max-size="vm.options.maxSize">
         重新选择
       </md-button>
-      <md-button aria-label="upload button" class="md-primary" ng-click="vm.upload()" ng-disabled="!vm.file || global_loading" md-autofocus ng-bind-template="{{vm.progress && vm.progress < 100 ? vm.progress + '%' : '上传'}}">
+      <md-button aria-label="upload button" class="md-primary" ng-click="vm.upload()" ng-disabled="!vm.file || (vm.progress && vm.progress < 100)" md-autofocus ng-bind-template="{{vm.progress && vm.progress < 100 ? vm.progress + '%' : '上传'}}">
       </md-button>
     </md-dialog-actions>
 </md-dialog>
