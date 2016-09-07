@@ -24,7 +24,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
             type: 'image/jpeg',
             centerCrop: true
           }"
-          ngf-validate-after-resize="true"
+          ngf-validate-after-resize="false"
           ngf-resize-if="uploadImageOptions.resize && uploadImageOptions.resize.width && uploadImageOptions.resize.height"
         >
         <div id="editormd"></div>
@@ -51,7 +51,7 @@ export function editorMd($timeout, Utils, $mdDialog, $rootScope, $ocLazyLoad) {
 
     // 图片上传配置
     scope.uploadImageOptions = {
-      maxSize: '2MB',
+      maxSize: '5MB',
       crop: false,
       resize: {
         width: 800,
