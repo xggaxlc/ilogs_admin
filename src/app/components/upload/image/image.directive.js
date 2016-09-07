@@ -32,17 +32,24 @@ export class ModalController {
     }
   }
 
-  selectFile(file, invalidFile) {
+  // $files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event
+  selectFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles) {
     // 重新选择先abort请求
     try {
       this.fileUpload && this.fileUpload.abort();
     } catch (err) {
       this.$log.log('无法取消上传');
     }
-    if (invalidFile[0]) {
-      this.toastrInvalidFile(invalidFile[0]);
+    if ($invalidFiles[0]) {
+      this.toastrInvalidFile($invalidFiles[0]);
+    } else {
+      if ($file) {
+        delete $file.$ngfDataUrl;
+        this.file = $file;
+      }
     }
   }
+
 
   upload() {
 
@@ -88,9 +95,12 @@ export function uploadImage($timeout, $mdDialog, Utils) {
         <md-button 
           aria-label="upload button"
           class="upload-btn md-fab md-mini md-primary" 
-          ngf-select="selectFile($file, $invalidFiles)" 
+          ngf-select
+          ngf-multiple="false"
+          ngf-change="selectFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
           accept="image/*" 
           ngf-max-size="options.maxSize"
+          ngf-resize-if="!options.crop && options.resize && options.resize.width && options.resize.height"
           ngf-resize="{
             width: options.resize.width,
 					  height: options.resize.height,
@@ -98,8 +108,7 @@ export function uploadImage($timeout, $mdDialog, Utils) {
             type: 'image/jpeg',
             centerCrop: true
           }"
-          ngf-validate-after-resize="true"
-          ngf-resize-if="!options.crop && options.resize && options.resize.width && options.resize.height"
+          ngf-validate-after-resize="false"
         >
           <md-icon>cloud_upload</md-icon>
         </md-button>
@@ -124,7 +133,7 @@ export function uploadImage($timeout, $mdDialog, Utils) {
     scope.options = {
       crop: opts.crop || false,
       areaType: opts.areaType || 'circle',
-      maxSize: opts.maxSize || '2MB',
+      maxSize: opts.maxSize || '5MB',
       resize: opts.resize //resize.width resize.height
     }
 
@@ -175,11 +184,15 @@ export function uploadImage($timeout, $mdDialog, Utils) {
         });
     }
 
-    scope.selectFile = function(file, invalidFile) {
-      if (invalidFile[0]) {
-        toastrInvalidFile(invalidFile[0]);
+    // $files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event
+    scope.selectFile = function($files, $file, $newFiles, $duplicateFiles, $invalidFiles) {
+      if ($invalidFiles[0]) {
+        toastrInvalidFile($invalidFiles[0]);
       } else {
-        file && openModal(file);
+        if ($file) {
+          delete $file.$ngfDataUrl;
+          $file && openModal($file);
+        }
       }
     }
 

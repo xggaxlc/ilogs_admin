@@ -27,10 +27,12 @@
       <md-button 
 				aria-label="upload reselect button" 
 				class="md-accent" 
-				ngf-select="vm.selectFile($file, $invalidFiles)" 
-				ng-model="vm.file" 
+				ngf-select
+				ngf-multiple="false"
+				ngf-change="vm.selectFile($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)"
 				accept="image/*" 
 				ngf-max-size="vm.options.maxSize"
+				ngf-resize-if="!vm.options.crop && vm.options.resize && vm.options.resize.width && vm.options.resize.height"
 				ngf-resize="{
 					width: vm.options.resize.width,
 					height: vm.options.resize.height,
@@ -38,8 +40,7 @@
 					type: 'image/jpeg',
 					centerCrop: true
 				}"
-				ngf-validate-after-resize="true"
-				ngf-resize-if="!vm.options.crop && vm.options.resize && vm.options.resize.width && vm.options.resize.height"
+				ngf-validate-after-resize="false"
 			>
         重新选择
       </md-button>

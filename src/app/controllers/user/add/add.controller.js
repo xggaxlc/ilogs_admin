@@ -18,7 +18,6 @@ export class UserAddController {
 
     this.uploadOptions = {
       crop: true,
-      maxSize: '2MB',
       resize: {
         width: 240,
         height: 240

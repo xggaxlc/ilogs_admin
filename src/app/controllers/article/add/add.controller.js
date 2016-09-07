@@ -37,7 +37,6 @@ export class AddArticleController {
 
     this.uploadOptions = {
       crop: true,
-      maxSize: '2MB',
       resize: {
         width: 400,
         height: 400
