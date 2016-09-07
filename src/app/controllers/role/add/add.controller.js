@@ -20,10 +20,17 @@ export class RoleAddController {
       .then(res => {
         this.role = res.data;
         this.permissions = {}
+        this.initSelectAll();
       })
       .finally(() => {
         this.initLoading = false;
       });
+  }
+
+  initSelectAll() {
+    for(let attr in this.role.permissions) {
+      this.updateSelect(attr);
+    }
   }
 
   submit() {

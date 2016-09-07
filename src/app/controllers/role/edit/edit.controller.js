@@ -12,11 +12,16 @@ export class RoleEditController extends RoleAddController {
     this.initLoading = true;
     this.ApiService.get('role/template')
       .then(res => {
-        this.roleTemplate = res.data;
-        let keys = Object.keys(this.roleTemplate.permissions);
         let obj = {};
-        keys.forEach(item => {
-          obj[item] = this.role.permissions[item] || false;
+        angular.forEach(res.data.permissions, (value, attr) => {
+          obj[attr] = value;
+          angular.forEach(value, (deepValue, deepAttr) => {
+            try{
+              obj[attr][deepAttr] = this.role.permissions[attr][deepAttr];
+            } catch(e) {
+              obj[attr][deepAttr] = false;
+            }
+          });
         });
         this.role.permissions = obj;
         this.permissions = {};
@@ -27,12 +32,6 @@ export class RoleEditController extends RoleAddController {
       });
   }
 
-
-  initSelectAll() {
-    for(let attr in this.role.permissions) {
-      this.updateSelect(attr);
-    }
-  }
 
   submit() {
 
