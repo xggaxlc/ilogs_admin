@@ -34,6 +34,7 @@ export class UserEditController extends UserAddController {
       .then(res => {
         this.Utils.toast('success', '更新用户成功！');
         angular.copy(res.data, this.user);
+        this.user.role = this.user.role._id;
       })
       .finally(() => {
         this.showLoading = false;
