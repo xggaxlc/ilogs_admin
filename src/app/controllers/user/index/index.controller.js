@@ -85,7 +85,7 @@ export class UserIndexController {
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
           <md-button ng-click="vm.$mdDialog.cancel()">取消</md-button>
-          <loading-button class="md-primary" data-text="提交" disabled="vm.showLoading || inviteForm.$invalid || !vm.user.role" click="vm.submit()"></loading-button>
+          <loading-button class="md-primary" data-text="提交" data-disabled="vm.showLoading || inviteForm.$invalid || !vm.user.role" data-click="vm.submit()"></loading-button>
         <md-dialog-actions>
       `,
       controller: function($mdDialog, roles, ApiService, Utils) {

@@ -18,6 +18,6 @@
     <md-button ng-click="vm.forgetPass($event)" ng-if="vm.$state.is('signin')">忘记密码？</md-button>
   </div>
   <md-input-container>
-    <loading-button class="md-primary md-raised" text="登录" loading="vm.showLoading" click="vm.submit()" disabled="userForm.$invalid || vm.showLoading"></loading-button>
+    <loading-button class="md-primary md-raised" data-text="登录" data-loading="vm.showLoading" data-click="vm.submit()" data-disabled="userForm.$invalid || vm.showLoading"></loading-button>
   </md-input-container>
 </form>
