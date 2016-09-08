@@ -36,13 +36,13 @@ export class AddArticleController {
     });
 
     this.uploadOptions = {
-      crop: true,
+      crop: false,
       resize: {
-        width: 400,
-        height: 400
+        width: 800,
+        height: 600
       },
       placeholder: {
-        size: '500x500',
+        size: '500x375',
         text: '上传封面'
       }
     };

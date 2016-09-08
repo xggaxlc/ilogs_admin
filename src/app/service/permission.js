@@ -18,9 +18,6 @@ export class PermissionService {
     } catch(e) {
       this.permissionList = null;
     }
-    if (!this.currentUser.master && !this.permissionList) {
-      this.AuthService.logout();
-    }
   }
 
   hasPermission(api, action) {
