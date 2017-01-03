@@ -1,6 +1,7 @@
 import * as Ctrl from './controllers/index';
-export function routerConfig($stateProvider, $urlRouterProvider) {
+export function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   'ngInject';
+  $locationProvider.html5Mode(true);
   $stateProvider
     .state('signin', {
       url: '/signin',
@@ -28,7 +29,7 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
       }
     })
     .state('404', {
-      url: '404',
+      url: '/404',
       templateUrl: 'app/controllers/404/404.html'
     })
     .state('main', {
@@ -150,5 +151,6 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     });
 
   $urlRouterProvider.when('', '/signin');
+  $urlRouterProvider.when('/', '/signin');
   $urlRouterProvider.otherwise('/404');
 }
