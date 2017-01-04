@@ -2,6 +2,7 @@ import * as Ctrl from './controllers/index';
 export function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   'ngInject';
   $locationProvider.html5Mode(true);
+  $locationProvider.hashPrefix('!');
   $stateProvider
     .state('signin', {
       url: '/signin',
